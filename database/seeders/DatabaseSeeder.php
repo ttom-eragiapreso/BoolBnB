@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
+                TypeOfStaySeeder::class,
                 ApartmentSeeder::class,
                 FeatureSeeder::class,
                 ApartmentFeatureSeeder::class,
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
                 ApartmentSponsorshipSeeder::class,
                 ImageSeeder::class,
                 ViewSeeder::class,
-                MessageSeeder::class
+                MessageSeeder::class,
             ]
             );
     }

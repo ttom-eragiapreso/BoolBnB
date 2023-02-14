@@ -51,4 +51,8 @@ class Apartment extends Model
     public function sponsorships(){
         return $this->belongsToMany(Sponsorship::class);
     }
+
+    public function type_of_stay(){
+        return $this->belongsTo(Type_of_stay::class);
+    }
 }

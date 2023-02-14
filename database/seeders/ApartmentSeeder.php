@@ -35,7 +35,7 @@ class ApartmentSeeder extends Seeder
             $new_apartment->cover_image = 'https://loremflickr.com/640/480/house';
             $new_apartment->description = $faker->paragraph(10);
             $new_apartment->user_id = 1;
-
+            $new_apartment->type_of_stay_id = $faker->randomDigitNot(0);
             $new_apartment->save();
 
 
