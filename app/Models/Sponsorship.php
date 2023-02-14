@@ -9,6 +9,12 @@ class Sponsorship extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'price',
+        'length_hours'
+    ];
+
     public function apartments(){
         return $this->belongsToMany(Apartment::class);
     }
