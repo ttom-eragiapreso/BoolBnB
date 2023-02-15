@@ -51,7 +51,7 @@ class ApartmentController extends Controller
     public function show(string $slug)
     {
         $user = auth()->user();
-        $apartment = Apartment::where('slug', $slug)->first();
+        $apartment = Apartment::with('images')->where('slug', $slug)->first();
 
         if($apartment->user_id == $user->id){
             return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
