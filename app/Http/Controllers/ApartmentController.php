@@ -16,7 +16,9 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Dashboard/Apartment/Index');
+        $user = auth()->user();
+        $user_apartments = $user->apartments;
+        return Inertia::render('Dashboard/Apartment/Index', compact('user_apartments'));
     }
 
     /**
