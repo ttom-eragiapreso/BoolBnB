@@ -28,6 +28,7 @@ class ApartmentController extends Controller
      */
     public function create()
     {
+        // https://api.tomtom.com/search/2/geocode/Piazza Venezia Roma.json?key=LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM
         return Inertia::render('Dashboard/Apartment/Create');
     }
 
