@@ -1,0 +1,44 @@
+<template>
+    <div class="container  mx-auto flex my-4">
+
+            <!-- Img container -->
+            <div
+                class="w-72 aspect-square border rounded-xl overflow-hidden"
+            >
+                <img
+                    :src="apartment.cover_image" alt="cover image"
+                    class="h-full w-full object-cover"
+                />
+
+            </div>
+            <div class="p-5">
+            <!-- Title and rating -->
+            <div class="flex justify-between">
+                <h2 class="font-bold">{{ apartment.title }}</h2>
+
+            </div>
+            <!-- Vista -->
+            <h5 class="text-slate-600">{{ apartment.full_address }}</h5>
+            <!-- Date -->
+            <h5 class="text-slate-600">Is Visible: {{ apartment.is_visible ? 'Yes' : 'No' }}</h5>
+            <!-- Price -->
+            <h5 class="underline"><strong>{{ apartment.price }} &euro;</strong> /night</h5>
+            <h5 class="text-slate-600">{{ apartment.created_at }}</h5>
+            </div>
+            <div>
+                Actions
+            </div>
+
+
+    </div>
+</template>
+
+<script>
+export default{
+    name: 'CardDashboard',
+    props:{
+        apartment: Object
+    }
+}
+
+</script>
