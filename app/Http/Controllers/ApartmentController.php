@@ -48,9 +48,17 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show(string $slug)
     {
-        return Inertia::render('Dashboard/Apartment/Show');
+        $user = auth()->user();
+        $apartment = Apartment::where('slug', $slug)->first();
+
+        if($apartment->user_id == $user->id){
+            return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
+        } else {
+            return to_route('dashboard.home');
+        }
+
     }
 
     /**

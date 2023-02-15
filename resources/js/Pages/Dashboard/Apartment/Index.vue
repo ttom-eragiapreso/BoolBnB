@@ -23,6 +23,7 @@ export default {
 
   <h1>You apartments</h1>
   <CardDashboard v-for="apartment in user_apartments" :key="apartment.id" :apartment="apartment"/>
+
 </template>
 
 <style>

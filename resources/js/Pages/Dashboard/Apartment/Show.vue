@@ -1,6 +1,9 @@
 <script>
 export default {
-    name: 'Show'
+    name: 'Show',
+    props:{
+        apartment: Object
+    }
 }
 </script>
 
