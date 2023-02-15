@@ -40,7 +40,23 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+        $request->validate([
+            'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+            // 'title'=>'required|max:50|min:10',
+        ]);
+
     }
 
     /**

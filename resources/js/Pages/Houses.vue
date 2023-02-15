@@ -2,11 +2,13 @@
     <h1>Ciao Houses</h1>
     <h2>{{ message }}</h2>
     <Link :href="route('prova')" :data="{ message: 'ciao' }"> Prova </Link>
-    <Card />
+    <!-- <Card /> -->
 </template>
 
-<!-- <script>
+<script>
 import { Link } from "@inertiajs/vue3";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+
 export default {
     props: {
         message: String,
@@ -14,14 +16,15 @@ export default {
     components: {
         Link,
     },
+    layout: GuestLayout
 };
-</script> -->
+</script>
 
-<script setup>
+<!-- <script setup>
 import { Link } from "@inertiajs/vue3";
 import Card from "@/Components/Card.vue";
 
 let props = defineProps({
     message: String,
 });
-</script>
+</script> -->
