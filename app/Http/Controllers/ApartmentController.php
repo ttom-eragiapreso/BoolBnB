@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class ApartmentController extends Controller
 {
@@ -14,7 +16,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Dashboard/Apartment/Index');
     }
 
     /**
@@ -24,7 +26,7 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Dashboard/Apartment/Create');
     }
 
     /**
@@ -46,7 +48,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //
+        return Inertia::render('Dashboard/Apartment/Show');
     }
 
     /**
@@ -57,7 +59,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        return Inertia::render('Dashboard/Apartment/Edit');
     }
 
     /**
@@ -81,5 +83,20 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         //
+    }
+
+    public function messages(){
+
+        return Inertia::render('Dashboard/Apartment/Messages');
+    }
+
+    public function stats(){
+
+        return Inertia::render('Dashboard/Apartment/Stats');
+    }
+
+    public function sponsorship(){
+
+        return Inertia::render('Dashboard/Apartment/Sponsorship');
     }
 }
