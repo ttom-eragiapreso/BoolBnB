@@ -26,7 +26,9 @@
             <h5 class="text-slate-600">{{ apartment.created_at }}</h5>
             </div>
             <div>
-                Actions
+                <Link :href="route('dashboard.apartment.show', apartment.slug)" as="button">
+                    Show
+                </Link>
             </div>
 
 
@@ -34,10 +36,16 @@
 </template>
 
 <script>
+
+import { Link } from "@inertiajs/vue3";
+
 export default{
     name: 'CardDashboard',
     props:{
         apartment: Object
+    },
+    components:{
+        Link
     }
 }
 

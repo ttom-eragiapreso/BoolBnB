@@ -28,6 +28,7 @@ class ApartmentController extends Controller
      */
     public function create()
     {
+        // https://api.tomtom.com/search/2/geocode/Piazza Venezia Roma.json?key=LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM
         return Inertia::render('Dashboard/Apartment/Create');
     }
 
@@ -48,9 +49,17 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show(string $slug)
     {
-        return Inertia::render('Dashboard/Apartment/Show');
+        $user = auth()->user();
+        $apartment = Apartment::with('images')->where('slug', $slug)->first();
+
+        if($apartment->user_id == $user->id){
+            return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
+        } else {
+            return to_route('dashboard.home');
+        }
+
     }
 
     /**

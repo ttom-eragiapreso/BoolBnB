@@ -5,6 +5,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+import Footer from "@/Components/Footer.vue";
 import { Link } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
@@ -22,7 +23,7 @@ const showingNavigationDropdown = ref(false);
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard.home')">
                                     <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
+
                                     />
                                 </Link>
                             </div>
@@ -193,9 +194,11 @@ const showingNavigationDropdown = ref(false);
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="pb-24">
                 <slot />
             </main>
+
+            <Footer />
         </div>
     </div>
 </template>
