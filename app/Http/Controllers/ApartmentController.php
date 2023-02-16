@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
+use function PHPUnit\Framework\isEmpty;
 
 class ApartmentController extends Controller
 {
@@ -28,7 +30,6 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        // https://api.tomtom.com/search/2/geocode/Piazza Venezia Roma.json?key=LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM
         return Inertia::render('Dashboard/Apartment/Create');
     }
 
@@ -40,23 +41,44 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        $request->validate([
-            'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
-            // 'title'=>'required|max:50|min:10',
+        $validated_request = $request->validate([
+            'title'=>'required|max:100|min:3',
+            'rooms'=>'required|numeric',
+            'beds'=>'required|numeric',
+            'bathrooms'=>'required|numeric',
+            'square_meters'=>'required|numeric',
+            'city'=>'required|max:50|min:3',
+            'country'=>'required|max:50|min:3',
+            'full_address'=>'required|max:100|min:3',
+            'price'=>'required|decimal:2',
+            'cover_image'=>'required|image|max:5000',
+            'description'=>'required|min:10',
         ]);
 
+        $validated_request['slug'] = generateSlug($validated_request['title']);
+
+        $url = 'https://api.tomtom.com/search/2/geocode/';
+        $key = 'LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM';
+
+        $response = json_decode(file_get_contents($url . str_replace(' ', '+', $validated_request['full_address']) . '+' .  str_replace(' ', '+', $validated_request['city']) . '+' .  str_replace(' ', '+', $validated_request['country']) . '.json?key=' . $key), true);
+
+        if(!empty($response['results'])){
+            $validated_request['latitude'] = $response['results'][0]['position']['lat'];
+            $validated_request['longitude'] = $response['results'][0]['position']['lon'];
+        } else {
+            $validated_request['latitude'] = null;
+            $validated_request['longitude'] = null;
+        }
+
+        $validated_request['cover_image'] = Storage::put('uploads', $validated_request['cover_image']);
+
+        $validated_request['user_id'] = auth()->user()->id;
+
+        $validated_request['type_of_stay_id'] = 1;
+
+        $new_apartment = Apartment::create($validated_request);
+
+        return to_route('dashboard.apartment.show', $new_apartment->slug);
     }
 
     /**

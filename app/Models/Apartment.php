@@ -25,7 +25,8 @@ class Apartment extends Model
         'cover_image',
         'description',
         'is_visible',
-        'user_id'
+        'user_id',
+        'type_of_stay_id'
     ];
 
     public function user(){

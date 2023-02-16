@@ -39,8 +39,7 @@ export default {
     <div class="container">
         <h1>{{apartment.title}}</h1>
         <div class="gallery">
-            <img src="{{ apartment.cover_image }}" alt="cover">
-            <!-- Slider con gallery -->
+            <img :src="'/storage/' + apartment.cover_image" alt="cover">
         </div>
         <p>Rooms: {{ apartment.rooms }}</p>
         <p>Beds: {{ apartment.beds }}</p>

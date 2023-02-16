@@ -13,7 +13,7 @@ export default {
             form: useForm({
                 title: null,
                 rooms: null,
-                bed: null,
+                beds: null,
                 bathrooms: null,
                 square_meters: null,
                 city: null,
@@ -43,15 +43,15 @@ export default {
     <div v-if="$page.props.errors.rooms">{{ $page.props.errors.rooms }}</div>
 
     <label for="title">Beds</label>
-    <input type="number" v-model="form.bed">
-    <div v-if="$page.props.errors.bed">{{ $page.props.errors.bed }}</div>
+    <input type="number" v-model="form.beds">
+    <div v-if="$page.props.errors.beds">{{ $page.props.errors.beds }}</div>
 
     <label for="title">Bathrooms</label>
     <input type="number" v-model="form.bathrooms">
     <div v-if="$page.props.errors.bathrooms">{{ $page.props.errors.bathrooms }}</div>
 
     <label for="title">Square Meters</label>
-    <input type="text" v-model="form.square_meters">
+    <input type="number" v-model="form.square_meters">
     <div v-if="$page.props.errors.square_meters">{{ $page.props.errors.square_meters }}</div>
 
     <label for="title">City</label>

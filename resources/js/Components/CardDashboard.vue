@@ -6,7 +6,7 @@
                 class="w-72 aspect-square border rounded-xl overflow-hidden"
             >
                 <img
-                    :src="apartment.cover_image" alt="cover image"
+                    :src="'/storage/' + apartment.cover_image" alt="cover image"
                     class="h-full w-full object-cover"
                 />
 
