@@ -28,9 +28,23 @@ export default {
                 is_visible: this.apartment.is_visible,
                 gallery: null,
                 errors: null,
+                oldGallery: {},
                 _method: "patch",
             }),
         };
+    },
+    methods:{
+        removeImage(index){
+            this.form.oldGallery[index] = !this.form.oldGallery[index];
+            // console.log(this.form.oldGallery);
+        }
+    },
+    mounted(){
+        // popola un oggetto oldGallery che conterrà true se voglio tenere quell'immagine, false se la voglio cancellare
+        this.apartment.images.forEach((image, index) => {
+            this.form.oldGallery[index] = true;
+        });
+        // console.log(this.form.oldGallery);
     }
 };
 </script>
@@ -127,13 +141,15 @@ export default {
                     {{ form.progress.percentage }}%
                 </progress>
 
-                <div v-if="apartment.images" class="flex">
-                    <img
-                        v-for="image in apartment.images"
-                        :src="'/storage/' + image.url"
-                        alt=""
-                        class="w-20 px-3"
-                    />
+                <div v-if="apartment.images" class="flex gap-3">
+                    <div class="h-40 relative" :class="{grayscale : !form.oldGallery[index]}" v-for="(image, index) in apartment.images">
+                        <img
+                            :src="'/storage/' + image.url"
+                            alt="gallery_image"
+                            class="h-full"
+                        />
+                        <div class="text-red-700 hover:text-red-600 absolute top-[-3px] right-2 font-bold text-5xl cursor-pointer" @click="removeImage(index)">&times;</div>
+                    </div>
                 </div>
 
                 <label for="title">Description</label>

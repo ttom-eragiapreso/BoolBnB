@@ -84,14 +84,14 @@ class ApartmentController extends Controller
         $new_apartment = Apartment::create($validated_request);
 
         if(!empty($gallery)){
-               foreach($gallery as $image){
-            $new_image = new Image();
+            foreach($gallery as $image){
+                $new_image = new Image();
 
-            $new_image->url = $image->store('uploads', 'public');
-            $new_image->apartment_id = $new_apartment->id;
+                $new_image->url = $image->store('uploads', 'public');
+                $new_image->apartment_id = $new_apartment->id;
 
-            $new_image->save();
-        }
+                $new_image->save();
+            }
         }
 
 
@@ -144,6 +144,10 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
+
+        $old_gallery_images = request('oldGallery');
+        $new_gallery_images = request('gallery');
+
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
             'rooms'=>'required|numeric',
@@ -163,6 +167,31 @@ class ApartmentController extends Controller
             $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
         }else {
             $validated_request['cover_image'] = $apartment->cover_image;
+        }
+
+        // Se ho inserito delle nuove immagini
+        if(!empty($new_gallery_images)){
+            // Le vado ad aggiungere a quelle gia esistenti
+            foreach($new_gallery_images as $image){
+                $new_image = new Image();
+
+                $new_image->url = $image->store('uploads', 'public');
+                $new_image->apartment_id = $apartment->id;
+
+                $new_image->save();
+            }
+        }
+
+        // se avevo delle immagini nella galleria
+        if(!empty($old_gallery_images)){
+            // ciclo tra queste e verifico se ne voglio cancellare qualcuna
+            foreach($old_gallery_images as $index => $image){
+                if(!$image){
+                    Storage::disk('public')->delete($apartment->images[$index]->url);
+                    $image = Image::find($apartment->images[$index]->id);
+                    $image->delete();
+                }
+            }
         }
 
         $apartment->update($validated_request);
