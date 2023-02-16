@@ -122,9 +122,16 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+    public function edit(String $slug)
     {
-        return Inertia::render('Dashboard/Apartment/Edit');
+        $user = auth()->user();
+        $apartment = Apartment::with('images')->where('slug', $slug)->first();
+
+        if($apartment->user_id == $user->id){
+            return Inertia::render('Dashboard/Apartment/Edit', compact('apartment'));
+        } else {
+            return to_route('dashboard.home');
+        }
     }
 
     /**
@@ -136,7 +143,31 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        dd($request->all());
+        $validated_request = $request->validate([
+            'title'=>'required|max:100|min:3',
+            'rooms'=>'required|numeric',
+            'beds'=>'required|numeric',
+            'bathrooms'=>'required|numeric',
+            'square_meters'=>'required|numeric',
+            'city'=>'required|max:50|min:3',
+            'country'=>'required|max:50|min:3',
+            'full_address'=>'required|max:100|min:3',
+            'price'=>'required|decimal:2',
+            'cover_image'=>'nullable|image|max:5000',
+            'description'=>'required|min:10',
+        ]);
+
+        if(array_key_exists('cover_image', $validated_request)){
+            Storage::disk('public')->delete($apartment->cover_image);
+            $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
+        }else {
+            $validated_request['cover_image'] = $apartment->cover_image;
+        }
+
+        $apartment->update($validated_request);
+
+        return to_route('dashboard.apartment.show', $apartment->slug);
     }
 
     /**
