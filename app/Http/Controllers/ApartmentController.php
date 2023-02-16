@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class ApartmentController extends Controller
 {
@@ -45,10 +46,10 @@ class ApartmentController extends Controller
 
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
-            'rooms'=>'required|numeric',
-            'beds'=>'required|numeric',
-            'bathrooms'=>'required|numeric',
-            'square_meters'=>'required|numeric',
+            'rooms'=>'required|numeric|max:50',
+            'beds'=>'required|numeric|max:50',
+            'bathrooms'=>'required|numeric|max:50',
+            'square_meters'=>'required|numeric|max:30000',
             'city'=>'required|max:50|min:3',
             'country'=>'required|max:50|min:3',
             'full_address'=>'required|max:100|min:3',
@@ -143,7 +144,6 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        dd($request->all());
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
             'rooms'=>'required|numeric',
@@ -158,7 +158,7 @@ class ApartmentController extends Controller
             'description'=>'required|min:10',
         ]);
 
-        if(array_key_exists('cover_image', $validated_request)){
+        if(isset($validated_request['cover_image'])){
             Storage::disk('public')->delete($apartment->cover_image);
             $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
         }else {
@@ -178,7 +178,12 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        Storage::disk('public')->delete($apartment->cover_image);
+
+        $apartment->delete();
+
+        return to_route('dashboard.apartment.index')->with('deleted', 'Cancellato');
+
     }
 
     public function messages(){

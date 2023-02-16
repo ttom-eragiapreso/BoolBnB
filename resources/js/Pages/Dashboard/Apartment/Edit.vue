@@ -1,6 +1,8 @@
 <script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { useForm, Link } from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
+
 export default {
     name: "Edit",
     layout: AuthenticatedLayout,
@@ -27,15 +29,25 @@ export default {
                 is_visible: this.apartment.is_visible,
                 gallery: null,
                 errors: null,
+                _method: "patch",
             }),
         };
+    },
+    methods: {
+        submit() {},
     },
 };
 </script>
 
 <template>
     <h1>Edit</h1>
-    <form @submit.prevent="" class="flex flex-col gap-5 px-10">
+    <form
+        @submit.prevent="
+            form.post(route('dashboard.apartment.update', apartment))
+        "
+        enctype="multipart/form-data"
+        class="flex flex-col gap-5 px-10"
+    >
         <label for="title">Title</label>
         <input id="title" type="text" v-model="form.title" />
         <div v-if="$page.props.errors.title">
@@ -142,14 +154,14 @@ export default {
         />
 
         <!-- submit -->
-        <Link
+        <!-- <Link
             as="button"
             :href="route('dashboard.apartment.update', apartment)"
             method="PATCH"
             :data="form"
             :disabled="form.processing"
-            >Create!</Link
-        >
+            >Create!</Link> -->
+        <button type="submit">Vai</button>
     </form>
 </template>
 

@@ -40,7 +40,11 @@ export default {
     <div class="container">
         <h1>{{ apartment.title }}</h1>
         <div class="gallery">
-            <img :src="'/storage/' + apartment.cover_image" alt="cover" />
+            <img
+                :src="'/storage/' + apartment.cover_image"
+                alt="cover"
+                class="w-40"
+            />
         </div>
         <p>Rooms: {{ apartment.rooms }}</p>
         <p>Beds: {{ apartment.beds }}</p>
@@ -63,6 +67,7 @@ export default {
         v-for="image in apartment.images"
         :src="'/storage/' + image.url"
         alt=""
+        class="w-20"
     />
 </template>
 

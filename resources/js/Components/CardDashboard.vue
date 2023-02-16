@@ -38,6 +38,13 @@
             >
                 Edit
             </Link>
+            <Link
+                :href="route('dashboard.apartment.destroy', apartment)"
+                method="delete"
+                as="button"
+            >
+                Delete
+            </Link>
         </div>
     </div>
 </template>
