@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -41,6 +42,7 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
             'rooms'=>'required|numeric',
@@ -54,6 +56,8 @@ class ApartmentController extends Controller
             'cover_image'=>'required|image|max:5000',
             'description'=>'required|min:10',
         ]);
+
+        $gallery = request('gallery');
 
         $validated_request['slug'] = generateSlug($validated_request['title']);
 
@@ -70,13 +74,25 @@ class ApartmentController extends Controller
             $validated_request['longitude'] = null;
         }
 
-        $validated_request['cover_image'] = Storage::put('uploads', $validated_request['cover_image']);
+        $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
 
         $validated_request['user_id'] = auth()->user()->id;
 
         $validated_request['type_of_stay_id'] = 1;
 
         $new_apartment = Apartment::create($validated_request);
+
+        if(!empty($gallery)){
+               foreach($gallery as $image){
+            $new_image = new Image();
+
+            $new_image->url = $image->store('uploads', 'public');
+            $new_image->apartment_id = $new_apartment->id;
+
+            $new_image->save();
+        }
+        }
+
 
         return to_route('dashboard.apartment.show', $new_apartment->slug);
     }
