@@ -185,8 +185,8 @@ class ApartmentController extends Controller
         // se avevo delle immagini nella galleria
         if(!empty($old_gallery_images)){
             // ciclo tra queste e verifico se ne voglio cancellare qualcuna
-            foreach($old_gallery_images as $index => $image){
-                if(!$image){
+            foreach($old_gallery_images as $index => $flag){
+                if(!$flag){
                     Storage::disk('public')->delete($apartment->images[$index]->url);
                     $image = Image::find($apartment->images[$index]->id);
                     $image->delete();
