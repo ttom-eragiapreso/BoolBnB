@@ -39,11 +39,7 @@ defineProps({
                     class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                     >Register</Link
                 >
-                <Link
-                    :href="route('houses')"
-                    class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
-                    >Houses</Link
-                >
+
             </template>
         </div>
     </div>

@@ -20,14 +20,18 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Guest/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
 });
 
-Route::get('/houses', [HousesController::class, 'index'])->name('houses');
-Route::get('/prova', [HousesController::class, 'prova'])->name('prova');
+Route::get('/advanced-search', function (){
+    return Inertia::render(('Guest/AdvancedSearch'));
+})->name('advancedsearch');
+Route::get('/details', function (){
+    return Inertia::render(('Guest/Details'));
+})->name('details');
 
 Route::middleware(['auth', 'verified'])
     ->name('dashboard.')
