@@ -46,10 +46,11 @@
             </Link>
             <Link
                 :href="route('dashboard.apartment.destroy', apartment)"
+                @click.prevent="remove"
                 method="delete"
                 as="button"
                 class="px-6 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                :onBefore="() => window.confirm('Are you sure?')"
+
             >
                 Delete
             </Link>
@@ -62,6 +63,7 @@
 
 
 import { Link } from "@inertiajs/vue3";
+//import {Inertia} from "@inertiajs/inertia-vue3";
 
 export default {
     name: "CardDashboard",
@@ -71,12 +73,10 @@ export default {
     components: {
         Link,
     },
-//     methods:{
-//         remove(){
-// 		Inertia.delete(route('dashboard.apartment.destroy', apartment),{
-//             onBefore: () => confirm('Are you sure?'),
-//     });
-// }
-//     }
+    methods:{
+        remove(){
+            return confirm('Are you sure?')
+}
+    }
 };
 </script>
