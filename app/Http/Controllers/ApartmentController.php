@@ -95,7 +95,7 @@ class ApartmentController extends Controller
         }
 
 
-        return to_route('dashboard.apartment.show', $new_apartment->slug);
+        return to_route('dashboard.apartment.show', $new_apartment->slug)->with('message', 'Apartment created successfully.');
     }
 
     /**
@@ -196,7 +196,7 @@ class ApartmentController extends Controller
 
         $apartment->update($validated_request);
 
-        return to_route('dashboard.apartment.show', $apartment->slug);
+        return to_route('dashboard.apartment.show', $apartment->slug)->with('message', 'Apartment updated succesfully.');
     }
 
     /**
@@ -211,7 +211,7 @@ class ApartmentController extends Controller
 
         $apartment->delete();
 
-        return to_route('dashboard.apartment.index')->with('deleted', 'Cancellato');
+        return redirect()->route('dashboard.apartment.index')->with('message', 'Apartment deleted succesfully.');
 
     }
 
