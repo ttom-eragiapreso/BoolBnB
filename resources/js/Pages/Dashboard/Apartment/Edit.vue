@@ -142,7 +142,7 @@ export default {
                 </progress>
 
                 <div v-if="apartment.images" class="flex gap-3">
-                    <div class="h-40 relative" :class="{grayscale : !form.oldGallery[index]}" v-for="(image, index) in apartment.images">
+                    <div class="h-40 relative" :class="{grayscale : !form.oldGallery[index]}" v-for="(image, index) in apartment.images" :key="index">
                         <img
                             :src="'/storage/' + image.url"
                             alt="gallery_image"
