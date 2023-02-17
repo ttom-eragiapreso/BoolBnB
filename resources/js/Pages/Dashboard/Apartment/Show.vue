@@ -74,7 +74,7 @@ export default {
             <div class="flex flex-wrap gap-3">
 
                 <img
-                    v-for="image in apartment.images"
+                    v-for="(image, id) in apartment.images" :key="id"
                     :src="'/storage/' + image.url"
                     alt="image_galler"
                     class="rounded-2xl max-h-64"
