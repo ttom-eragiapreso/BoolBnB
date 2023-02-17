@@ -1,11 +1,19 @@
 <script>
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 export default {
-    name: 'Details'
+    name: 'Details',
+    components: {
+        GuestLayout,
+    },
 }
 </script>
 
 <template>
-  <h1>details</h1>
+
+    <GuestLayout>
+        <h1>Details</h1>
+    </GuestLayout>
+
 </template>
 
 <style>

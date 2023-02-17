@@ -1,11 +1,19 @@
 <script>
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 export default {
-    name: 'AdvancedSearch'
+    name: 'AdvancedSearch',
+    components: {
+        GuestLayout,
+    },
 }
 </script>
 
 <template>
-  <h1>AdvancedSearch</h1>
+
+  <GuestLayout>
+        <h1>Advanced Search</h1>
+    </GuestLayout>
+
 </template>
 
 <style>
