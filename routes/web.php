@@ -27,7 +27,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'types_of_stay' => $types_of_stay
     ]);
-});
+})->name('home');
 
 Route::get('/advanced-search', function (){
     return Inertia::render(('Guest/AdvancedSearch'));
