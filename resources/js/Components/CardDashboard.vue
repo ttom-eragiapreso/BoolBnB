@@ -26,7 +26,7 @@
             </h5>
             <!-- Date -->
             <h5 class="text-slate-600">Created at: {{ apartment.created_at }}</h5>
-            <h5 class="text-slate-600">Last update at: {{ apartment.created_at }}</h5>
+            <h5 class="text-slate-600">Last update at: {{ apartment.updated_at }}</h5>
         </div>
 
         <div class="px-7 flex flex-col gap-5 justify-center">
