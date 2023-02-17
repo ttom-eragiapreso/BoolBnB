@@ -23,7 +23,7 @@ export default {
                 price: null,
                 cover_image: null,
                 description: null,
-                is_visible: null,
+                is_visible: true,
                 gallery: null,
                 errors: null,
             }),

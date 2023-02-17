@@ -56,6 +56,7 @@ class ApartmentController extends Controller
             'price'=>'required|decimal:2',
             'cover_image'=>'required|image|max:5000',
             'description'=>'required|min:10',
+            'is_visible' => 'required'
         ]);
 
         $gallery = request('gallery');
@@ -160,6 +161,7 @@ class ApartmentController extends Controller
             'price'=>'required|decimal:2',
             'cover_image'=>'nullable|image|max:5000',
             'description'=>'required|min:10',
+            'is_visible'=>'required'
         ]);
 
         if(isset($validated_request['cover_image'])){
