@@ -72,12 +72,26 @@ export default {
 
             <div class="flex flex-wrap gap-3">
                 <img
+                    v-if="apartment.images.length > 0"
                     v-for="(image, id) in apartment.images"
                     :key="id"
                     :src="'/storage/' + image.url"
                     alt="image_galler"
                     class="rounded-2xl max-h-64"
                 />
+                <p v-else>
+                    You have not added additional photos to your listing, add
+                    some
+                    <Link
+                        :href="
+                            route('dashboard.apartment.edit', apartment.slug)
+                        "
+                        as="button"
+                        class="px-5 py-1 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                    >
+                        Here!
+                    </Link>
+                </p>
             </div>
         </div>
 
