@@ -25,7 +25,7 @@ export default {
                 price: this.apartment.price,
                 cover_image: null,
                 description: this.apartment.description,
-                is_visible: this.apartment.is_visible,
+                is_visible: this.apartment.is_visible ? true : false,
                 gallery: null,
                 errors: null,
                 oldGallery: {},
