@@ -21,7 +21,7 @@ class TypeOfStaySeeder extends Seeder
         ],
         [
             "name" => 'Entire Place',
-            "icon" => 'fa-sol fa-house-chimney',
+            "icon" => 'fa-solid fa-house-chimney',
         ],
         [
             "name" => 'Beachfront',
