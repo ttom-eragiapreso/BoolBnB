@@ -27,6 +27,7 @@ const showingNavigationDropdown = ref(false);
 
                                     />
                                 </Link>
+
                             </div>
 
                             <!-- Navigation Links -->
@@ -191,6 +192,10 @@ const showingNavigationDropdown = ref(false);
             <header class="bg-white shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
+                    <div class="mt-5" v-if="$page.props.flash.message">
+                        <h5 class=" text-red-500">{{ $page.props.flash.message }}</h5>
+
+                    </div>
                 </div>
             </header>
 

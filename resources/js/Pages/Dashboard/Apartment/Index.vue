@@ -23,6 +23,7 @@ export default {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Your Apartments</h2>
         </template>
 
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2" v-for="apartment in user_apartments" :key="apartment.id">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl p-4">
