@@ -7,6 +7,7 @@ import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import Footer from "@/Components/Footer.vue";
 import { Link } from "@inertiajs/vue3";
+// import {Inertia} from "@inertiajs/inertia-vue3";
 
 const showingNavigationDropdown = ref(false);
 </script>
