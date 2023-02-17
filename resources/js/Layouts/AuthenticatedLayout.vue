@@ -14,6 +14,7 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
+
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,6 +72,18 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink
+                                            :href="route('dashboard.apartment.index')"
+                                            as="button"
+                                            >
+                                            Your Apartments
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('dashboard.apartment.create')"
+                                            as="button"
+                                        >
+                                            Add Apartment
+                                        </DropdownLink>
+                                        <DropdownLink
                                             :href="route('profile.edit')"
                                         >
                                             Profile
@@ -81,18 +94,6 @@ const showingNavigationDropdown = ref(false);
                                             as="button"
                                         >
                                             Log Out
-                                        </DropdownLink>
-                                        <DropdownLink
-                                            :href="route('dashboard.apartment.index')"
-                                            as="button"
-                                        >
-                                            Apartments
-                                        </DropdownLink>
-                                        <DropdownLink
-                                            :href="route('dashboard.apartment.create')"
-                                            as="button"
-                                        >
-                                            New Apartment
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -199,6 +200,7 @@ const showingNavigationDropdown = ref(false);
             </main>
 
             <Footer />
+
         </div>
     </div>
 </template>

@@ -1,14 +1,14 @@
-
-
 <script>
-import AuthenticatedLayoutVue from '@/Layouts/AuthenticatedLayout.vue';
+
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import CardDashboard from '@/Components/CardDashboard.vue';
+
 export default {
     name: 'Index',
     components:{
-        CardDashboard
+        CardDashboard,
+        AuthenticatedLayout
     },
-    layout: AuthenticatedLayoutVue,
     props:{
         user_apartments: Array
     }
@@ -17,12 +17,21 @@ export default {
 
 <template>
 
-    <div class="">
+    <AuthenticatedLayout>
 
-    </div>
+        <template v-slot:header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Your Apartments</h2>
+        </template>
 
-  <h1>You apartments</h1>
-  <CardDashboard v-for="apartment in user_apartments" :key="apartment.id" :apartment="apartment"/>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2" v-for="apartment in user_apartments" :key="apartment.id">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl p-4">
+                    <CardDashboard :apartment="apartment"/>
+                </div>
+            </div>
+        </div>
+
+    </AuthenticatedLayout>
 
 </template>
 
