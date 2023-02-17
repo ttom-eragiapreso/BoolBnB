@@ -65,58 +65,60 @@ export default {
                 class="flex flex-col gap-5 px-10"
             >
 
-                <label for="title">Title</label>
+                <p>* Required</p>
+
+                <label for="title">Title *</label>
                 <input id="title" type="text" v-model="form.title" />
                 <div v-if="$page.props.errors.title">
                     {{ $page.props.errors.title }}
                 </div>
 
-                <label for="title">Rooms</label>
-                <input type="number" v-model="form.rooms" />
+                <label for="rooms">Rooms *</label>
+                <input min="0" type="number" id="rooms" v-model="form.rooms" />
                 <div v-if="$page.props.errors.rooms">
                     {{ $page.props.errors.rooms }}
                 </div>
 
-                <label for="title">Beds</label>
-                <input type="number" v-model="form.beds" />
+                <label for="beds">Beds *</label>
+                <input min="0" type="number" id="beds" v-model="form.beds" />
                 <div v-if="$page.props.errors.beds">{{ $page.props.errors.beds }}</div>
 
-                <label for="title">Bathrooms</label>
-                <input type="number" v-model="form.bathrooms" />
+                <label for="bathrooms">Bathrooms *</label>
+                <input min="0" type="number" id="bathrooms" v-model="form.bathrooms" />
                 <div v-if="$page.props.errors.bathrooms">
                     {{ $page.props.errors.bathrooms }}
                 </div>
 
-                <label for="title">Square Meters</label>
-                <input type="number" v-model="form.square_meters" />
+                <label for="square_meters">Square Meters *</label>
+                <input min="0" type="number" id="square_meters" v-model="form.square_meters" />
                 <div v-if="$page.props.errors.square_meters">
                     {{ $page.props.errors.square_meters }}
                 </div>
 
-                <label for="title">City</label>
-                <input type="text" v-model="form.city" />
+                <label for="city">City *</label>
+                <input type="text" id="city" v-model="form.city" />
                 <div v-if="$page.props.errors.city">{{ $page.props.errors.city }}</div>
 
-                <label for="title">Country</label>
-                <input type="text" v-model="form.country" />
+                <label for="country">Country *</label>
+                <input type="text" id="country" v-model="form.country" />
                 <div v-if="$page.props.errors.country">
                     {{ $page.props.errors.country }}
                 </div>
 
-                <label for="title">Address</label>
-                <input type="text" v-model="form.full_address" />
+                <label for="address">Address *</label>
+                <input type="text" id="address" v-model="form.full_address" />
                 <div v-if="$page.props.errors.full_address">
                     {{ $page.props.errors.full_address }}
                 </div>
 
-                <label for="title">Price</label>
-                <input type="text" v-model="form.price" />
+                <label for="price">Price *</label>
+                <input type="number" min="0" step=".01" id="price" v-model="form.price" />
                 <div v-if="$page.props.errors.price">
                     {{ $page.props.errors.price }}
                 </div>
 
-                <label for="title">Cover Image</label>
-                <input type="file" @input="form.cover_image = $event.target.files[0]" />
+                <label for="cover_image">Cover Image *</label>
+                <input type="file" id="cover_image" @input="form.cover_image = $event.target.files[0]" />
                 <progress
                     v-if="form.progress"
                     :value="form.progress.percentage"
@@ -124,12 +126,16 @@ export default {
                 >
                     {{ form.progress.percentage }}%
                 </progress>
+                <div v-if="$page.props.errors.cover_image">
+                    {{ $page.props.errors.cover_image }}
+                </div>
 
                 <img :src="'/storage/' + apartment.cover_image" alt="" class="w-20" />
 
-                <label for="title">Additional Images</label>
+                <label for="gallery">Additional Images</label>
                 <input
                     type="file"
+                    id="gallery"
                     multiple
                     @input="form.gallery = $event.target.files"
                 />
@@ -152,7 +158,7 @@ export default {
                     </div>
                 </div>
 
-                <label for="title">Description</label>
+                <label for="description">Description *</label>
                 <textarea
                     name="description"
                     id="description"
@@ -165,7 +171,7 @@ export default {
                 </div>
 
                 <div>
-                    <label for="is_visible" class="pr-3">Public: </label>
+                    <label for="is_visible" class="pr-3 text-black">Public *: </label>
                     <input
                         type="checkbox"
                         name="is_visible"
@@ -174,15 +180,6 @@ export default {
                     />
                 </div>
 
-
-                <!-- submit -->
-                <!-- <Link
-                    as="button"
-                    :href="route('dashboard.apartment.update', apartment)"
-                    method="PATCH"
-                    :data="form"
-                    :disabled="form.processing"
-                    >Create!</Link> -->
                 <button type="submit" class="px-6 py-3 bg-yellow-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">Vai</button>
             </form>
 
@@ -194,7 +191,7 @@ export default {
 
 <style>
 
-input + div{
+input + div, textarea + div{
     color: red;
 }
 
