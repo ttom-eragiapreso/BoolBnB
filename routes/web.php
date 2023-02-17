@@ -7,6 +7,7 @@ use App\Http\Controllers\ApartmentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Type_of_stay;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,11 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    $types_of_stay = Type_of_stay::all();
     return Inertia::render('Guest/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'types_of_stay' => $types_of_stay
     ]);
 });
 

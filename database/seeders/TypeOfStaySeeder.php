@@ -25,19 +25,19 @@ class TypeOfStaySeeder extends Seeder
         ],
         [
             "name" => 'Beachfront',
-            "icon" => 'fa-sol fa-umbrella-beach',
+            "icon" => 'fa-solid fa-umbrella-beach',
         ],
         [
             "name" => 'Igloo',
-            "icon" => 'fa-sol fa-igloo',
+            "icon" => 'fa-solid fa-igloo',
         ],
         [
             "name" => 'Camping',
-            "icon" => 'fa-sol fa-tents',
+            "icon" => 'fa-solid fa-tents',
         ],
         [
             "name" => 'Treehouse',
-            "icon" => 'fa-sol fa-tree',
+            "icon" => 'fa-solid fa-tree',
         ],
         [
             "name" => 'Arctic',
@@ -45,51 +45,51 @@ class TypeOfStaySeeder extends Seeder
         ],
         [
             "name" => 'Ski-in/out',
-            "icon" => 'fa-sol fa-person-skiing',
+            "icon" => 'fa-solid fa-person-skiing',
         ],
         [
             "name" => 'Trending',
-            "icon" => 'fa-sol fa-fire',
+            "icon" => 'fa-solid fa-fire',
         ],
         [
             "name" => 'Boats',
-            "icon" => 'fa-sol fa-sailboat',
+            "icon" => 'fa-solid fa-sailboat',
         ],
         [
             "name" => 'Hotel',
-            "icon" => 'fa-sol fa-hotel',
+            "icon" => 'fa-solid fa-hotel',
         ],
         [
             "name" => 'Spa',
-            "icon" => 'fa-sol fa-spa',
+            "icon" => 'fa-solid fa-spa',
         ],
         [
             "name" => 'Amazing Views',
-            "icon" => 'fa-sol fa-mountain-sun',
+            "icon" => 'fa-solid fa-mountain-sun',
         ],
         [
             "name" => 'Private rooms',
-            "icon" => 'fa-sol fa-bed',
+            "icon" => 'fa-solid fa-bed',
         ],
         [
             "name" => 'Bed & breakfasts',
-            "icon" => 'fa-sol fa-mug-hot',
+            "icon" => 'fa-solid fa-mug-hot',
         ],
         [
             "name" => 'Castles',
-            "icon" => 'fa-sol fa-chess-rook',
+            "icon" => 'fa-solid fa-chess-rook',
         ],
         [
             "name" => 'Creative Spaces',
-            "icon" => 'fa-sol fa-palette',
+            "icon" => 'fa-solid fa-palette',
         ],
         [
             "name" => 'Vineyards',
-            "icon" => 'fa-sol fa-wine-glass',
+            "icon" => 'fa-solid fa-wine-glass',
         ],
         [
             "name" => 'Amazing Pools',
-            "icon" => 'fa-sol fa-water-ladder',
+            "icon" => 'fa-solid fa-water-ladder',
         ]];
 
         foreach($types as $type){
