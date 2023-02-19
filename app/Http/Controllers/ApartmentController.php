@@ -47,16 +47,16 @@ class ApartmentController extends Controller
 
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
-            'rooms'=>'required|numeric|max:50',
-            'beds'=>'required|numeric|max:50',
-            'bathrooms'=>'required|numeric|max:50',
-            'square_meters'=>'required|numeric|max:30000',
+            'rooms'=>'required|numeric|min:0|max:50',
+            'beds'=>'required|numeric|min:0|max:50',
+            'bathrooms'=>'required|numeric|min:0|max:50',
+            'square_meters'=>'required|numeric|min:0|max:60000',
             'city'=>'required|max:50|min:3',
             'country'=>'required|max:50|min:3',
             'full_address'=>'required|max:100|min:3',
             'latitude' => 'required',
             'longitude' => 'required',
-            'price'=>'required|decimal:2',
+            'price'=>'required|decimal:2|max:90000',
             'cover_image'=>'required|image|max:5000',
             'description'=>'required|min:10',
             'is_visible' => 'required'
@@ -138,16 +138,16 @@ class ApartmentController extends Controller
 
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
-            'rooms'=>'required|numeric',
-            'beds'=>'required|numeric',
-            'bathrooms'=>'required|numeric',
-            'square_meters'=>'required|numeric',
+            'rooms'=>'required|numeric|min:0|max:50',
+            'beds'=>'required|numeric|min:0|max:50',
+            'bathrooms'=>'required|numeric|min:0|max:50',
+            'square_meters'=>'required|numeric|min:0|max:60000',
             'city'=>'required|max:50|min:3',
             'country'=>'required|max:50|min:3',
             'full_address'=>'required|max:100|min:3',
             'latitude' => 'required',
             'longitude' => 'required',
-            'price'=>'required|decimal:2',
+            'price'=>'required|decimal:2|max:90000',
             'cover_image'=>'nullable|image|max:5000',
             'description'=>'required|min:10',
             'is_visible'=>'required'
