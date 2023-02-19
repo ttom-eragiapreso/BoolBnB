@@ -43,6 +43,7 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $gallery = request('gallery');
 
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
@@ -53,28 +54,15 @@ class ApartmentController extends Controller
             'city'=>'required|max:50|min:3',
             'country'=>'required|max:50|min:3',
             'full_address'=>'required|max:100|min:3',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'price'=>'required|decimal:2',
             'cover_image'=>'required|image|max:5000',
             'description'=>'required|min:10',
             'is_visible' => 'required'
         ]);
 
-        $gallery = request('gallery');
-
         $validated_request['slug'] = generateSlug($validated_request['title']);
-
-        $url = 'https://api.tomtom.com/search/2/geocode/';
-        $key = 'LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM';
-
-        $response = json_decode(file_get_contents($url . str_replace(' ', '+', $validated_request['full_address']) . '+' .  str_replace(' ', '+', $validated_request['city']) . '+' .  str_replace(' ', '+', $validated_request['country']) . '.json?key=' . $key), true);
-
-        if(!empty($response['results'])){
-            $validated_request['latitude'] = $response['results'][0]['position']['lat'];
-            $validated_request['longitude'] = $response['results'][0]['position']['lon'];
-        } else {
-            $validated_request['latitude'] = null;
-            $validated_request['longitude'] = null;
-        }
 
         $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
 
@@ -94,7 +82,6 @@ class ApartmentController extends Controller
                 $new_image->save();
             }
         }
-
 
         return to_route('dashboard.apartment.show', $new_apartment->slug)->with('message', 'Apartment created successfully.');
     }
