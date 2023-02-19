@@ -31,7 +31,10 @@ export default {
                 .setLngLat([this.apartment.longitude, this.apartment.latitude])
                 .setPopup(popup);
             marker.addTo(map);
+            map.addControl(new tt.FullscreenControl);
+            map.addControl(new tt.NavigationControl);
         });
+
     },
 };
 </script>
