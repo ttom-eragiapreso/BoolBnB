@@ -1,4 +1,6 @@
 <script>
+
+import AutoSearchTT from '../../../Components/AutoSearchTT.vue';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { useForm, Link } from "@inertiajs/vue3";
 
@@ -9,7 +11,8 @@ export default {
     },
     components: {
         Link,
-        AuthenticatedLayout
+        AuthenticatedLayout,
+        AutoSearchTT
     },
     data() {
         return {
@@ -22,11 +25,13 @@ export default {
                 city: this.apartment.city,
                 country: this.apartment.country,
                 full_address: this.apartment.full_address,
+                latitude: this.apartment.latitude,
+                longitude: this.apartment.longitude,
                 price: this.apartment.price,
                 cover_image: null,
+                gallery: null,
                 description: this.apartment.description,
                 is_visible: this.apartment.is_visible ? true : false,
-                gallery: null,
                 errors: null,
                 oldGallery: {},
                 _method: "patch",
@@ -37,6 +42,14 @@ export default {
         removeImage(index){
             this.form.oldGallery[index] = !this.form.oldGallery[index];
             // console.log(this.form.oldGallery);
+        },
+        handleGeoData(event){
+            // console.log(event);
+            this.form.city = event.city;
+            this.form.country = event.country;
+            this.form.full_address = event.full_address;
+            this.form.latitude = event.lat;
+            this.form.longitude = event.lng;
         }
     },
     mounted(){
@@ -95,20 +108,10 @@ export default {
                     {{ $page.props.errors.square_meters }}
                 </div>
 
-                <label for="city">City *</label>
-                <input type="text" id="city" v-model="form.city" />
-                <div v-if="$page.props.errors.city">{{ $page.props.errors.city }}</div>
-
-                <label for="country">Country *</label>
-                <input type="text" id="country" v-model="form.country" />
-                <div v-if="$page.props.errors.country">
-                    {{ $page.props.errors.country }}
-                </div>
-
-                <label for="address">Address *</label>
-                <input type="text" id="address" v-model="form.full_address" />
-                <div v-if="$page.props.errors.full_address">
-                    {{ $page.props.errors.full_address }}
+                <label for="searchbox">Address *</label>
+                <AutoSearchTT @geodata="handleGeoData" :address="this.form.full_address"/>
+                <div v-if="$page.props.errors.full_address || $page.props.errors.city || $page.props.errors.country || $page.props.errors.latitude || $page.props.errors.longitude">
+                    {{ $page.props.errors.full_address }}<br>Please, select an address from the dropdown.
                 </div>
 
                 <label for="price">Price *</label>

@@ -23,6 +23,13 @@ export default{
             }
         }
     },
+    props:{
+        address: {
+            type: String,
+            required: false,
+            default: null,
+        }
+    },
     methods:{
         handleResultSelection(e){
 
@@ -55,6 +62,8 @@ export default{
             mySearchBox.on('tomtom.searchbox.resultselected', this.handleResultSelection);
             // quando noi cancelliamo i dati dall'input
             mySearchBox.on('tomtom.searchbox.resultscleared', this.handleResultsCleared);
+            // Se ho gia qualcosa da mettere dentro
+            if (this.address) mySearchBox.setValue(this.address);
         }
     },
     mounted(){

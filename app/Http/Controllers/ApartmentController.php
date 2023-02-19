@@ -145,6 +145,8 @@ class ApartmentController extends Controller
             'city'=>'required|max:50|min:3',
             'country'=>'required|max:50|min:3',
             'full_address'=>'required|max:100|min:3',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'price'=>'required|decimal:2',
             'cover_image'=>'nullable|image|max:5000',
             'description'=>'required|min:10',
