@@ -17,9 +17,9 @@ export default {
 <template>
 
     <GuestLayout>
-
-        <h1>home</h1>
-        <Slider :types_of_stay="types_of_stay" />
+        <div class="px-8 lg:px-20 bg-white">
+            <Slider :types_of_stay="types_of_stay" />
+        </div>
     </GuestLayout>
 
 </template>

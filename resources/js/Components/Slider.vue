@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="bg-white pt-2">
 
     <div class="flex relative">
       <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_position > 15">

@@ -42,7 +42,7 @@ export default {
 
 <template>
     <header>
-    <div class="h-[80px] border-b-[1px] flex justify-between items-center px-8">
+    <div class="h-[80px] border-b-[1px] flex justify-between items-center px-8 lg:px-20">
       <div class="logo h-auto cursor-grab flex items-center">
         <a href="/"><ApplicationLogo /></a>
 
@@ -56,7 +56,7 @@ export default {
           </div>
         </div>
 
-        <div class="relative">
+        <div class="relative w-[168px] flex justify-end">
             <!-- <button @click="open = !open" class="animate-pulse hover:animate-bounce border rounded-full hover:border-gray-500 p-2 hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
