@@ -56,7 +56,7 @@ class ApartmentController extends Controller
             'full_address'=>'required|max:100|min:3',
             'latitude' => 'required',
             'longitude' => 'required',
-            'price'=>'required|decimal:2|max:90000',
+            'price'=>'required|decimal:2|min:0|max:90000',
             'cover_image'=>'required|image|max:5000',
             'description'=>'required|min:10',
             'is_visible' => 'required'
@@ -97,10 +97,15 @@ class ApartmentController extends Controller
         $user = auth()->user();
         $apartment = Apartment::with('images')->where('slug', $slug)->first();
 
+        if($user === null || $apartment === null){
+            abort(404);
+        }
+
+
         if($apartment->user_id == $user->id){
             return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
         } else {
-            return to_route('dashboard.home');
+            return to_route('dashboard.home')->with('message', 'Not allowed.');
         }
 
     }
@@ -147,7 +152,7 @@ class ApartmentController extends Controller
             'full_address'=>'required|max:100|min:3',
             'latitude' => 'required',
             'longitude' => 'required',
-            'price'=>'required|decimal:2|max:90000',
+            'price'=>'required|decimal:2|min:0|max:90000',
             'cover_image'=>'nullable|image|max:5000',
             'description'=>'required|min:10',
             'is_visible'=>'required'

@@ -5,6 +5,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { computed } from '@vue/runtime-core';
+
 
 const form = useForm({
     name: '',
@@ -17,10 +19,18 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    if(form.password === form.password_confirmation){
+
+        form.post(route('register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
+        });
+    }
 };
+
+const checkDisable = computed(() => {
+    return (form.processing || form.password != form.password_confirmation || (!form.email.includes('@') || !form.email.includes('.')) || !form.name.length > 0 || !form.password.length >0 )
+})
+
 </script>
 
 <template>
@@ -39,12 +49,13 @@ const submit = () => {
                     required
                     autofocus
                     autocomplete="name"
+                    minlength="3"
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div>
+            <div class="mt-4">
                 <InputLabel for="surname" value="Surname" />
 
                 <TextInput
@@ -60,7 +71,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.surname" />
             </div>
 
-            <div>
+            <div class="mt-4">
                 <InputLabel for="date_of_birth" value="Date of birth" />
 
                 <TextInput
@@ -87,7 +98,7 @@ const submit = () => {
                     required
                     autocomplete="username"
                 />
-
+                <p class="text-red-600 text-sm pt-2" v-if="(!form.email.includes('@') || !form.email.includes('.')) && form.email.length > 1">Please insert a valid email address.</p>
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
@@ -101,8 +112,8 @@ const submit = () => {
                     v-model="form.password"
                     required
                     autocomplete="new-password"
+                    minlength="8"
                 />
-
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
@@ -117,7 +128,7 @@ const submit = () => {
                     required
                     autocomplete="new-password"
                 />
-
+                <p class="text-red-600 text-sm pt-2" v-if="form.password != form.password_confirmation">The two passwords must match.</p>
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
@@ -129,7 +140,7 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ml-4" :class="{ 'opacity-25': checkDisable}" :disabled="checkDisable">
                     Register
                 </PrimaryButton>
             </div>

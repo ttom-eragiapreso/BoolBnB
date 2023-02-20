@@ -231,7 +231,7 @@ export default {
                 </div>
 
                 <div>
-                    <label for="is_visible" class="pr-3 text-black">Public *: </label>
+                    <label for="is_visible" class="pr-3 text-black">Public: </label>
                     <input
                         type="checkbox"
                         name="is_visible"

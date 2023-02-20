@@ -59,7 +59,7 @@ export default {
 
         <div class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
 
-            <form @submit.prevent="" class="flex flex-col gap-5 px-10">
+            <form @submit.prevent="form.post(route('dashboard.apartment.store', form))" class="flex flex-col gap-5 px-10">
 
                 <p>* Required</p>
 
@@ -201,7 +201,7 @@ export default {
                 </div>
 
                 <div>
-                    <label for="is_visible" class="pr-3 text-black">Public *: </label>
+                    <label for="is_visible" class="pr-3 text-black">Public: </label>
                     <input
                         type="checkbox"
                         name="is_visible"
@@ -211,7 +211,7 @@ export default {
                 </div>
 
                 <!-- submit -->
-                <Link
+                <!-- <Link
                     as="button"
                     :href="route('dashboard.apartment.store')"
                     method="POST"
@@ -219,7 +219,9 @@ export default {
                     :disabled="form.processing"
                     class="px-6 py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
                     >Create!
-                </Link>
+                </Link> -->
+                <button type="submit" class="px-6 py-3 bg-yellow-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">Vai</button>
+
 
             </form>
 

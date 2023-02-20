@@ -68,7 +68,7 @@ const form = useForm({
 
                 <TextInput
                     id="date_of_birth"
-                    type="text"
+                    type="date"
                     class="mt-1 block w-full"
                     v-model="form.date_of_birth"
                     required
