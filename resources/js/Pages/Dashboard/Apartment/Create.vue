@@ -12,7 +12,8 @@ export default {
         AutoSearchTT
     },
     props:{
-        features: Array
+        features: Array,
+        type_of_stays: Array
     },
     data() {
         return {
@@ -33,13 +34,13 @@ export default {
                 is_visible: true,
                 gallery: null,
                 errors: null,
+                type_of_stay_id: '',
                 features: []
             })
         };
     },
     methods:{
         handleGeoData(event){
-            // console.log(event);
             this.form.city = event.city;
             this.form.country = event.country;
             this.form.full_address = event.full_address;
@@ -197,6 +198,7 @@ export default {
                     id="description"
                     cols="30"
                     rows="10"
+                    minlength="10"
                     required
                     v-model="form.description"
                 ></textarea>
@@ -210,6 +212,17 @@ export default {
                         <input type="checkbox" v-model="form.features" :value="feature.id" :id="feature.name">
                         <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
                     </div>
+                </div>
+
+                <label for="types">Type*: </label>
+                <div>
+                    <select id="types" v-model="form.type_of_stay_id" required>
+                        <option value="" selected disabled>Select a Type</option>
+                        <option v-for="elem in type_of_stays" :key="elem.id" :value="elem.id">{{ elem.name }}</option>
+                    </select>
+                </div>
+                <div v-if="$page.props.errors.type_of_stay_id">
+                    {{ $page.props.errors.type_of_stay_id }}
                 </div>
 
                 <div>

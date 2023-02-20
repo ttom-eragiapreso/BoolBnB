@@ -66,6 +66,7 @@ export default {
             <p>Price: {{ apartment.price }} &euro;</p>
             <p>Currently Public: {{ apartment.is_visible ? "Yes" : "No" }}</p>
             <p>Description: {{ apartment.description }}</p>
+            <p>Type: {{ apartment.type_of_stay.name }}</p>
         </div>
 
         <div v-if="apartment.features" class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">

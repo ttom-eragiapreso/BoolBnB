@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\Feature;
 use App\Models\Image;
+use App\Models\Type_of_stay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 
 class ApartmentController extends Controller
 {
@@ -34,7 +32,8 @@ class ApartmentController extends Controller
     public function create()
     {
         $features = Feature::all();
-        return Inertia::render('Dashboard/Apartment/Create', compact('features'));
+        $type_of_stays = Type_of_stay::all();
+        return Inertia::render('Dashboard/Apartment/Create', compact('features','type_of_stays'));
     }
 
     /**
@@ -63,6 +62,7 @@ class ApartmentController extends Controller
             'price'=>'required|decimal:2|min:0|max:90000',
             'cover_image'=>'required|image|max:5000',
             'description'=>'required|min:10',
+            'type_of_stay_id'=>'required',
             'is_visible' => 'required'
         ]);
 
@@ -71,8 +71,6 @@ class ApartmentController extends Controller
         $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
 
         $validated_request['user_id'] = auth()->user()->id;
-
-        $validated_request['type_of_stay_id'] = 1;
 
         $new_apartment = Apartment::create($validated_request);
 
@@ -83,10 +81,8 @@ class ApartmentController extends Controller
         if(!empty($gallery)){
             foreach($gallery as $image){
                 $new_image = new Image();
-
                 $new_image->url = $image->store('uploads', 'public');
                 $new_image->apartment_id = $new_apartment->id;
-
                 $new_image->save();
             }
         }
@@ -103,7 +99,7 @@ class ApartmentController extends Controller
     public function show(string $slug)
     {
         $user = auth()->user();
-        $apartment = Apartment::with(['images', 'features'])->where('slug', $slug)->first();
+        $apartment = Apartment::with(['images', 'features', 'type_of_stay'])->where('slug', $slug)->first();
 
         if($user === null || $apartment === null){
             abort(404);
@@ -130,11 +126,12 @@ class ApartmentController extends Controller
         $apartment = Apartment::with(['images', 'features'])->where('slug', $slug)->first();
 
         $features = Feature::all();
+        $type_of_stays = Type_of_stay::all();
 
         if($apartment->user_id == $user->id){
-            return Inertia::render('Dashboard/Apartment/Edit', compact('apartment', 'features'));
+            return Inertia::render('Dashboard/Apartment/Edit', compact('apartment', 'features', 'type_of_stays'));
         } else {
-            return to_route('dashboard.home');
+            return to_route('dashboard.home')->with('message', 'Not allowed.');
         }
     }
 
@@ -165,6 +162,7 @@ class ApartmentController extends Controller
             'longitude' => 'required',
             'price'=>'required|decimal:2|min:0|max:90000',
             'cover_image'=>'nullable|image|max:5000',
+            'type_of_stay_id'=>'required',
             'description'=>'required|min:10',
             'is_visible'=>'required'
         ]);

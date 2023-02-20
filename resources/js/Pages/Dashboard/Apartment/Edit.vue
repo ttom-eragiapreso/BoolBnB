@@ -8,7 +8,8 @@ export default {
     name: "Edit",
     props: {
         apartment: Object,
-        features: Array
+        features: Array,
+        type_of_stays: Array
     },
     components: {
         Link,
@@ -33,6 +34,7 @@ export default {
                 gallery: null,
                 description: this.apartment.description,
                 features: [],
+                type_of_stay_id: this.apartment.type_of_stay_id,
                 is_visible: this.apartment.is_visible ? true : false,
                 errors: null,
                 oldGallery: {},
@@ -231,6 +233,7 @@ export default {
                     id="description"
                     cols="30"
                     rows="10"
+                    minlength="10"
                     required
                     v-model="form.description"
                 ></textarea>
@@ -244,6 +247,17 @@ export default {
                         <input type="checkbox" v-model="form.features" :checked="form.features.includes(feature.id)" :value="feature.id" :id="feature.name">
                         <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
                     </div>
+                </div>
+
+                <label for="types">Type*: </label>
+                <div>
+                    <select id="types" v-model="form.type_of_stay_id" required>
+                        <!-- <option value="" selected disabled>Select a Type</option> -->
+                        <option v-for="elem in type_of_stays" :key="elem.id" :value="elem.id">{{ elem.name }}</option>
+                    </select>
+                </div>
+                <div v-if="$page.props.errors.type_of_stay_id">
+                    {{ $page.props.errors.type_of_stay_id }}
                 </div>
 
                 <div>
