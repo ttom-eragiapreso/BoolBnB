@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Feature;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,7 +33,8 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Dashboard/Apartment/Create');
+        $features = Feature::all();
+        return Inertia::render('Dashboard/Apartment/Create', compact('features'));
     }
 
     /**
@@ -44,6 +46,8 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $gallery = request('gallery');
+
+        $features = request('features');
 
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
@@ -72,6 +76,10 @@ class ApartmentController extends Controller
 
         $new_apartment = Apartment::create($validated_request);
 
+        if(!empty($features)){
+            $new_apartment->features()->attach($features);
+        }
+
         if(!empty($gallery)){
             foreach($gallery as $image){
                 $new_image = new Image();
@@ -95,7 +103,7 @@ class ApartmentController extends Controller
     public function show(string $slug)
     {
         $user = auth()->user();
-        $apartment = Apartment::with('images')->where('slug', $slug)->first();
+        $apartment = Apartment::with(['images', 'features'])->where('slug', $slug)->first();
 
         if($user === null || $apartment === null){
             abort(404);
@@ -119,10 +127,12 @@ class ApartmentController extends Controller
     public function edit(String $slug)
     {
         $user = auth()->user();
-        $apartment = Apartment::with('images')->where('slug', $slug)->first();
+        $apartment = Apartment::with(['images', 'features'])->where('slug', $slug)->first();
+
+        $features = Feature::all();
 
         if($apartment->user_id == $user->id){
-            return Inertia::render('Dashboard/Apartment/Edit', compact('apartment'));
+            return Inertia::render('Dashboard/Apartment/Edit', compact('apartment', 'features'));
         } else {
             return to_route('dashboard.home');
         }
@@ -140,6 +150,7 @@ class ApartmentController extends Controller
 
         $old_gallery_images = request('oldGallery');
         $new_gallery_images = request('gallery');
+        $features = request('features');
 
         $validated_request = $request->validate([
             'title'=>'required|max:100|min:3',
@@ -163,6 +174,12 @@ class ApartmentController extends Controller
             $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
         }else {
             $validated_request['cover_image'] = $apartment->cover_image;
+        }
+
+        if(!empty($features)){
+            $apartment->features()->sync($features);
+        } else {
+            $apartment->features()->detach();
         }
 
         // Se ho inserito delle nuove immagini

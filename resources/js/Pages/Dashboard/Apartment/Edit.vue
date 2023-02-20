@@ -8,6 +8,7 @@ export default {
     name: "Edit",
     props: {
         apartment: Object,
+        features: Array
     },
     components: {
         Link,
@@ -31,6 +32,7 @@ export default {
                 cover_image: null,
                 gallery: null,
                 description: this.apartment.description,
+                features: [],
                 is_visible: this.apartment.is_visible ? true : false,
                 errors: null,
                 oldGallery: {},
@@ -53,6 +55,11 @@ export default {
         },
         setTwoNumberDecimal(){
             this.form.price = parseFloat(this.form.price).toFixed(2);
+        },
+        handleFeatures(){
+            this.apartment.features.forEach(feature => {
+                this.form.features.push(feature.id)
+            });
         }
     },
     mounted(){
@@ -60,7 +67,8 @@ export default {
         this.apartment.images.forEach((image, index) => {
             this.form.oldGallery[index] = true;
         });
-        // console.log(this.form.oldGallery);
+
+        this.handleFeatures();
     }
 };
 </script>
@@ -228,6 +236,14 @@ export default {
                 ></textarea>
                 <div v-if="$page.props.errors.description">
                     {{ $page.props.errors.description }}
+                </div>
+
+                <label for="features">Features: </label>
+                <div class="grid grid-cols-4">
+                    <div v-for="feature in features" :key="feature.id">
+                        <input type="checkbox" v-model="form.features" :checked="form.features.includes(feature.id)" :value="feature.id" :id="feature.name">
+                        <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
+                    </div>
                 </div>
 
                 <div>

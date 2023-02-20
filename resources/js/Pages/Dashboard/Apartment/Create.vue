@@ -11,6 +11,9 @@ export default {
         AuthenticatedLayout,
         AutoSearchTT
     },
+    props:{
+        features: Array
+    },
     data() {
         return {
             form: useForm({
@@ -30,6 +33,7 @@ export default {
                 is_visible: true,
                 gallery: null,
                 errors: null,
+                features: []
             })
         };
     },
@@ -200,6 +204,14 @@ export default {
                     {{ $page.props.errors.description }}
                 </div>
 
+                <label for="features">Features: </label>
+                <div class="grid grid-cols-4">
+                    <div v-for="feature in features" :key="feature.id">
+                        <input type="checkbox" v-model="form.features" :value="feature.id" :id="feature.name">
+                        <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
+                    </div>
+                </div>
+
                 <div>
                     <label for="is_visible" class="pr-3 text-black">Public: </label>
                     <input
@@ -210,18 +222,7 @@ export default {
                     />
                 </div>
 
-                <!-- submit -->
-                <!-- <Link
-                    as="button"
-                    :href="route('dashboard.apartment.store')"
-                    method="POST"
-                    :data="this.form"
-                    :disabled="form.processing"
-                    class="px-6 py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                    >Create!
-                </Link> -->
                 <button type="submit" class="px-6 py-3 bg-yellow-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">Vai</button>
-
 
             </form>
 

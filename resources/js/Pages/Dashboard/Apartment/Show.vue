@@ -68,6 +68,10 @@ export default {
             <p>Description: {{ apartment.description }}</p>
         </div>
 
+        <div v-if="apartment.features" class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+            <div v-for="feature in apartment.features">{{ feature.name }}</div>
+        </div>
+
         <div
             class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
