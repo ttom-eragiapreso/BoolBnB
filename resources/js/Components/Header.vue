@@ -44,7 +44,8 @@ export default {
     <header>
     <div class="h-[80px] border-b-[1px] flex justify-between items-center px-8">
       <div class="logo h-auto cursor-grab flex items-center">
-        <ApplicationLogo/>
+        <a href="/"><ApplicationLogo /></a>
+
       </div>
 
         <div class="relative">
