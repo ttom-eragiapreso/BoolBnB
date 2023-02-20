@@ -41,6 +41,9 @@ export default {
             this.form.full_address = event.full_address;
             this.form.latitude = event.lat;
             this.form.longitude = event.lng;
+        },
+        setTwoNumberDecimal(){
+            this.form.price = parseFloat(this.form.price).toFixed(2);
         }
     }
 };
@@ -61,50 +64,104 @@ export default {
                 <p>* Required</p>
 
                 <label for="title">Title *</label>
-                <input id="title" type="text" v-model="form.title" />
+                <input
+                    id="title"
+                    type="text"
+                    v-model="form.title"
+                    required
+                    minlength="3"
+                    maxlength="100"
+                />
                 <div v-if="$page.props.errors.title">
                     {{ $page.props.errors.title }}
                 </div>
 
                 <label for="rooms">Rooms *</label>
-                <input min="0" type="number" id="rooms" v-model="form.rooms" />
+                <input
+                    id="rooms"
+                    type="number"
+                    v-model="form.rooms"
+                    required
+                    min="0"
+                    max="50"
+                />
                 <div v-if="$page.props.errors.rooms">
                     {{ $page.props.errors.rooms }}
                 </div>
 
                 <label for="beds">Beds *</label>
-                <input min="0" type="number" id="beds" v-model="form.beds" />
-                <div v-if="$page.props.errors.beds">{{ $page.props.errors.beds }}</div>
+                <input
+                    id="beds"
+                    type="number"
+                    v-model="form.beds"
+                    required
+                    min="0"
+                    max="50"
+                />
+                <div v-if="$page.props.errors.beds">
+                    {{ $page.props.errors.beds }}
+                </div>
 
                 <label for="bathrooms">Bathrooms *</label>
-                <input min="0" type="number" id="bathrooms" v-model="form.bathrooms" />
+                <input
+                    id="bathrooms"
+                    type="number"
+                    v-model="form.bathrooms"
+                    required
+                    min="0"
+                    max="50"
+                />
                 <div v-if="$page.props.errors.bathrooms">
                     {{ $page.props.errors.bathrooms }}
                 </div>
 
                 <label for="square_meters">Square Meters *</label>
-                <input min="0" type="number" id="square_meters" v-model="form.square_meters" />
+                <input
+                    id="square_meters"
+                    type="number"
+                    v-model="form.square_meters"
+                    required
+                    min="0"
+                    max="60000"
+                />
                 <div v-if="$page.props.errors.square_meters">
                     {{ $page.props.errors.square_meters }}
                 </div>
 
-                <label for="searchbox">Address *</label>
+                <label>Address *</label>
                 <AutoSearchTT @geodata="handleGeoData"/>
                 <div v-if="$page.props.errors.full_address || $page.props.errors.city || $page.props.errors.country || $page.props.errors.latitude || $page.props.errors.longitude">
-                    {{ $page.props.errors.full_address }}<br>Please, select an address from the dropdown.
+                    {{ $page.props.errors.full_address }}
+                    <br>
+                    Please, select an address from the dropdown.
                 </div>
 
-                <label for="price">Price *</label>
-                <input type="number" min="0" step=".01" id="price" v-model="form.price" />
+                <label for="price">Price (&euro;) *</label>
+                <input
+                    id="price"
+                    type="number"
+                    v-model="form.price"
+                    required
+                    min="0"
+                    max="90000"
+                    step=".01"
+                    @focusout="setTwoNumberDecimal()"
+                    />
                 <div v-if="$page.props.errors.price">
                     {{ $page.props.errors.price }}
                 </div>
 
                 <label for="cover_image">Cover Image *</label>
-                <input type="file" @input="form.cover_image = $event.target.files[0]" />
+                <input
+                    id="cover_image"
+                    type="file"
+                    @input="form.cover_image = $event.target.files[0]"
+                    required
+                    accept="image/*"
+                />
                 <progress
                     v-if="form.progress"
-                    id="cover_image"
+                    id="cover_image_progress"
                     :value="form.progress.percentage"
                     max="100"
                 >
@@ -120,6 +177,7 @@ export default {
                     id="gallery"
                     multiple
                     @input="form.gallery = $event.target.files"
+                    accept="image/*"
                 />
                 <progress
                     v-if="form.progress"
@@ -135,6 +193,7 @@ export default {
                     id="description"
                     cols="30"
                     rows="10"
+                    required
                     v-model="form.description"
                 ></textarea>
                 <div v-if="$page.props.errors.description">

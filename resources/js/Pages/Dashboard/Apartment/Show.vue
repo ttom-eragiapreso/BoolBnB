@@ -31,7 +31,10 @@ export default {
                 .setLngLat([this.apartment.longitude, this.apartment.latitude])
                 .setPopup(popup);
             marker.addTo(map);
+            map.addControl(new tt.FullscreenControl);
+            map.addControl(new tt.NavigationControl);
         });
+
     },
 };
 </script>
@@ -79,6 +82,7 @@ export default {
                     alt="image_galler"
                     class="rounded-2xl max-h-64"
                 />
+                <!-- Fare che quando clicchi all'immagine, si mostri sopra a tutto grande -->
                 <p v-else>
                     You have not added additional photos to your listing, add
                     some
