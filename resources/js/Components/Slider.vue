@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white pt-2">
+  <div class="bg-white sm:px-8 wrapper">
 
     <div class="flex relative">
       <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_position > 15">
@@ -58,6 +58,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
+.wrapper{
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
 
 .hide-scroll::-webkit-scrollbar {
     display: none;
@@ -88,7 +92,7 @@ button {
 .btn-wrap-l{
 
   align-items: center;
-  height: 79px;
+  height: 100%;
   padding-right: 50px;
   background: rgb(255,255,255);
 background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0) 100%);
@@ -98,7 +102,7 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 5
 
   align-items: center;
 
-  height: 79px;
+  height: 100%;
   padding-left:50px;
   background: rgb(255,255,255);
 background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0) 100%);
