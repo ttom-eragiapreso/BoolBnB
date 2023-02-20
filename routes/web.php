@@ -4,6 +4,7 @@ use App\Http\Controllers\HousesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\GuestController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,21 +21,10 @@ use App\Models\Type_of_stay;
 |
 */
 
-Route::get('/', function () {
-    $types_of_stay = Type_of_stay::all();
-    return Inertia::render('Guest/Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'types_of_stay' => $types_of_stay
-    ]);
-})->name('home');
+Route::get('/', [GuestController::class, 'index'])->name('home');
 
-Route::get('/advanced-search', function (){
-    return Inertia::render(('Guest/AdvancedSearch'));
-})->name('advancedsearch');
-Route::get('/details', function (){
-    return Inertia::render(('Guest/Details'));
-})->name('details');
+Route::get('/advanced-search', [GuestController::class, 'advancedSearch'])->name('advancedsearch');
+Route::get('/details/{slug}', [GuestController::class, 'details'])->name('details');
 
 Route::middleware(['auth', 'verified'])
     ->name('dashboard.')

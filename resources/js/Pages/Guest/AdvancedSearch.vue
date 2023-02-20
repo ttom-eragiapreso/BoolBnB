@@ -1,21 +1,20 @@
 <script>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 export default {
-    name: 'AdvancedSearch',
+    name: "AdvancedSearch",
     components: {
         GuestLayout,
     },
-}
+    props: {
+        apartments: Array,
+    },
+};
 </script>
 
 <template>
-
-  <GuestLayout>
+    <GuestLayout>
         <h1>Advanced Search</h1>
     </GuestLayout>
-
 </template>
 
-<style>
-
-</style>
+<style></style>
