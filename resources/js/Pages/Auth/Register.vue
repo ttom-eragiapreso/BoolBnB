@@ -29,7 +29,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Name *" />
 
                 <TextInput
                     id="name"
@@ -52,7 +52,7 @@ const submit = () => {
                     type="text"
                     class="mt-1 block w-full"
                     v-model="form.surname"
-                    required
+
                     autofocus
                     autocomplete="surname"
                 />
@@ -68,7 +68,7 @@ const submit = () => {
                     type="date"
                     class="mt-1 block w-full"
                     v-model="form.date_of_birth"
-                    required
+
                     autofocus
                     autocomplete="date_of_birth"
                 />
@@ -77,7 +77,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email *" />
 
                 <TextInput
                     id="email"
@@ -92,7 +92,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Password *" />
 
                 <TextInput
                     id="password"
@@ -107,7 +107,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Confirm Password *" />
 
                 <TextInput
                     id="password_confirmation"

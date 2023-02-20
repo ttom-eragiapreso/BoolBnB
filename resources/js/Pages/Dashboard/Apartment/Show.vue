@@ -74,14 +74,16 @@ export default {
             <h5 class="font-bold pb-4">Gallery:</h5>
 
             <div class="flex flex-wrap gap-3">
-                <img
-                    v-if="apartment.images.length > 0"
-                    v-for="(image, id) in apartment.images"
-                    :key="id"
-                    :src="'/storage/' + image.url"
-                    alt="image_galler"
-                    class="rounded-2xl max-h-64"
-                />
+                <div class="flex flex-wrap gap-3" v-if="apartment.images.length > 0">
+                    <img
+
+                        v-for="(image, id) in apartment.images"
+                        :key="id"
+                        :src="'/storage/' + image.url"
+                        alt="image_galler"
+                        class="rounded-2xl max-h-64"
+                    />
+                </div>
                 <!-- Fare che quando clicchi all'immagine, si mostri sopra a tutto grande -->
                 <p v-else>
                     You have not added additional photos to your listing, add
