@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-white sm:px-8 wrapper">
 
     <div class="flex relative">
       <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_position > 15">
@@ -58,6 +58,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
+.wrapper{
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
 
 .hide-scroll::-webkit-scrollbar {
     display: none;

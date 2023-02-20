@@ -27,7 +27,9 @@ class GuestController extends Controller
 
         $apartments = Apartment::with('images')->get();
 
-        return Inertia::render('Guest/AdvancedSearch', compact('apartments'));
+        $types_of_stay = Type_of_stay::all();
+
+        return Inertia::render('Guest/AdvancedSearch', compact('apartments', 'types_of_stay'));
     }
 
     public function details(String $slug){

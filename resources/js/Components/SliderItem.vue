@@ -9,7 +9,7 @@ export default {
 
 <template>
 
-    <div class=" cursor-pointer flex flex-col text-lg items-center mx-8 pt-5 pb-3 text-slate-500 hover:text-black transition duration-300 hover:ease-in">
+    <div class=" cursor-pointer flex flex-col text-lg items-center mx-8 pt-5 pb-2 text-slate-500 hover:text-black transition duration-300 hover:ease-in">
         <i :class=" item.icon "></i>
         <span class="inline-block mt-1 font-bold">{{ item.name }}</span>
     </div>
