@@ -3,10 +3,10 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Slider from "@/Components/Slider.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 import Card from "@/Components/Card.vue";
-import TextInput from '@/Components/TextInput.vue';
-import {Link, useForm } from '@inertiajs/vue3';
-import InputLabel from '@/Components/InputLabel.vue';
-import Checkbox from '@/Components/Checkbox.vue';
+// import TextInput from '@/Components/TextInput.vue';
+// import {Link, useForm } from '@inertiajs/vue3';
+// import InputLabel from '@/Components/InputLabel.vue';
+// import Checkbox from '@/Components/Checkbox.vue';
 
 
 export default {
@@ -16,13 +16,13 @@ export default {
         Slider,
         Card
     },
-    data(){
-        return {
-            form: useForm({
+    // data(){
+    //     return {
+    //         form: useForm({
 
-            })
-        }
-    },
+    //         })
+    //     }
+    // },
     props: {
         types_of_stay: Array,
         apartments: Array,
@@ -53,7 +53,6 @@ export default {
     },
 };
 </script>
-<!-- 41.89027805140671, 12.492230901450688 -->
 
 <template>
     <GuestLayout>
