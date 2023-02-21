@@ -1,5 +1,7 @@
 <script>
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import tt from "@tomtom-international/web-sdk-maps";
+
 export default {
     name: "Details",
     components: {
@@ -9,6 +11,30 @@ export default {
         apartment: Object,
         user: String
     },
+    mounted() {
+        const map = tt.map({
+            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
+            container: "map",
+            center: [this.apartment.longitude, this.apartment.latitude],
+            zoom: 15,
+            style: "/satellitemap.json",
+        });
+
+        map.on("load", () => {
+            let popup = new tt.Popup({
+                closeButton: false,
+                offset: 35,
+                anchor: "bottom",
+            }).setText(this.apartment.title);
+            let marker = new tt.Marker()
+                .setLngLat([this.apartment.longitude, this.apartment.latitude])
+                .setPopup(popup);
+            marker.addTo(map);
+            map.addControl(new tt.FullscreenControl);
+            map.addControl(new tt.NavigationControl);
+        });
+
+    }
 };
 </script>
 
@@ -18,7 +44,7 @@ export default {
 
 
         <div
-            class="container max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl my-4 px-8 lg:px-20 pb-4"
+            class="container max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl px-8 lg:px-20 py-8"
         >
             <h1 class="text-3xl pb-2 font-bold">{{ apartment.title }}</h1>
             <p class=" mb-4 font-bold underline"> &#8669;
@@ -34,13 +60,13 @@ export default {
                         class="w-full h-[350px] rounded-l-2xl p-1 hover:brightness-75"
                     />
                 </div>
-                <div class="w-[50%] flex flex-wrap rounded-r-2xl overflow-hidden h-[350px]">
+                <div class="w-[50%] flex flex-wrap rounded-r-3xl overflow-hidden h-[350px]">
                         <img
                             v-for="(image, id) in apartment.images"
                             :key="id"
                             :src="'/storage/' + image.url"
                             alt="image_galler"
-                            class="w-[50%] h-[175px] px-1 hover:brightness-75"
+                            class="w-[50%] h-[175px] p-1 hover:brightness-75"
                         />
                 </div>
             </div>
@@ -66,13 +92,10 @@ export default {
 
         </div>
 
-        <div
-            class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
             <div
                 id="map"
-                class="mx-auto my-8 w-10/12 h-[500px] rounded-2xl shadow-2xl"
-            ></div>
-        </div>
+                class="mx-auto my-8 max-w-7xl h-[500px] rounded-2xl shadow-2xl">
+            </div>
 
         <div
             class="container mb-20 py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
