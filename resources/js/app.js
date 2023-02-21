@@ -11,8 +11,7 @@ import Swiper from "swiper";
 // register Swiper custom elements
 register();
 
-const appName =
-    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
+const appName = "BoolBnb";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

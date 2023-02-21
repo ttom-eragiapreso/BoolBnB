@@ -2,17 +2,20 @@
 
 import AutoSearchTT from '../../../Components/AutoSearchTT.vue';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, Head } from "@inertiajs/vue3";
 
 export default {
     name: "Edit",
     props: {
         apartment: Object,
+        features: Array,
+        type_of_stays: Array
     },
     components: {
         Link,
         AuthenticatedLayout,
-        AutoSearchTT
+        AutoSearchTT,
+        Head
     },
     data() {
         return {
@@ -31,6 +34,8 @@ export default {
                 cover_image: null,
                 gallery: null,
                 description: this.apartment.description,
+                features: [],
+                type_of_stay_id: this.apartment.type_of_stay_id,
                 is_visible: this.apartment.is_visible ? true : false,
                 errors: null,
                 oldGallery: {},
@@ -53,6 +58,11 @@ export default {
         },
         setTwoNumberDecimal(){
             this.form.price = parseFloat(this.form.price).toFixed(2);
+        },
+        handleFeatures(){
+            this.apartment.features.forEach(feature => {
+                this.form.features.push(feature.id)
+            });
         }
     },
     mounted(){
@@ -60,12 +70,15 @@ export default {
         this.apartment.images.forEach((image, index) => {
             this.form.oldGallery[index] = true;
         });
-        // console.log(this.form.oldGallery);
+
+        this.handleFeatures();
     }
 };
 </script>
 
 <template>
+
+    <Head title="Edit Apartment"></Head>
 
     <AuthenticatedLayout>
 
@@ -223,11 +236,31 @@ export default {
                     id="description"
                     cols="30"
                     rows="10"
+                    minlength="10"
                     required
                     v-model="form.description"
                 ></textarea>
                 <div v-if="$page.props.errors.description">
                     {{ $page.props.errors.description }}
+                </div>
+
+                <label for="features">Features: </label>
+                <div class="grid grid-cols-4">
+                    <div v-for="feature in features" :key="feature.id">
+                        <input type="checkbox" v-model="form.features" :checked="form.features.includes(feature.id)" :value="feature.id" :id="feature.name">
+                        <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
+                    </div>
+                </div>
+
+                <label for="types">Type*: </label>
+                <div>
+                    <select id="types" v-model="form.type_of_stay_id" required>
+                        <!-- <option value="" selected disabled>Select a Type</option> -->
+                        <option v-for="elem in type_of_stays" :key="elem.id" :value="elem.id">{{ elem.name }}</option>
+                    </select>
+                </div>
+                <div v-if="$page.props.errors.type_of_stay_id">
+                    {{ $page.props.errors.type_of_stay_id }}
                 </div>
 
                 <div>

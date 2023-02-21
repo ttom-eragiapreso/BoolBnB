@@ -7,9 +7,9 @@ import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import Footer from "@/Components/Footer.vue";
 import { Link } from "@inertiajs/vue3";
-// import {Inertia} from "@inertiajs/inertia-vue3";
 
 const showingNavigationDropdown = ref(false);
+
 </script>
 
 <template>
@@ -24,22 +24,23 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('home')">
-                                    <ApplicationLogo
-
-                                    />
+                                    <ApplicationLogo/>
                                 </Link>
-
                             </div>
 
                             <!-- Navigation Links -->
-                            <div
-                                class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
-                            >
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     :href="route('dashboard.home')"
                                     :active="route().current('dashboard.home')"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    :href="route('dashboard.apartment.index')"
+                                    :active="route().current('dashboard.apartment.index')"
+                                >
+                                    Listings
                                 </NavLink>
                             </div>
                         </div>
@@ -48,13 +49,14 @@ const showingNavigationDropdown = ref(false);
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
+
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {{ $page.props.auth.user.name }}
+                                                Hi, {{ $page.props.auth.user.name }}
 
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -80,11 +82,30 @@ const showingNavigationDropdown = ref(false);
                                             Your Apartments
                                         </DropdownLink>
                                         <DropdownLink
+                                        :href="route('dashboard.apartment.messages')"
+                                        as="button"
+                                        >
+                                        Your Messages
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('dashboard.apartment.stats')"
+                                            as="button"
+                                        >
+                                            Your Statistics
+                                        </DropdownLink>
+                                        <DropdownLink
                                             :href="route('dashboard.apartment.create')"
                                             as="button"
                                         >
-                                            Add Apartment
+                                            Add New Apartment
                                         </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('dashboard.apartment.index')"
+                                            as="button"
+                                        >
+                                            Transactions history
+                                        </DropdownLink>
+                                        <hr>
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
@@ -94,6 +115,7 @@ const showingNavigationDropdown = ref(false);
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
+                                            class="text-red-700"
                                         >
                                             Log Out
                                         </DropdownLink>
@@ -105,10 +127,7 @@ const showingNavigationDropdown = ref(false);
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
                             <button
-                                @click="
-                                    showingNavigationDropdown =
-                                        !showingNavigationDropdown
-                                "
+                                @click="showingNavigationDropdown = !showingNavigationDropdown"
                                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                             >
                                 <svg
@@ -160,6 +179,36 @@ const showingNavigationDropdown = ref(false);
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('dashboard.apartment.index')"
+                            :active="route().current('dashboard.apartment.index')"
+                        >
+                            Listings
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('dashboard.apartment.create')"
+                            :active="route().current('dashboard.apartment.create')"
+                        >
+                            Add new Apartment
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('dashboard.apartment.messages')"
+                            :active="route().current('dashboard.apartment.messages')"
+                        >
+                            Your Messages
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('dashboard.apartment.stats')"
+                            :active="route().current('dashboard.apartment.stats')"
+                        >
+                            Your Statistics
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('dashboard.apartment.stats')"
+                            :active="route().current('dashboard.apartment.stats')"
+                        >
+                            Transactions history
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -193,12 +242,29 @@ const showingNavigationDropdown = ref(false);
             <header class="bg-white shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
-                    <div class="mt-5" v-if="$page.props.flash.message">
-                        <h5 class=" text-red-500">{{ $page.props.flash.message }}</h5>
-
-                    </div>
                 </div>
             </header>
+
+            <!-- Message box -->
+            <div
+                v-if="$page.props.flash.message"
+                class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl mt-4 mb-[-32px] flex justify-between items-center"
+            >
+                <h5
+                    class="align-middle font-semibold"
+                    :class="($page.props.flash.message.includes('updated') ? 'text-amber-600' : ($page.props.flash.message.includes('created') ? 'text-green-600' : 'text-red-600' ))"
+                >
+                    {{ $page.props.flash.message }}
+                </h5>
+
+                <button
+                    class="text-xl border border-slate-300 text-slate-400 px-2 py-[0.1rem] rounded-md hover:text-slate-700 hover:border-slate-500"
+                    @click="$page.props.flash.message = null"
+                >
+                    &times;
+                </button>
+
+            </div>
 
             <!-- Page Content -->
             <main class="pb-24">
