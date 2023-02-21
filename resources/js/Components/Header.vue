@@ -62,7 +62,7 @@ export default {
                 >
                     <svg
                         aria-hidden="true"
-                        class="w-[34px] h-[100%] text-gray-500 dark:text-white bg-[#FB1C4A] p-2 border-transparent rounded-full"
+                        class="w-[34px] h-[100%] text-white dark:text-white bg-[#FB1C4A] p-2 border-transparent rounded-full"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
