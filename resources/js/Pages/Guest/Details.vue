@@ -24,6 +24,7 @@ export default {
     methods:{
         toggleModal: function(){
         this.showModal = !this.showModal;
+        }
     },
     mounted() {
         const map = tt.map({
@@ -48,8 +49,7 @@ export default {
             map.addControl(new tt.NavigationControl);
         });
 
-    }
-    }
+     }
 };
 </script>
 
