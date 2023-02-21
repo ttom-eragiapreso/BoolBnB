@@ -4,34 +4,31 @@ import Slider from "@/Components/Slider.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 import Card from "@/Components/Card.vue";
 
-
-
 export default {
     name: "AdvancedSearch",
     components: {
         GuestLayout,
         Slider,
-        Card
+        Card,
     },
-    data(){
+    data() {
         return {
-            filters:{
-                "beds": 0,
-                "rooms": 0,
-                "bathrooms": 0,
-                "type_of_stay": null,
-                "features": [],
+            filters: {
+                beds: 0,
+                rooms: 0,
+                bathrooms: 0,
+                type_of_stay: null,
+                features: [],
             },
-            filtered_apartments: []
-        }
+            filtered_apartments: [],
+        };
     },
     props: {
         types_of_stay: Array,
         apartments: Array,
-        features: Array
+        features: Array,
     },
     mounted() {
-
         this.filtered_apartments = this.apartments;
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
@@ -46,84 +43,135 @@ export default {
                 closeButton: false,
                 offset: 35,
                 anchor: "bottom",
-            }).setText('Colosseo');
+            }).setText("Colosseo");
             let marker = new tt.Marker()
                 .setLngLat([12.492230901450688, 41.89027805140671])
                 .setPopup(popup);
             marker.addTo(map);
-            map.addControl(new tt.FullscreenControl);
-            map.addControl(new tt.NavigationControl);
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
         });
-
     },
-    methods:{
-        filterFeature(a_apartment){
+    methods: {
+        checkId(id) {
+            this.apartments.forEach((apartment) => {
+                return apartment.features.includes(id);
+            });
+        },
 
-            if(a_apartment.features.length > 0){
+        updateFilter() {
+            this.filtered_apartments = this.apartments.filter((apartment) => {
+                if (apartment.features.length <= 0) return;
 
-                a_apartment.features.forEach(apt_feature => {
+                let ciao = this.filters.features.every(this.checkId);
 
-                    if(this.filters.features.includes(apt_feature.id)){
-                        return true
-                    }else{
-                        return false
-                    }
-                });
-            }else{
-                return false
-            }
-        }
+                console.log(ciao);
+                let flag2;
+
+                // if (ciao) {
+                //     flag2 = true;
+                // } else {
+                //     flag2 = false;
+                // }
+
+                return apartment.beds >= this.filters.beds &&
+                    apartment.rooms >= this.filters.rooms &&
+                    apartment.bathrooms >= this.filters.bathrooms &&
+                    ciao
+                    ? true
+                    : false;
+            });
+            console.log(this.filtered_apartments);
+        },
+
+        addFeature(id) {
+            this.filters.features.push(id);
+            this.updateFilter();
+        },
     },
-    computed:{
-
-        handleFilter(){
-
-            this.filtered_apartments = this.apartments.filter( a_apartment => {
-                console.log('ciao');
-                return (a_apartment.rooms >= this.filters.rooms && a_apartment.beds >= this.filters.beds && a_apartment.bathrooms >= this.filters.bathrooms && this.filterFeature(a_apartment))
-
-            })
-            console.log(this.filters);
-
-            return this.filtered_apartments;
-        }
-    }
+    computed: {},
 };
 </script>
 
 <template>
     <GuestLayout>
         <div>
-
             <Slider :types_of_stay="types_of_stay" />
-            <div class="py-4 lg:px-20 px-8  flex w-full">
-                <div class=" w-2/3">
+            <div class="py-4 lg:px-20 px-8 flex w-full">
+                <div class="w-2/3">
+                    <h3 class="text-2xl mb-3">Features:</h3>
+                    <button
+                        :class="{
+                            'border-black': this.filters.features.includes(
+                                feature.id
+                            ),
+                        }"
+                        @click="addFeature(feature.id)"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        v-for="feature in features"
+                        :key="feature.id"
+                    >
+                        {{ feature.name }}
+                    </button>
 
-                        <h3 class=" text-2xl mb-3">Features:</h3>
-                        <button :class="{'border-black' : this.filters.features.includes(feature.id)}" @click="this.filters.features.push(feature.id)" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                        v-for="feature in features" :key="feature.id">{{ feature.name }}</button>
+                    <h3 class="text-2xl mb-3">Rooms:</h3>
 
-                        <h3 class=" text-2xl mb-3">Rooms:</h3>
+                    <button
+                        @click="this.filters.rooms = i"
+                        :class="{ 'border-black': this.filters.rooms === i }"
+                        v-for="i in 7"
+                        :key="i"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                    >
+                        {{ i }}
+                    </button>
 
-                        <button @click="this.filters.rooms = i" :class="{'border-black' : this.filters.rooms === i}"
-                        v-for="i in 7" :key="i" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">{{ i }}</button>
+                    <button
+                        @click="this.filters.rooms = 8"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                    >
+                        8+
+                    </button>
 
-                        <button @click="this.filters.rooms = 8" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">8+</button>
+                    <h3 class="text-2xl mb-3">Beds:</h3>
+                    <button
+                        @click="this.filters.beds = i"
+                        :class="{ 'border-black': this.filters.beds === i }"
+                        v-for="i in 7"
+                        :key="i"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                    >
+                        {{ i }}
+                    </button>
+                    <button
+                        @click="this.filters.beds = 8"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                    >
+                        8+
+                    </button>
 
-                        <h3 class=" text-2xl mb-3">Beds:</h3>
-                        <button @click="this.filters.beds = i" :class="{'border-black' : this.filters.beds === i}"
-                        v-for="i in 7" :key="i" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">{{ i }}</button>
-                        <button @click="this.filters.beds = 8" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">8+</button>
-
-                        <h3 class=" text-2xl mb-3">Bathrooms:</h3>
-                        <button @click="this.filters.bathrooms = i" :class="{'border-black' : this.filters.bathrooms === i}"
-                        v-for="i in 3" :key="i" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">{{ i }}</button>
-                        <button @click="this.filters.bathrooms = 4" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">4+</button>
-
+                    <h3 class="text-2xl mb-3">Bathrooms:</h3>
+                    <button
+                        @click="this.filters.bathrooms = i"
+                        :class="{
+                            'border-black': this.filters.bathrooms === i,
+                        }"
+                        v-for="i in 3"
+                        :key="i"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                    >
+                        {{ i }}
+                    </button>
+                    <button
+                        @click="this.filters.bathrooms = 4"
+                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                    >
+                        4+
+                    </button>
 
                     <div class="flex gap-4 flex-wrap">
                         <Card
-                            v-for="apartment in handleFilter"
+                            v-for="apartment in this.filtered_apartments"
                             :key="apartment.id"
                             :apartment="apartment"
                             class="w-auto"
@@ -131,17 +179,13 @@ export default {
                     </div>
                 </div>
                 <div class="w-1/3">
-
                     <div
-                    id="map"
-                    class=" my-0 h-[500px]  rounded-2xl shadow-2xl"
-                    >
-                    </div>
+                        id="map"
+                        class="my-0 h-[500px] rounded-2xl shadow-2xl"
+                    ></div>
                 </div>
-
             </div>
         </div>
-
     </GuestLayout>
 </template>
 
