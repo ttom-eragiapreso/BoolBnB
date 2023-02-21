@@ -13,7 +13,7 @@ class GuestController extends Controller
 {
     public function index(){
         $types_of_stay = Type_of_stay::all();
-        $apartments = Apartment::with('images')->get();
+        $apartments = Apartment::with('images')->where('is_visible', 1)->get();
 
         return Inertia::render('Guest/Home', [
             'canLogin' => Route::has('login'),
