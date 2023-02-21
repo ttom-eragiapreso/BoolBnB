@@ -15,7 +15,7 @@ class GuestController extends Controller
 {
     public function index(){
         $types_of_stay = Type_of_stay::all();
-        $apartments = Apartment::with('images')->get();
+        $apartments = Apartment::with('images')->where('is_visible', 1)->get();
 
         return Inertia::render('Guest/Home', [
             'canLogin' => Route::has('login'),
@@ -29,7 +29,11 @@ class GuestController extends Controller
 
         $apartments = Apartment::with('images')->get();
 
-        return Inertia::render('Guest/AdvancedSearch', compact('apartments'));
+        $features = Feature::all();
+
+        $types_of_stay = Type_of_stay::all();
+
+        return Inertia::render('Guest/AdvancedSearch', compact('apartments', 'types_of_stay', 'features'));
     }
 
     public function details(String $slug){
@@ -41,6 +45,15 @@ class GuestController extends Controller
         $email = $apartment->user->email;
         $features = Feature::all();
 
+
         return Inertia::render('Guest/Details', compact('apartment', 'user', 'features', 'name', 'date', 'email'));
+
+        if($apartment->is_visible) {
+            return Inertia::render('Guest/Details', compact('apartment'));
+        }else {
+            return redirect(route('home'))->with('message', 'Invalid URL');
+        }
+
+
     }
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="container mx-auto flex">
+    <div class="mx-auto flex flex-col md:flex-row flex-wrap">
         <!-- Img container -->
-        <div class="w-72 aspect-square border rounded-xl overflow-hidden">
+        <div class="w-72 aspect-square border rounded-xl overflow-hidden md:m-2 mx-auto">
             <img
                 :src="'/storage/' + apartment.cover_image"
                 alt="cover image"
@@ -9,9 +9,9 @@
             />
         </div>
 
-        <div class="px-7 py-2 grow flex flex-col">
+        <div class="px-2 lg:px-7 py-4 grow flex flex-col md:w-[280px] lg:w-[26rem] xl:w-[32rem]">
             <!-- Title -->
-            <div class="flex justify-between">
+            <div>
                 <h2 class="font-bold text-3xl">{{ apartment.title }}</h2>
             </div>
             <!-- Location -->
@@ -28,37 +28,45 @@
                 Is Public:
                 <strong>{{ apartment.is_visible ? "Yes" : "No" }}</strong>
             </h5>
-            <!-- Date -->
+            <!-- Dates -->
             <h5 class="text-slate-600">
-                Created at: {{ apartment.created_at }}
+                Created at: {{ handleCreateDate }}
             </h5>
             <h5 class="text-slate-600">
-                Last update at: {{ apartment.updated_at }}
+                Last update at: {{ handleUpdateDate }}
             </h5>
         </div>
 
-        <div class="px-7 flex flex-col gap-5 justify-center">
+        <div class="lg:ml-auto py-2 sm:py-4 px-2 grid grid-cols-4 lg:flex lg:flex-col grow lg:grow-0 gap-4 justify-center">
             <Link
                 :href="route('dashboard.apartment.show', apartment.slug)"
                 as="button"
-                class="px-6 py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                Show
+                <i class="fa-solid fa-circle-info text-sm"></i> <span class="hidden sm:inline">Show</span>
             </Link>
             <Link
                 :href="route('dashboard.apartment.edit', apartment.slug)"
                 as="button"
-                class="px-6 py-3 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="py-3 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                Edit
+                <i class="fa-solid fa-sliders text-sm"></i> <span class="hidden sm:inline">Edit</span>
+            </Link>
+            <Link
+                :href="route('dashboard.apartment.edit', apartment.slug)"
+                as="button"
+                class="py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
+            >
+                <i class="fa-solid fa-chart-simple text-sm"></i> <span class="hidden sm:inline">Stats</span>
             </Link>
             <button
-                @click.prevent="remove(apartment)"
-                class="px-6 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+            @click.prevent="remove(apartment)"
+            class="px-1 md:px-8 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                Delete
+                <i class="fa-solid fa-trash text-sm"></i> <span class="hidden sm:inline">Delete</span>
             </button>
         </div>
+
     </div>
 </template>
 
@@ -80,5 +88,15 @@ export default {
             }
         },
     },
+    computed:{
+        handleCreateDate(){
+            const data = new Date(this.apartment.created_at);
+            return data.toLocaleDateString('it-IT', {dateStyle: 'short'});
+        },
+        handleUpdateDate(){
+            const data = new Date(this.apartment.updated_at);
+            return data.toLocaleDateString('it-IT', {dateStyle: 'short'});
+        },
+    }
 };
 </script>

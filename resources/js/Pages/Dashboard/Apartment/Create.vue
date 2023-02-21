@@ -2,14 +2,19 @@
 
 import AutoSearchTT from '../../../Components/AutoSearchTT.vue';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, Head } from "@inertiajs/vue3";
 
 export default {
     name: "Create",
     components: {
         Link,
         AuthenticatedLayout,
-        AutoSearchTT
+        AutoSearchTT,
+        Head
+    },
+    props:{
+        features: Array,
+        type_of_stays: Array
     },
     data() {
         return {
@@ -30,12 +35,13 @@ export default {
                 is_visible: true,
                 gallery: null,
                 errors: null,
+                type_of_stay_id: '',
+                features: []
             })
         };
     },
     methods:{
         handleGeoData(event){
-            // console.log(event);
             this.form.city = event.city;
             this.form.country = event.country;
             this.form.full_address = event.full_address;
@@ -50,6 +56,8 @@ export default {
 </script>
 
 <template>
+
+    <Head title="Create Apartment" />
 
     <AuthenticatedLayout>
 
@@ -193,11 +201,31 @@ export default {
                     id="description"
                     cols="30"
                     rows="10"
+                    minlength="10"
                     required
                     v-model="form.description"
                 ></textarea>
                 <div v-if="$page.props.errors.description">
                     {{ $page.props.errors.description }}
+                </div>
+
+                <label for="features">Features: </label>
+                <div class="grid grid-cols-4">
+                    <div v-for="feature in features" :key="feature.id">
+                        <input type="checkbox" v-model="form.features" :value="feature.id" :id="feature.name">
+                        <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
+                    </div>
+                </div>
+
+                <label for="types">Type*: </label>
+                <div>
+                    <select id="types" v-model="form.type_of_stay_id" required>
+                        <option value="" selected disabled>Select a Type</option>
+                        <option v-for="elem in type_of_stays" :key="elem.id" :value="elem.id">{{ elem.name }}</option>
+                    </select>
+                </div>
+                <div v-if="$page.props.errors.type_of_stay_id">
+                    {{ $page.props.errors.type_of_stay_id }}
                 </div>
 
                 <div>
@@ -210,18 +238,7 @@ export default {
                     />
                 </div>
 
-                <!-- submit -->
-                <!-- <Link
-                    as="button"
-                    :href="route('dashboard.apartment.store')"
-                    method="POST"
-                    :data="this.form"
-                    :disabled="form.processing"
-                    class="px-6 py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                    >Create!
-                </Link> -->
                 <button type="submit" class="px-6 py-3 bg-yellow-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">Vai</button>
-
 
             </form>
 

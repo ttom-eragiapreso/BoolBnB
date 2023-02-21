@@ -3,13 +3,34 @@
         <div>
             <!-- Img container -->
             <div
-                class="w-72 aspect-square border rounded-xl overflow-hidden relative"
+                class="w-60 aspect-square border rounded-xl overflow-hidden relative"
             >
-                <img
-                    src="https://static.designboom.com/wp-content/uploads/2019/12/niko-architect-house-in-the-landscape-moscow-designboom-1800.jpg"
-                    alt="Immagine"
-                    class="h-full w-full object-cover"
-                />
+                <swiper
+                    class="w-full h-full"
+                    :loop="true"
+                    :mousewheel="{
+                        forceToAxis: true,
+                    }"
+                    :pagination="{
+                        clickable: true,
+                        dynamicBullets: true,
+                    }"
+                >
+                    <swiper-slide>
+                        <img
+                            :src="'/storage/' + apartment.cover_image"
+                            alt="Immagine"
+                            class="h-full w-full object-cover"
+                        />
+                    </swiper-slide>
+                    <swiper-slide v-for="image in apartment.images">
+                        <img
+                            :src="'/storage/' + image.url"
+                            alt="Immagine"
+                            class="h-full w-full object-cover"
+                        />
+                    </swiper-slide>
+                </swiper>
 
                 <div class="absolute top-0 right-0 z-10 text-white p-3 text-xl">
                     <i class="fa-regular fa-heart"></i>
@@ -17,20 +38,42 @@
             </div>
             <!-- Title and rating -->
             <div class="flex justify-between mt-3">
-                <h2 class="font-bold">Roma, Italia</h2>
-                <div>
-                    <i class="fa-solid fa-star"></i>
-                    <span>5</span>
-                </div>
+                <h2 class="font-bold">
+                    {{ apartment.city }}, {{ apartment.country }}
+                </h2>
             </div>
             <!-- Vista -->
             <h5 class="text-slate-600">Vista sul vigneto</h5>
             <!-- Date -->
             <h5 class="text-slate-600">01-06 apr . Host Privato</h5>
             <!-- Price -->
-            <h5 class="underline"><strong>550€ </strong>totale</h5>
+            <h5 class="underline">
+                <strong>{{ apartment.price }} &euro; </strong>totale
+            </h5>
         </div>
     </div>
 </template>
 
-<script setup></script>
+<script>
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Navigation, Pagination } from "swiper";
+
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
+import "swiper/scss/scrollbar";
+import "swiper/scss/mousewheel";
+
+export default {
+    components: {
+        Swiper,
+        SwiperSlide,
+        Navigation,
+        Pagination,
+    },
+    props: {
+        apartment: Object,
+    },
+};
+</script>
+<style lang="scss" scoped></style>
