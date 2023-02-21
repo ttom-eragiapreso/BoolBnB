@@ -1,7 +1,7 @@
 <script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import CardDashboard from "@/Components/CardDashboard.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, Head } from "@inertiajs/vue3";
 
 export default {
     name: "Index",
@@ -9,6 +9,7 @@ export default {
         CardDashboard,
         AuthenticatedLayout,
         Link,
+        Head
     },
     props: {
         user_apartments: Array,
@@ -17,7 +18,11 @@ export default {
 </script>
 
 <template>
+
+    <Head title="Apartments" />
+
     <AuthenticatedLayout>
+
         <template v-slot:header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Your Apartments
@@ -26,18 +31,17 @@ export default {
 
         <div class="py-12" v-if="user_apartments.length > 0">
             <div
-                class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2"
+                class="max-w-7xl mx-auto md:px-6 lg:px-8 pb-6"
                 v-for="apartment in user_apartments"
                 :key="apartment.id"
             >
-                <div
-                    class="bg-white overflow-hidden shadow-sm sm:rounded-xl p-4"
-                >
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-2xl p-4 hover:shadow-md">
                     <CardDashboard :apartment="apartment" />
                 </div>
             </div>
         </div>
-        <div v-else class="container mx-auto py-12">
+
+        <div v-else class="container mx-auto py-10">
             <p class="text-2xl">
                 List your first apartment
                 <Link
@@ -47,7 +51,9 @@ export default {
                 >
             </p>
         </div>
+
     </AuthenticatedLayout>
+
 </template>
 
 <style></style>

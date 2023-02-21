@@ -2,7 +2,7 @@
 
 import AutoSearchTT from '../../../Components/AutoSearchTT.vue';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, Head } from "@inertiajs/vue3";
 
 export default {
     name: "Edit",
@@ -14,7 +14,8 @@ export default {
     components: {
         Link,
         AuthenticatedLayout,
-        AutoSearchTT
+        AutoSearchTT,
+        Head
     },
     data() {
         return {
@@ -76,6 +77,8 @@ export default {
 </script>
 
 <template>
+
+    <Head title="Edit Apartment"></Head>
 
     <AuthenticatedLayout>
 

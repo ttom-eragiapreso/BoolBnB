@@ -44,8 +44,8 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $gallery = request('gallery');
 
+        $gallery = request('gallery');
         $features = request('features');
 
         $validated_request = $request->validate([
@@ -67,9 +67,7 @@ class ApartmentController extends Controller
         ]);
 
         $validated_request['slug'] = generateSlug($validated_request['title']);
-
         $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
-
         $validated_request['user_id'] = auth()->user()->id;
 
         $new_apartment = Apartment::create($validated_request);
@@ -101,10 +99,10 @@ class ApartmentController extends Controller
         $user = auth()->user();
         $apartment = Apartment::with(['images', 'features', 'type_of_stay'])->where('slug', $slug)->first();
 
+        // ???
         if($user === null || $apartment === null){
             abort(404);
         }
-
 
         if($apartment->user_id == $user->id){
             return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
@@ -167,17 +165,17 @@ class ApartmentController extends Controller
             'is_visible'=>'required'
         ]);
 
+        if(!empty($features)){
+            $apartment->features()->sync($features);
+        } else {
+            $apartment->features()->detach();
+        }
+
         if(isset($validated_request['cover_image'])){
             Storage::disk('public')->delete($apartment->cover_image);
             $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
         }else {
             $validated_request['cover_image'] = $apartment->cover_image;
-        }
-
-        if(!empty($features)){
-            $apartment->features()->sync($features);
-        } else {
-            $apartment->features()->detach();
         }
 
         // Se ho inserito delle nuove immagini
@@ -193,9 +191,9 @@ class ApartmentController extends Controller
             }
         }
 
-        // se avevo delle immagini nella galleria
+        // Se avevo delle immagini nella galleria
         if(!empty($old_gallery_images)){
-            // ciclo tra queste e verifico se ne voglio cancellare qualcuna
+            // Ciclo tra queste e verifico se ne voglio cancellare qualcuna
             foreach($old_gallery_images as $index => $flag){
                 if(!$flag){
                     Storage::disk('public')->delete($apartment->images[$index]->url);

@@ -2,14 +2,15 @@
 
 import AutoSearchTT from '../../../Components/AutoSearchTT.vue';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, Head } from "@inertiajs/vue3";
 
 export default {
     name: "Create",
     components: {
         Link,
         AuthenticatedLayout,
-        AutoSearchTT
+        AutoSearchTT,
+        Head
     },
     props:{
         features: Array,
@@ -55,6 +56,8 @@ export default {
 </script>
 
 <template>
+
+    <Head title="Create Apartment" />
 
     <AuthenticatedLayout>
 
