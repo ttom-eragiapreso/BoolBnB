@@ -27,7 +27,7 @@ class GuestController extends Controller
 
     public function advancedSearch(){
 
-        $apartments = Apartment::with('images')->get();
+        $apartments = Apartment::with('images', 'features')->get();
 
         $features = Feature::all();
 
