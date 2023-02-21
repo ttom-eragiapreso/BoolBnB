@@ -55,28 +55,35 @@ export default {
         });
 
     },
+    methods:{
+        filterFeature(a_apartment){
+
+            if(a_apartment.features.length > 0){
+
+                a_apartment.features.forEach(apt_feature => {
+
+                    if(this.filters.features.includes(apt_feature.id)){
+                        return true
+                    }else{
+                        return false
+                    }
+                });
+            }else{
+                console.log('ciao');
+            }
+        }
+    },
     computed:{
+
         handleFilter(){
 
-            this.filtered_apartments = this.apartments.filter( (apartment) => {
+            this.filtered_apartments = this.apartments.filter( a_apartment => {
+                console.log('ciao');
+                return (a_apartment.rooms >= this.filters.rooms && a_apartment.beds >= this.filters.beds && a_apartment.bathrooms >= this.filters.bathrooms && this.filterFeature(a_apartment))
 
-                let flag = 1;
-
-                if(apartment.features.length > 0){
-
-                    this.filters.features.forEach(element => {
-
-                        if(!apartment.features.includes(element)){
-                            flag = flag*0
-                        }else{
-                            flag = flag*1
-                        }
-                    });
-                }
-
-
-                return (apartment.rooms >= this.filters.rooms && apartment.beds >= this.filters.beds && apartment.bathrooms >= this.filters.bathrooms && flag)
             })
+            console.log(this.filters);
+
             return this.filtered_apartments;
         }
     }
@@ -115,7 +122,7 @@ export default {
 
                     <div class="flex gap-4 flex-wrap">
                         <Card
-                            v-for="apartment in handleFilter"
+                            v-for="apartment in this.filtered_apartments"
                             :key="apartment.id"
                             :apartment="apartment"
                             class="w-auto"
