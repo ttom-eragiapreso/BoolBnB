@@ -36,6 +36,11 @@ class GuestController extends Controller
 
         $apartment = Apartment::where('slug', $slug)->with('images')->first();
 
-        return Inertia::render('Guest/Details', compact('apartment'));
+        if($apartment->is_visible) {
+            return Inertia::render('Guest/Details', compact('apartment'));
+        }else {
+            return redirect(route('home'))->with('message', 'Invalid URL');
+        }
+
     }
 }
