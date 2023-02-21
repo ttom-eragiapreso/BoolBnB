@@ -60,7 +60,7 @@ export default {
         <div class="bg-white">
 
             <Slider :types_of_stay="types_of_stay" />
-            <div class="py-4 lg:px-20 px-8 bg-white flex w-full">
+            <div class="py-4 lg:px-20 px-8  flex w-full">
                 <div class=" w-2/3">
                     <form action="">
 
