@@ -8,7 +8,6 @@
                 <swiper
                     class="w-full h-full"
                     :loop="true"
-                    navigation
                     :mousewheel="{
                         forceToAxis: true,
                     }"
@@ -39,18 +38,18 @@
             </div>
             <!-- Title and rating -->
             <div class="flex justify-between mt-3">
-                <h2 class="font-bold">Roma, Italia</h2>
-                <div>
-                    <i class="fa-solid fa-star"></i>
-                    <span>5</span>
-                </div>
+                <h2 class="font-bold">
+                    {{ apartment.city }}, {{ apartment.country }}
+                </h2>
             </div>
             <!-- Vista -->
             <h5 class="text-slate-600">Vista sul vigneto</h5>
             <!-- Date -->
             <h5 class="text-slate-600">01-06 apr . Host Privato</h5>
             <!-- Price -->
-            <h5 class="underline"><strong>550€ </strong>totale</h5>
+            <h5 class="underline">
+                <strong>{{ apartment.price }} &euro; </strong>totale
+            </h5>
         </div>
     </div>
 </template>
