@@ -53,7 +53,7 @@ export default {
                     type="search"
                     id="search"
                     class="cursor-pointer px-5 py-3 block w-full border border-slate-200 rounded-full focus:ring-slate-500 focus:border-slate-500 dark:border-gray-200 dark:placeholder-slate-400 dark:text-black dark:focus:ring-slate-500 dark:focus:border-slate-500 shadow hover:shadow-md"
-                    placeholder="Città"
+                    placeholder="City.."
                     required
                 />
 

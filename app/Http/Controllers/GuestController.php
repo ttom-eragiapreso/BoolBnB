@@ -7,6 +7,7 @@ use App\Models\Feature;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Type_of_stay;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,12 +39,21 @@ class GuestController extends Controller
     public function details(String $slug){
 
         $apartment = Apartment::where('slug', $slug)->with('images')->first();
+        $user = $apartment->user;
+        $name = $apartment->user->name;
+        $date = $apartment->user->created_at;
+        $email = $apartment->user->email;
+        $features = Feature::all();
+
+
+        return Inertia::render('Guest/Details', compact('apartment', 'user', 'features', 'name', 'date', 'email'));
 
         if($apartment->is_visible) {
             return Inertia::render('Guest/Details', compact('apartment'));
         }else {
             return redirect(route('home'))->with('message', 'Invalid URL');
         }
+
 
     }
 }
