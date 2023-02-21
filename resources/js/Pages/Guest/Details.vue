@@ -9,7 +9,10 @@ export default {
     },
     props: {
         apartment: Object,
-        user: String
+        user: Object,
+        features: Object
+    },
+    methods:{
     },
     mounted() {
         const map = tt.map({
@@ -53,7 +56,7 @@ export default {
             </p>
 
             <div class="flex">
-                <div class="pb-2 mb-4 w-[50%]">
+                <div class="pb-2 mb-8 w-[50%]">
                     <img
                         :src="'/storage/' + apartment.cover_image"
                         alt="cover"
@@ -74,20 +77,37 @@ export default {
             <div class="flex gap-20">
                 <div class="w-[60%]">
                     <div class="pb-4 mb-4 border-b">
-                        <h2 class="text-2xl pb-2 font-bold">Apartment hosted by: {{ user }}</h2>
+                        <h2 class="text-2xl pb-2 font-bold">Apartment hosted by: {{ user.name }}</h2>
                         <p>2 guests &middot; {{ apartment.rooms }} room &middot; {{ apartment.beds }} bed &middot; {{ apartment.bathrooms }} &middot; bathroom &middot; {{ apartment.square_meters }}&#13217;</p>
                     </div>
                     <div class="pb-4 mb-4 border-b">
                         <h2 class="text-2xl pb-2 font-bold">Description</h2>
                         <p>{{ apartment.description }}</p>
                     </div>
-                </div>
-                <div class="w-[40%]">
-                    <div class="border rounded-xl h-[500px] p-4 shadow-lg hover:shadow-xl">
-                        Prezzo <br>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, et! Neque molestiae non ipsum nostrum, at dignissimos quasi incidunt similique placeat voluptatum eaque harum pariatur nisi sed minima, quidem libero.
+                    <div class="pb-4 mb-4 border-b">
+                        <h2 class="text-2xl pb-2 font-bold">What this place offers</h2>
+                        <ul v-for="features in features" :key="features.id">
+                            <li>{{ features.name }}</li>
+                        </ul>
                     </div>
                 </div>
+                <div class="w-[40%]">
+                    <div class="border rounded-xl p-8 shadow-lg hover:shadow-xl">
+                        <h2 class="font-bold text-xl">&euro; {{ apartment.price }} <span class="font-thin text-base">night</span></h2>
+                        <p class="text-sm text-slate-500">Fees included</p>
+                        <button class="text-white font-bold w-full rounded-xl mt-8 py-2 bg-gradient-to-br from-pink-800 to-pink-600 hover:bg-gradient-to-bl">Reserve</button>
+                        <hr class="my-8">
+                        <h2 class="font-bold text-lg">Host: {{ user.name }}</h2>
+                        <p class="text-slate-500 text-sm">Joined in February</p>
+                        <h2 class="font-bold text-base mt-4">During your stay</h2>
+                        <p>In order to make your stay as pleasant as possible, we personally prepare the apartment and make sure that everything is in order for your arrival, down to the smallest detail.
+
+                        We will be present on your arrival to welcome you and introduce you to the apartment. We will provide you with any information you may need. We will be in regular contact with you during your stay.</p>
+                        <button class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host</button>
+                    </div>
+                </div>
+
+
             </div>
 
         </div>
@@ -97,10 +117,7 @@ export default {
                 class="mx-auto my-8 max-w-7xl h-[500px] rounded-2xl shadow-2xl">
             </div>
 
-        <div
-            class="container mb-20 py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
-            <button>Invia Messaggio</button>
-        </div>
+
 
     </GuestLayout>
 </template>

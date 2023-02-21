@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/vue3';
 
     <Header/>
 
-    <div class="min-h-screen pt-6 sm:pt-0 bg-gray-100">
+    <div class="min-h-screen pt-6 sm:pt-0 pb-10 bg-gray-100">
 
             <slot />
 
