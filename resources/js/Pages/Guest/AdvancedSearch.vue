@@ -31,6 +31,7 @@ export default {
         features: Array
     },
     mounted() {
+
         this.filtered_apartments = this.apartments;
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
@@ -69,7 +70,7 @@ export default {
                     }
                 });
             }else{
-                console.log('ciao');
+                return false
             }
         }
     },
@@ -122,7 +123,7 @@ export default {
 
                     <div class="flex gap-4 flex-wrap">
                         <Card
-                            v-for="apartment in this.filtered_apartments"
+                            v-for="apartment in handleFilter"
                             :key="apartment.id"
                             :apartment="apartment"
                             class="w-auto"
