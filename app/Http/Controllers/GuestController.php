@@ -38,8 +38,9 @@ class GuestController extends Controller
         $user = $apartment->user;
         $name = $apartment->user->name;
         $date = $apartment->user->created_at;
+        $email = $apartment->user->email;
         $features = Feature::all();
 
-        return Inertia::render('Guest/Details', compact('apartment', 'user', 'features', 'name', 'date'));
+        return Inertia::render('Guest/Details', compact('apartment', 'user', 'features', 'name', 'date', 'email'));
     }
 }

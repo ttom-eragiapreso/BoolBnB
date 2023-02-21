@@ -4,17 +4,26 @@ import tt from "@tomtom-international/web-sdk-maps";
 
 export default {
     name: "Details",
+    name: "large-modal",
     components: {
         GuestLayout,
+    },
+    data() {
+        return {
+        showModal: false
+        }
     },
     props: {
         apartment: Object,
         user: Object,
         features: Object,
         name: String,
-        date: String
+        date: String,
+        email: String
     },
     methods:{
+        toggleModal: function(){
+        this.showModal = !this.showModal;
     },
     mounted() {
         const map = tt.map({
@@ -39,6 +48,7 @@ export default {
             map.addControl(new tt.NavigationControl);
         });
 
+    }
     }
 };
 </script>
@@ -105,7 +115,55 @@ export default {
                         <p>In order to make your stay as pleasant as possible, we personally prepare the apartment and make sure that everything is in order for your arrival, down to the smallest detail.
 
                         We will be present on your arrival to welcome you and introduce you to the apartment. We will provide you with any information you may need. We will be in regular contact with you during your stay.</p>
-                        <button class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host</button>
+                        <div>
+                        <button v-on:click="toggleModal()" type="button" class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host
+                        </button>
+                        <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                            <div class="relative w-[50%] my-6 mx-auto max-w-6xl">
+                                <!--content-->
+                                <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                <!--header-->
+                                <div class="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                    <h3 class="text-3xl font-semibold">
+                                    Host: {{name}}
+                                    </h3>
+                                    <span class="ml-6">to: {{ email }}</span>
+                                    <button class="p-1 ml-auto bg-transparent  float-right text-3xl leading-none font-semibold outline-none focus:outline-none items-center" v-on:click="toggleModal()">
+                                    <span class="bg-transparent h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                        ×
+                                    </span>
+                                    </button>
+                                </div>
+                                <!--body-->
+                                <div class="relative p-6 flex-auto">
+                                    <div>
+                                        <label for="email" class="block mb-2 text-sm font-medium text-slate-500">Your email</label>
+                                        <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 mb-2" placeholder="name@email.com" required>
+                                    </div>
+                                    <div>
+                                        <label for="subject" class="block mb-2 text-sm font-medium text-slate-500">Subject</label>
+                                        <input type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <label for="message" class="block mb-2 text-sm font-medium text-slate-500">Your message</label>
+                                        <textarea id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
+                                    </div>
+                                </div>
+                                <!--footer-->
+                                <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                    <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
+                                    Close
+                                    </button>
+                                    <button class="text-green-500 border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    Send message
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -113,6 +171,7 @@ export default {
             </div>
 
         </div>
+
             <h2 class="font-bold text-2xl mt-8 text-center">Where you’ll be</h2>
             <div
                 id="map"
