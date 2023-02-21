@@ -36,8 +36,10 @@ class GuestController extends Controller
 
         $apartment = Apartment::where('slug', $slug)->with('images')->first();
         $user = $apartment->user;
+        $name = $apartment->user->name;
+        $date = $apartment->user->created_at;
         $features = Feature::all();
 
-        return Inertia::render('Guest/Details', compact('apartment', 'user', 'features'));
+        return Inertia::render('Guest/Details', compact('apartment', 'user', 'features', 'name', 'date'));
     }
 }
