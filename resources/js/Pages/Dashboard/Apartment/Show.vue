@@ -52,7 +52,7 @@ export default {
         </template>
 
         <div
-            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-12"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl mt-12 mb-4"
         >
             <h1 class="text-3xl pb-2">{{ apartment.title }}</h1>
             <div class="pb-2 text-center">
@@ -73,12 +73,12 @@ export default {
             <p>Type: {{ apartment.type_of_stay.name }}</p>
         </div>
 
-        <div v-if="apartment.features" class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+        <div v-if="apartment.features.length != 0" class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
             <div v-for="feature in apartment.features">{{ feature.name }}</div>
         </div>
 
         <div
-            class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
             <h5 class="font-bold pb-4">Gallery:</h5>
 
@@ -110,7 +110,7 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
             <p>
                 Address: {{ apartment.full_address }}, {{ apartment.city }},
@@ -126,14 +126,14 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
             <p>Created at: {{ apartment.created_at }}</p>
             <p>Last update: {{ apartment.updated_at }}</p>
         </div>
 
         <div
-            class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 flex gap-4"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 flex gap-4"
         >
             <Link
                 :href="route('dashboard.apartment.index')"
