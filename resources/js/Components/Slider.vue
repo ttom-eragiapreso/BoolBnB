@@ -12,35 +12,43 @@ export default {
     },
     data(){
       return {
-        scroll_position: 0,
+        scroll_positionX: 0,
+        scroll_positionY: 0
       }
 
     },
     methods: {
-    scroll_left() {
-      let content = document.querySelector(".wrapper-box");
-      content.scrollLeft -= 400;
+        scroll_left() {
+        let content = document.querySelector(".wrapper-box");
+        content.scrollLeft -= 400;
+        },
+        scroll_right() {
+        let content = document.querySelector(".wrapper-box");
+        content.scrollLeft += 400;
+        },
+        scrollHandle() {
+        let content = document.querySelector(".wrapper-box");
+        this.scroll_positionX = content.scrollLeft;
+        return this.scroll_positionX
+        },
+        shadowHandle(){
+
+            this.scroll_positionY = window.scrollY;
+        }
     },
-    scroll_right() {
-      let content = document.querySelector(".wrapper-box");
-      content.scrollLeft += 400;
+    mounted(){
+
+        window.addEventListener('scroll', this.shadowHandle)
     },
-    scrollHandle() {
-      let content = document.querySelector(".wrapper-box");
-      console.log(content.scrollLeft);
-      this.scroll_position = content.scrollLeft;
-      return this.scroll_position
-    }
-  },
 }
 
 </script>
 
 <template>
-  <div class="bg-white lg:px-20 sm:px-8 wrapper">
+  <div class="bg-white lg:px-20 sm:px-8 wrapper" :class="{'shadow': this.scroll_positionY > 15}">
 
     <div class="flex relative">
-      <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_position > 15">
+      <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_positionX > 15">
         <button @click="scroll_left"><i class="fa-solid fa-chevron-left"></i></button>
       </div>
       <div @scroll="scrollHandle()" class="px-6 flex wrapper-box hide-scroll w-screen overflow-auto">
@@ -59,8 +67,8 @@ export default {
 
 <style scoped lang="scss">
 
-.wrapper{
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+.shadow{
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 12px 5px -10px;
 }
 
 .hide-scroll::-webkit-scrollbar {

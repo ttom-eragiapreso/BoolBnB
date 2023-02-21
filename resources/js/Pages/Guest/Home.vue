@@ -19,10 +19,9 @@ export default {
 
 <template>
     <GuestLayout>
-        <div class="px-8 lg:px-20 bg-white">
-            <Slider :types_of_stay="types_of_stay" />
-        </div>
-        <div class="flex gap-4 flex-wrap">
+        <Slider :types_of_stay="types_of_stay" />
+
+        <div class=" py-4 flex gap-4 flex-wrap">
             <Card
                 v-for="apartment in apartments"
                 :key="apartment.id"

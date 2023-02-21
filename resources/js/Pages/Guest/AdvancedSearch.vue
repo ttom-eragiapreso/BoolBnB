@@ -57,7 +57,7 @@ export default {
 
 <template>
     <GuestLayout>
-        <div class="bg-white">
+        <div>
 
             <Slider :types_of_stay="types_of_stay" />
             <div class="py-4 lg:px-20 px-8  flex w-full">
