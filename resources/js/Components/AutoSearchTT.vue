@@ -14,12 +14,11 @@ export default{
                     key: 'LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM',
                     language: 'en-GB',
                     limit: 20,
-                    idxSet: 'Str,Xstr'
+                    idxSet: 'Str'
                 },
                 labels: {
                     noResultsMessage: 'No results found.'
-                },
-                showSearchButton: false
+                }
             }
         }
     },
@@ -68,6 +67,8 @@ export default{
     },
     mounted(){
         this.createSearchBox();
+
+        document.querySelector('.tt-search-box-input').placeholder = 'Ex. Piazza del Colosseo, Rome, Italy'
     }
 }
 
@@ -87,18 +88,21 @@ export default{
 #searchbox .tt-search-box{
     border: 1px solid #6b7280;
     font-family: inherit !important;
-    margin-top: 0;
+    margin-block: 8px;
+    border-radius: 8px;
 }
 
 #searchbox .tt-search-box input{
     font-size: 1rem;
 }
+
 #searchbox .tt-search-box-input-container{
     padding: 0.5rem 0.75rem;
 }
 
 #searchbox .tt-search-box-input-container.-focused{
-    outline: 2px solid #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 8px;
     box-shadow: none;
 }
 
