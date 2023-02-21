@@ -26,6 +26,7 @@ export default {
     props: {
         types_of_stay: Array,
         apartments: Array,
+        features: Array
     },
     mounted() {
         const map = tt.map({
@@ -53,7 +54,6 @@ export default {
     },
 };
 </script>
-<!-- 41.89027805140671, 12.492230901450688 -->
 
 <template>
     <GuestLayout>
@@ -62,8 +62,13 @@ export default {
             <Slider :types_of_stay="types_of_stay" />
             <div class="py-4 lg:px-20 px-8  flex w-full">
                 <div class=" w-2/3">
-                    <form action="">
-
+                    <form action="" class="mb-5">
+                        <h3 class=" text-2xl mb-3">Features:</h3>
+                        <button class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black" v-for="feature in features" :key="feature.id">{{ feature.name }}</button>
+                        <h3 class=" text-2xl mb-3">Rooms:</h3>
+                        <button v-for="i in 5" :key="i" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">{{ i }}</button>
+                        <h3 class=" text-2xl mb-3">Beds</h3>
+                        <button v-for="i in 8" :key="i" class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black">{{ i }}</button>
                     </form>
 
                     <div class="flex gap-4 flex-wrap">

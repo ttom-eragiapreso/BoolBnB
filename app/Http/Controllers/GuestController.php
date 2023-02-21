@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Feature;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Type_of_stay;
@@ -27,9 +28,11 @@ class GuestController extends Controller
 
         $apartments = Apartment::with('images')->get();
 
+        $features = Feature::all();
+
         $types_of_stay = Type_of_stay::all();
 
-        return Inertia::render('Guest/AdvancedSearch', compact('apartments', 'types_of_stay'));
+        return Inertia::render('Guest/AdvancedSearch', compact('apartments', 'types_of_stay', 'features'));
     }
 
     public function details(String $slug){
