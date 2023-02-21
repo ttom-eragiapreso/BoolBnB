@@ -10,7 +10,9 @@ export default {
     props: {
         apartment: Object,
         user: Object,
-        features: Object
+        features: Object,
+        name: String,
+        date: String
     },
     methods:{
     },
@@ -50,10 +52,10 @@ export default {
             class="container max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl px-8 lg:px-20 py-8"
         >
             <h1 class="text-3xl pb-2 font-bold">{{ apartment.title }}</h1>
-            <p class=" mb-4 font-bold underline"> &#8669;
+            <a href="#" class=" mb-4 font-bold underline"> &#8669;
                 {{ apartment.full_address }}, {{ apartment.city }},
                 {{ apartment.country }}
-            </p>
+            </a>
 
             <div class="flex">
                 <div class="pb-2 mb-8 w-[50%]">
@@ -77,7 +79,7 @@ export default {
             <div class="flex gap-20">
                 <div class="w-[60%]">
                     <div class="pb-4 mb-4 border-b">
-                        <h2 class="text-2xl pb-2 font-bold">Apartment hosted by: {{ user.name }}</h2>
+                        <h2 class="text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
                         <p>2 guests &middot; {{ apartment.rooms }} room &middot; {{ apartment.beds }} bed &middot; {{ apartment.bathrooms }} &middot; bathroom &middot; {{ apartment.square_meters }}&#13217;</p>
                     </div>
                     <div class="pb-4 mb-4 border-b">
@@ -97,8 +99,8 @@ export default {
                         <p class="text-sm text-slate-500">Fees included</p>
                         <button class="text-white font-bold w-full rounded-xl mt-8 py-2 bg-gradient-to-br from-pink-800 to-pink-600 hover:bg-gradient-to-bl">Reserve</button>
                         <hr class="my-8">
-                        <h2 class="font-bold text-lg">Host: {{ user.name }}</h2>
-                        <p class="text-slate-500 text-sm">Joined in February</p>
+                        <h2 class="font-bold text-lg">Host: {{ name }}</h2>
+                        <p class="text-slate-500 text-sm">Joined in {{date}}</p>
                         <h2 class="font-bold text-base mt-4">During your stay</h2>
                         <p>In order to make your stay as pleasant as possible, we personally prepare the apartment and make sure that everything is in order for your arrival, down to the smallest detail.
 
@@ -111,10 +113,10 @@ export default {
             </div>
 
         </div>
-
+            <h2 class="font-bold text-2xl mt-8 text-center">Where you’ll be</h2>
             <div
                 id="map"
-                class="mx-auto my-8 max-w-7xl h-[500px] rounded-2xl shadow-2xl">
+                class="mx-auto my-8 max-w-5xl h-[500px] rounded-2xl shadow-2xl">
             </div>
 
 
