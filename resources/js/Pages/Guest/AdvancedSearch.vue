@@ -162,7 +162,7 @@ export default {
     <GuestLayout>
         <div>
             <Slider :types_of_stay="types_of_stay" />
-            <div class="py-4 lg:px-20 px-8 flex w-full">
+            <div class="mt-[180px] py-4 lg:px-20 px-8 flex w-full">
                 <div class="w-2/3">
                     <div>
                         <h3 class="text-2xl mb-3">Range:</h3>
@@ -253,10 +253,10 @@ export default {
                         <p>No apartments found.</p>
                     </div>
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/3 fixed top-[180px] right-0">
                     <div
                         id="map"
-                        class="my-0 h-[500px] rounded-2xl shadow-2xl"
+                        class="my-0 h-[490px] mr-8 lg:mr-20 rounded-2xl shadow-2xl"
                     ></div>
                 </div>
             </div>
