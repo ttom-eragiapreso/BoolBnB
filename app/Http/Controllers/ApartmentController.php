@@ -20,7 +20,11 @@ class ApartmentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $user_apartments = $user->apartments;
+        if($user->email == 'admin@admin.com'){
+            $user_apartments = Apartment::all();
+        } else {
+            $user_apartments = $user->apartments;
+        }
         return Inertia::render('Dashboard/Apartment/Index', compact('user_apartments'));
     }
 
@@ -104,7 +108,7 @@ class ApartmentController extends Controller
             abort(404);
         }
 
-        if($apartment->user_id == $user->id){
+        if($apartment->user_id == $user->id || $user->email == 'admin@admin.com'){
             return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
         } else {
             return to_route('dashboard.home')->with('message', 'Not allowed.');
@@ -126,7 +130,7 @@ class ApartmentController extends Controller
         $features = Feature::all();
         $type_of_stays = Type_of_stay::all();
 
-        if($apartment->user_id == $user->id){
+        if($apartment->user_id == $user->id || $user->email == 'admin@admin.com'){
             return Inertia::render('Dashboard/Apartment/Edit', compact('apartment', 'features', 'type_of_stays'));
         } else {
             return to_route('dashboard.home')->with('message', 'Not allowed.');
