@@ -5,6 +5,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import { Link, router } from "@inertiajs/vue3";
 import AutoSearchTT from '../Components/AutoSearchTT.vue';
+import {store} from '../data/store';
 
 export default {
     name: "Header",
@@ -13,7 +14,9 @@ export default {
             open: false,
             var: null,
             lat: null,
-            lng: null
+            lng: null,
+            address: null,
+            store
         };
     },
     components: {
@@ -34,8 +37,9 @@ export default {
         handleGeoData(event){
            this.lat = event.lat;
            this.lng = event.lng;
-           console.log(this.lng);
-           console.log(this.lat);
+           this.store.searched_address = event.full_address;
+
+           this.goToAdvancedSearch();
         }
     },
 };
@@ -47,7 +51,7 @@ export default {
             class="h-[80px] border-b-[1px] flex justify-between items-center px-8 lg:px-20"
         >
             <div class="logo h-auto cursor-grab flex items-center">
-                <a href="/"><ApplicationLogo /></a>
+                <a href="/"><ApplicationLogo/></a>
             </div>
 
             <div class="relative">
@@ -81,7 +85,7 @@ export default {
                     </svg>
                 </div> -->
 
-                <AutoSearchTT @geodata="handleGeoData" idxSet="POI,Geo" @keydown.enter="goToAdvancedSearch()"/>
+                <AutoSearchTT @geodata="handleGeoData" idxSet="POI,Geo" :address="this.store.searched_address"/>
 
             </div>
 
