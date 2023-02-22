@@ -45,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white lg:px-20 sm:px-8 wrapper" :class="{'shadow': this.scroll_positionY > 15}">
+  <div class="bg-white lg:px-20 sm:px-8 wrapper fixed top-[80px] right-0 z-10 w-screen " :class="{'shadow': this.scroll_positionY > 15}">
 
     <div class="flex relative">
       <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_positionX > 15">
