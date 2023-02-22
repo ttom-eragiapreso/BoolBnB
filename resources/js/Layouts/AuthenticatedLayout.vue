@@ -9,13 +9,11 @@ import Footer from "@/Components/Footer.vue";
 import { Link } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
-
 </script>
 
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,12 +22,14 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('home')">
-                                    <ApplicationLogo/>
+                                    <ApplicationLogo />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div
+                                class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
+                            >
                                 <NavLink
                                     :href="route('dashboard.home')"
                                     :active="route().current('dashboard.home')"
@@ -38,7 +38,11 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                                 <NavLink
                                     :href="route('dashboard.apartment.index')"
-                                    :active="route().current('dashboard.apartment.index')"
+                                    :active="
+                                        route().current(
+                                            'dashboard.apartment.index'
+                                        )
+                                    "
                                 >
                                     Listings
                                 </NavLink>
@@ -49,14 +53,14 @@ const showingNavigationDropdown = ref(false);
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
-
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                Hi, {{ $page.props.auth.user.name }}
+                                                Hi,
+                                                {{ $page.props.auth.user.name }}
 
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -76,36 +80,66 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink
-                                            :href="route('dashboard.apartment.index')"
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.index'
+                                                )
+                                            "
                                             as="button"
-                                            >
+                                        >
                                             Your Apartments
                                         </DropdownLink>
                                         <DropdownLink
-                                        :href="route('dashboard.apartment.messages')"
-                                        as="button"
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.messages'
+                                                )
+                                            "
+                                            as="button"
                                         >
-                                        Your Messages
+                                            Your Messages
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="route('dashboard.apartment.stats')"
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.stats'
+                                                )
+                                            "
                                             as="button"
                                         >
                                             Your Statistics
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="route('dashboard.apartment.create')"
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.create'
+                                                )
+                                            "
                                             as="button"
                                         >
                                             Add New Apartment
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="route('dashboard.apartment.index')"
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.index'
+                                                )
+                                            "
                                             as="button"
                                         >
                                             Transactions history
                                         </DropdownLink>
-                                        <hr>
+                                        <DropdownLink
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.sponsorship'
+                                                )
+                                            "
+                                            as="button"
+                                        >
+                                            Sponsorships
+                                        </DropdownLink>
+                                        <hr />
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
@@ -127,7 +161,10 @@ const showingNavigationDropdown = ref(false);
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
                             <button
-                                @click="showingNavigationDropdown = !showingNavigationDropdown"
+                                @click="
+                                    showingNavigationDropdown =
+                                        !showingNavigationDropdown
+                                "
                                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                             >
                                 <svg
@@ -181,31 +218,41 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('dashboard.apartment.index')"
-                            :active="route().current('dashboard.apartment.index')"
+                            :active="
+                                route().current('dashboard.apartment.index')
+                            "
                         >
                             Listings
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('dashboard.apartment.create')"
-                            :active="route().current('dashboard.apartment.create')"
+                            :active="
+                                route().current('dashboard.apartment.create')
+                            "
                         >
                             Add new Apartment
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('dashboard.apartment.messages')"
-                            :active="route().current('dashboard.apartment.messages')"
+                            :active="
+                                route().current('dashboard.apartment.messages')
+                            "
                         >
                             Your Messages
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('dashboard.apartment.stats')"
-                            :active="route().current('dashboard.apartment.stats')"
+                            :active="
+                                route().current('dashboard.apartment.stats')
+                            "
                         >
                             Your Statistics
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('dashboard.apartment.stats')"
-                            :active="route().current('dashboard.apartment.stats')"
+                            :active="
+                                route().current('dashboard.apartment.stats')
+                            "
                         >
                             Transactions history
                         </ResponsiveNavLink>
@@ -252,7 +299,13 @@ const showingNavigationDropdown = ref(false);
             >
                 <h5
                     class="align-middle font-semibold"
-                    :class="($page.props.flash.message.includes('updated') ? 'text-amber-600' : ($page.props.flash.message.includes('created') ? 'text-green-600' : 'text-red-600' ))"
+                    :class="
+                        $page.props.flash.message.includes('updated')
+                            ? 'text-amber-600'
+                            : $page.props.flash.message.includes('created')
+                            ? 'text-green-600'
+                            : 'text-red-600'
+                    "
                 >
                     {{ $page.props.flash.message }}
                 </h5>
@@ -263,7 +316,6 @@ const showingNavigationDropdown = ref(false);
                 >
                     &times;
                 </button>
-
             </div>
 
             <!-- Page Content -->
@@ -272,7 +324,6 @@ const showingNavigationDropdown = ref(false);
             </main>
 
             <Footer />
-
         </div>
     </div>
 </template>
