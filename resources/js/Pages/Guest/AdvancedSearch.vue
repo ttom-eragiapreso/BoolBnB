@@ -104,72 +104,76 @@ export default {
             <Slider :types_of_stay="types_of_stay" />
             <div class="py-4 lg:px-20 px-8 flex w-full">
                 <div class="w-2/3">
-                    <h3 class="text-2xl mb-3">Features:</h3>
-                    <button
-                        :class="{'text-red-500': this.filters.features.includes(feature.id)}"
-                        @click="addFeature(feature.id)"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                        v-for="feature in features"
-                        :key="feature.id"
-                    >
-                        {{ feature.name }}
-                    </button>
+                    <div>
+                        <h3 class="text-2xl mb-3">Features:</h3>
+                        <button
+                            :class="{'text-red-500': this.filters.features.includes(feature.id)}"
+                            @click="addFeature(feature.id)"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            v-for="feature in features"
+                            :key="feature.id"
+                        >
+                            {{ feature.name }}
+                        </button>
 
-                    <h3 class="text-2xl mb-3">Rooms:</h3>
+                        <h3 class="text-2xl mb-3">Rooms:</h3>
 
-                    <button
-                        @click="this.filters.rooms = i"
-                        :class="{ 'text-red-500': this.filters.rooms === i }"
-                        v-for="i in 7"
-                        :key="i"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                    >
-                        {{ i }}
-                    </button>
+                        <button
+                            @click="this.filters.rooms = i"
+                            :class="{ 'text-red-500': this.filters.rooms === i }"
+                            v-for="i in 7"
+                            :key="i"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        >
+                            {{ i }}
+                        </button>
 
-                    <button
-                        @click="this.filters.rooms = 8"
-                        :class="{ 'text-red-500': this.filters.rooms === 8 }"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                    >
-                        8+
-                    </button>
+                        <button
+                            @click="this.filters.rooms = 8"
+                            :class="{ 'text-red-500': this.filters.rooms === 8 }"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        >
+                            8+
+                        </button>
 
-                    <h3 class="text-2xl mb-3">Beds:</h3>
-                    <button
-                        @click="this.filters.beds = i"
-                        :class="{ 'text-red-500': this.filters.beds === i }"
-                        v-for="i in 7"
-                        :key="i"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                    >
-                        {{ i }}
-                    </button>
-                    <button
-                        @click="this.filters.beds = 8"
-                        :class="{ 'text-red-500': this.filters.beds === 8 }"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                    >
-                        8+
-                    </button>
+                        <h3 class="text-2xl mb-3">Beds:</h3>
+                        <button
+                            @click="this.filters.beds = i"
+                            :class="{ 'text-red-500': this.filters.beds === i }"
+                            v-for="i in 7"
+                            :key="i"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        >
+                            {{ i }}
+                        </button>
+                        <button
+                            @click="this.filters.beds = 8"
+                            :class="{ 'text-red-500': this.filters.beds === 8 }"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        >
+                            8+
+                        </button>
 
-                    <h3 class="text-2xl mb-3">Bathrooms:</h3>
-                    <button
-                        @click="this.filters.bathrooms = i"
-                        :class="{ 'text-red-500': this.filters.bathrooms === i }"
-                        v-for="i in 3"
-                        :key="i"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                    >
-                        {{ i }}
-                    </button>
-                    <button
-                        @click="this.filters.bathrooms = 4"
-                        :class="{ 'text-red-500': this.filters.bathrooms === 4 }"
-                        class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                    >
-                        4+
-                    </button>
+                        <h3 class="text-2xl mb-3">Bathrooms:</h3>
+                        <button
+                            @click="this.filters.bathrooms = i"
+                            :class="{ 'text-red-500': this.filters.bathrooms === i }"
+                            v-for="i in 3"
+                            :key="i"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        >
+                            {{ i }}
+                        </button>
+                        <button
+                            @click="this.filters.bathrooms = 4"
+                            :class="{ 'text-red-500': this.filters.bathrooms === 4 }"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                        >
+                            4+
+                        </button>
+                    </div>
+
+                    <hr class="mr-4 mb-12 mt-4">
 
                     <div class="flex gap-4 flex-wrap">
                         <Card
