@@ -93,7 +93,7 @@
             >
                 <i class="fa-solid fa-trash text-sm"></i> <span class="hidden sm:inline">Delete</span>
             </button> -->
-            <DeleteButton @deleteApartment="" @click="showModal = true" />
+            <DeleteButton @click="showModal = true" />
         </div>
     </div>
 </template>

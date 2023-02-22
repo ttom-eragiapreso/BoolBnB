@@ -1,7 +1,9 @@
 <script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
-import { Link, Head } from "@inertiajs/vue3";
+import { Link, Head, router } from "@inertiajs/vue3";
+import Modal from "@/Components/Modal.vue";
+import DeleteButton from "@/Components/DeleteButton.vue";
 
 export default {
     name: "Show",
@@ -11,7 +13,14 @@ export default {
     components: {
         AuthenticatedLayout,
         Link,
-        Head
+        Head,
+        Modal,
+        DeleteButton,
+    },
+    data() {
+        return {
+            showModal: false,
+        };
     },
     mounted() {
         const map = tt.map({
@@ -32,26 +41,50 @@ export default {
                 .setLngLat([this.apartment.longitude, this.apartment.latitude])
                 .setPopup(popup);
             marker.addTo(map);
-            map.addControl(new tt.FullscreenControl);
-            map.addControl(new tt.NavigationControl);
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
         });
-
     },
-    computed:{
-        handleCreateDate(){
+    computed: {
+        handleCreateDate() {
             const data = new Date(this.apartment.created_at);
-            return data.toLocaleDateString('it-IT', {dateStyle: 'short'});
+            return data.toLocaleDateString("it-IT", { dateStyle: "short" });
         },
-        handleUpdateDate(){
+        handleUpdateDate() {
             const data = new Date(this.apartment.updated_at);
-            return data.toLocaleDateString('it-IT', {dateStyle: 'short'});
+            return data.toLocaleDateString("it-IT", { dateStyle: "short" });
         },
-    }
+    },
+    methods: {
+        remove(apartment) {
+            router.delete(route("dashboard.apartment.destroy", apartment));
+        },
+    },
 };
 </script>
 
 <template>
-
+    <Modal v-if="showModal" :show="showModal" @close="showModal = false">
+        <div class="container min-h-[20vh] p-10">
+            <h3 class="text-3xl">
+                Are you sure you want to remove this apartment?
+            </h3>
+            <div class="mt-10 flex justify-end">
+                <button
+                    class="px-3 py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mx-4"
+                    @click="showModal = false"
+                >
+                    Go Back
+                </button>
+                <button
+                    class="px-1 md:px-8 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                    @click="remove(apartment)"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </Modal>
     <Head title="Show Apartment" />
 
     <AuthenticatedLayout>
@@ -74,21 +107,35 @@ export default {
             </div>
 
             <p><strong>Type:</strong> {{ apartment.type_of_stay.name }}</p>
-            <p><strong>Currently Public:</strong> {{ apartment.is_visible ? "Yes" : "No" }}</p>
+            <p>
+                <strong>Currently Public:</strong>
+                {{ apartment.is_visible ? "Yes" : "No" }}
+            </p>
             <p><strong>Price:</strong> {{ apartment.price }} &euro;</p>
-            <hr class="my-2">
+            <hr class="my-2" />
             <p><strong>Rooms:</strong> {{ apartment.rooms }}</p>
             <p><strong>Beds:</strong> {{ apartment.beds }}</p>
             <p><strong>Bathrooms:</strong> {{ apartment.bathrooms }}</p>
-            <p><strong>Square Meters:</strong> {{ apartment.square_meters }} &#13217;</p>
-            <hr class="my-2">
+            <p>
+                <strong>Square Meters:</strong>
+                {{ apartment.square_meters }} &#13217;
+            </p>
+            <hr class="my-2" />
             <p><strong>Description:</strong> {{ apartment.description }}</p>
         </div>
 
-        <div v-if="apartment.features.length != 0" class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+        <div
+            v-if="apartment.features.length != 0"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
+        >
             <p class="mb-3"><strong>Features:</strong></p>
             <div class="flex gap-2 flex-wrap">
-                <div v-for="feature in apartment.features" class="border rounded-xl border-stone-700 py-1 px-4 w-fit hover:bg-slate-100">{{ feature.name }}</div>
+                <div
+                    v-for="feature in apartment.features"
+                    class="border rounded-xl border-stone-700 py-1 px-4 w-fit hover:bg-slate-100"
+                >
+                    {{ feature.name }}
+                </div>
             </div>
         </div>
 
@@ -98,12 +145,15 @@ export default {
             <h5 class="font-bold pb-4">Gallery:</h5>
 
             <div class="flex flex-wrap gap-3">
-                <div class="flex flex-wrap gap-3 items-center" v-if="apartment.images.length > 0">
+                <div
+                    class="flex flex-wrap gap-3 items-center"
+                    v-if="apartment.images.length > 0"
+                >
                     <div v-for="(image, id) in apartment.images" :key="id">
                         <img
-                        :src="'/storage/' + image.url"
-                        alt="image_galler"
-                        class="rounded-2xl max-h-64"
+                            :src="'/storage/' + image.url"
+                            alt="image_galler"
+                            class="rounded-2xl max-h-64"
                         />
                     </div>
                 </div>
@@ -118,26 +168,27 @@ export default {
                         as="button"
                         class="px-5 py-1 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
                     >
-                    Here!
-                </Link>
-            </p>
+                        Here!
+                    </Link>
+                </p>
             </div>
         </div>
 
         <div
-        class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
             <h5 class="font-bold pb-4">Position:</h5>
 
             <p>
-                <strong>Address:</strong> {{ apartment.full_address }}, {{ apartment.city }},
+                <strong>Address:</strong> {{ apartment.full_address }},
+                {{ apartment.city }},
                 {{ apartment.country }}
             </p>
             <p><strong>Latitude:</strong> {{ apartment.latitude }}</p>
             <p><strong>Longitude:</strong> {{ apartment.longitude }}</p>
 
             <div
-            id="map"
+                id="map"
                 class="mx-auto my-8 w-10/12 h-[500px] rounded-2xl shadow-2xl"
             ></div>
         </div>
@@ -173,14 +224,15 @@ export default {
             >
                 Stats
             </Link>
-            <Link
+            <!-- <Link
             :href="route('dashboard.apartment.destroy', apartment)"
             method="delete"
             as="button"
             class="px-10 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
             Delete
-            </Link>
+            </Link> -->
+            <DeleteButton @click="showModal = true" />
             <Link
                 :href="route('dashboard.apartment.edit', apartment.slug)"
                 as="button"
