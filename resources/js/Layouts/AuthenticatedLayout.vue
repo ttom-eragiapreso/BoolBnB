@@ -258,7 +258,7 @@ const showingNavigationDropdown = ref(false);
                 </h5>
 
                 <button
-                    class="text-xl border border-slate-300 text-slate-400 px-2 py-[0.1rem] rounded-md hover:text-slate-700 hover:border-slate-500"
+                    class="text-xl border border-slate-300 text-slate-400 px-2.5 py-[0.1rem] rounded-md hover:text-slate-700 hover:border-slate-500"
                     @click="$page.props.flash.message = null"
                 >
                     &times;

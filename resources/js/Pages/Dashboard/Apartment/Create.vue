@@ -53,16 +53,6 @@ export default {
         setTwoNumberDecimal(){
             this.form.price = parseFloat(this.form.price).toFixed(2);
         },
-        handleFeatureTag(name){
-            const checkBox = document.getElementById(name);
-            const tagBox = document.getElementById('tag-' + name);
-            checkBox.checked = !checkBox.checked;
-            if(tagBox.classList.includes('active')){
-                tagBox.classList.remove('active');
-            } else {
-                tagBox.classList.add('active');
-            }
-        },
         displayFile(file){
             const dragArea = document.querySelector('#drop_cover');
 
@@ -91,6 +81,41 @@ export default {
         resetCoverInput(){
             this.showCancel = false;
             this.form.cover_image = null;
+        },
+        setUpDragArea(){
+            const dragArea = document.querySelector('#drop_cover');
+            const dragText = document.querySelector('#drop_text');
+            const browseBtn = document.querySelector('#browse_btn');
+            const browseInput = document.querySelector('#cover_image');
+
+            let file;
+
+            browseBtn.onclick = () => {
+                browseInput.click();
+            }
+
+            browseInput.addEventListener('change', (event) => {
+                this.displayFile(this.form.cover_image);
+            })
+
+            dragArea.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dragText.textContent = 'Release to Upload!';
+                dragArea.classList.remove('bg-gray-200/50')
+                dragArea.classList.add('bg-blue-200/50')
+            })
+
+            dragArea.addEventListener('dragleave', () => {
+                dragText.textContent = 'Drag an image here!';
+                dragArea.classList.remove( 'bg-blue-200/50')
+                dragArea.classList.add('bg-gray-200/50')
+            })
+
+            dragArea.addEventListener('drop', (event) => {
+                event.preventDefault();
+                file = event.dataTransfer.files[0];
+                this.displayFile(file);
+            })
         }
     },
     computed:{
@@ -102,42 +127,7 @@ export default {
         }
     },
     mounted(){
-        const dragArea = document.querySelector('#drop_cover');
-        const dragText = document.querySelector('#drop_text');
-        const browseBtn = document.querySelector('#browse_btn');
-        const browseInput = document.querySelector('#cover_image');
-
-        let file;
-
-        browseBtn.onclick = () => {
-            browseInput.click();
-        }
-
-        browseInput.addEventListener('change', (event) => {
-            this.displayFile(this.form.cover_image);
-        })
-
-        dragArea.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dragText.textContent = 'Release to Upload!';
-            dragArea.classList.remove('bg-gray-200/50')
-            dragArea.classList.add('bg-blue-200/50')
-        })
-
-        dragArea.addEventListener('dragleave', () => {
-            dragText.textContent = 'Drag an image here!';
-            dragArea.classList.remove( 'bg-blue-200/50')
-            dragArea.classList.add('bg-gray-200/50')
-        })
-
-        dragArea.addEventListener('drop', (event) => {
-            event.preventDefault();
-
-            file = event.dataTransfer.files[0];
-
-            this.displayFile(file);
-
-        })
+        this.setUpDragArea();
     }
 };
 </script>
@@ -152,7 +142,7 @@ export default {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Your Apartments - Add New</h2>
         </template>
 
-        <div class="container py-6 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+        <div class="container py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
 
             <form @submit.prevent="form.post(route('dashboard.apartment.store', form))" class="flex flex-col px-10">
 
@@ -173,65 +163,76 @@ export default {
                     />
                     <p class=" text-slate-500 text-xs text-right">{{ titleChar }}/100</p>
                 </div>
-                <div v-if="$page.props.errors.title" class="mb-3">
+                <div v-if="$page.props.errors.title" class="mb-3 error">
                     {{ $page.props.errors.title }}
                 </div>
 
-                <label for="rooms" class="mb-1">Rooms: *</label>
-                <div class="mb-3">
-                    <button @click.prevent="this.form.rooms--" :disabled="this.form.rooms === 0"><i class="fa-solid fa-minus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.rooms === 0}"></i></button>
-                    <input
-                    id="rooms"
-                    type="number"
-                    v-model="form.rooms"
-                    required
-                    min="0"
-                        max="50"
-                        class="rounded-lg my-2 mx-1 w-12 text-center border-0 focus:ring-0"
-                        />
-                        <button @click.prevent="this.form.rooms++" :disabled="this.form.rooms === 50"><i class="fa-solid fa-plus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.rooms === 50}"></i></button>
-                </div>
-                <div v-if="$page.props.errors.rooms" class="mb-3">
-                    {{ $page.props.errors.rooms }}
-                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 
-                <label for="beds" class="mb-1">Beds: *</label>
-                <div class="mb-3">
-                    <button @click.prevent="this.form.beds--" :disabled="this.form.beds === 0"><i class="fa-solid fa-minus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.beds === 0}"></i></button>
-                    <input
-                    id="beds"
-                    type="number"
-                    v-model="form.beds"
-                    required
-                    min="0"
-                        max="50"
-                        class="rounded-lg my-2 mx-1 w-12 text-center border-0 focus:ring-0"
-                        />
-                        <button @click.prevent="this.form.beds++" :disabled="this.form.beds === 50"><i class="fa-solid fa-plus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.beds === 50}"></i></button>
-                    </div>
-                    <div v-if="$page.props.errors.beds" class="mb-3">
-                    {{ $page.props.errors.beds }}
-                </div>
-
-                <label for="bathrooms" class="mb-1">Bathrooms: *</label>
-                <div class="mb-3">
-                    <button @click.prevent="this.form.bathrooms--" :disabled="this.form.bathrooms === 0"><i class="fa-solid fa-minus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.bathrooms === 0}"></i></button>
-                    <input
-                    id="bathrooms"
-                        type="number"
-                        v-model="form.bathrooms"
-                        required
-                        min="0"
-                        max="50"
-                        class="rounded-lg my-2 mx-1 w-12 text-center border-0 focus:ring-0"
-                        />
-                        <button @click.prevent="this.form.bathrooms++" :disabled="this.form.bathrooms === 50"><i class="fa-solid fa-plus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.bathrooms === 50}"></i></button>
-                    </div>
-                    <div v-if="$page.props.errors.bathrooms" class="mb-3">
-                        {{ $page.props.errors.bathrooms }}
+                    <div>
+                        <label for="rooms" class="mb-1">Rooms: *</label>
+                        <div class="mb-3">
+                            <button @click.prevent="this.form.rooms--" :disabled="this.form.rooms === 0"><i class="fa-solid fa-minus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.rooms === 0}"></i></button>
+                            <input
+                            id="rooms"
+                            type="number"
+                            v-model="form.rooms"
+                            required
+                            min="0"
+                                max="50"
+                                class="rounded-lg my-2 mx-1 w-12 text-center border-0 focus:ring-0"
+                                />
+                                <button @click.prevent="this.form.rooms++" :disabled="this.form.rooms === 50"><i class="fa-solid fa-plus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.rooms === 50}"></i></button>
+                        </div>
+                        <div v-if="$page.props.errors.rooms" class="mb-3 error">
+                            {{ $page.props.errors.rooms }}
+                        </div>
                     </div>
 
-                    <label for="square_meters" class="mb-1">Square Meters: *</label>
+                    <div class="sm:justify-self-center">
+                        <label for="beds" class="mb-1">Beds: *</label>
+                        <div class="mb-3">
+                            <button @click.prevent="this.form.beds--" :disabled="this.form.beds === 0"><i class="fa-solid fa-minus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.beds === 0}"></i></button>
+                            <input
+                            id="beds"
+                            type="number"
+                            v-model="form.beds"
+                            required
+                            min="0"
+                                max="50"
+                                class="rounded-lg my-2 mx-1 w-12 text-center border-0 focus:ring-0"
+                                />
+                                <button @click.prevent="this.form.beds++" :disabled="this.form.beds === 50"><i class="fa-solid fa-plus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.beds === 50}"></i></button>
+                            </div>
+                            <div v-if="$page.props.errors.beds" class="mb-3 error">
+                            {{ $page.props.errors.beds }}
+                        </div>
+                    </div>
+
+                    <div class="sm:justify-self-end">
+                        <label for="bathrooms" class="mb-1">Bathrooms: *</label>
+                        <div class="mb-3">
+                            <button @click.prevent="this.form.bathrooms--" :disabled="this.form.bathrooms === 0"><i class="fa-solid fa-minus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.bathrooms === 0}"></i></button>
+                            <input
+                            id="bathrooms"
+                                type="number"
+                                v-model="form.bathrooms"
+                                required
+                                min="0"
+                                max="50"
+                                class="rounded-lg my-2 mx-1 w-12 text-center border-0 focus:ring-0"
+                                />
+                                <button @click.prevent="this.form.bathrooms++" :disabled="this.form.bathrooms === 50"><i class="fa-solid fa-plus text-sm text-stone-600 hover:text-stone-800 border-[1px] border-stone-400 hover:border-stone-900 rounded-full w-8 h-8 flex justify-center items-center" :class="{'opacity-30 hover:cursor-not-allowed': this.form.bathrooms === 50}"></i></button>
+                        </div>
+                        <div v-if="$page.props.errors.bathrooms" class="mb-3 error">
+                            {{ $page.props.errors.bathrooms }}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <label for="square_meters" class="mb-1">Square Meters: *</label>
                 <div class="mb-3 flex">
                     <input
                     id="square_meters"
@@ -245,13 +246,13 @@ export default {
                     />
                     <p class="inline-block my-2 py-2 px-3 text-base h-[42px] border-y-[1px] border-r-[1px] rounded-r-lg border-solid border-[#6b7280]">&#13217;</p>
                 </div>
-                <div v-if="$page.props.errors.square_meters" class="mb-3">
+                <div v-if="$page.props.errors.square_meters" class="mb-3 error">
                     {{ $page.props.errors.square_meters }}
                 </div>
 
                 <label class="mb-1">Address: *</label>
                 <AutoSearchTT @geodata="handleGeoData" class="mb-3"/>
-                <div v-if="$page.props.errors.full_address || $page.props.errors.city || $page.props.errors.country || $page.props.errors.latitude || $page.props.errors.longitude" class="mb-3">
+                <div v-if="$page.props.errors.full_address || $page.props.errors.city || $page.props.errors.country || $page.props.errors.latitude || $page.props.errors.longitude" class="mb-3 error">
                     {{ $page.props.errors.full_address }}
                     <br>
                     Please, select an address from the dropdown.
@@ -273,7 +274,7 @@ export default {
                         />
                     <p class=" text-slate-500 text-sm text-right">/per night</p>
                 </div>
-                <div v-if="$page.props.errors.price" class="mb-3">
+                <div v-if="$page.props.errors.price" class="mb-3 error">
                     {{ $page.props.errors.price }}
                 </div>
 
@@ -281,12 +282,11 @@ export default {
                 <div class="mb-5 mt-2 flex flex-col">
                     <div id="drop_cover" class="w-full bg-gray-200/50 h-80 my-1 border-[1px] border-dashed rounded-lg border-[#6b7280] flex items-center justify-center flex-col">
                         <p v-show="!showCancel" id="drop_text" class="user-select-none">Drag an image here!</p>
-                        <p v-show="!showCancel"> or <span id="browse_btn" class="text-blue-500 font-bold cursor-pointer">browse.</span></p>
+                        <p v-show="!showCancel"> or <span id="browse_btn" class="text-blue-500 font-bold cursor-pointer hover:underline">browse.</span></p>
                         <input
                             id="cover_image"
                             type="file"
                             @input="form.cover_image = $event.target.files[0]"
-                            required
                             accept="image/*"
                             hidden
                         />
@@ -303,7 +303,7 @@ export default {
                 >
                     {{ form.progress.percentage }}%
                 </progress>
-                <div v-if="$page.props.errors.cover_image" class="mb-3">
+                <div v-if="$page.props.errors.cover_image" class="mb-3 error">
                     {{ $page.props.errors.cover_image }}
                 </div>
 
@@ -341,42 +341,56 @@ export default {
                     ></textarea>
                     <p class=" text-slate-500 text-xs text-right">{{ descrChar }}/1000</p>
                 </div>
-                <div v-if="$page.props.errors.description" class="mb-3">
+                <div v-if="$page.props.errors.description" class="mb-3 error">
                     {{ $page.props.errors.description }}
                 </div>
 
                 <label for="features" class="mb-1">Features: </label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-3">
-                    <div v-for="feature in features" :key="feature.id">
-                        <div :id="'tag-' + feature.name" class="px-4 py-2 border-[1px] border-gray-400 hover:border-gray-700 rounded-3xl cursor-pointer m-2 flex items-center max-w-[230px]" @click.self="handleFeatureTag(feature.name)">
-                            <input type="checkbox" v-model="form.features" :value="feature.id" :id="feature.name">
-                            <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-1 mb-3">
+                    <div v-for="feature in features" :key="feature.id" class="my-1">
+                        <input type="checkbox" v-model="form.features" :value="feature.id" :id="feature.name" class="rounded w-5 h-5">
+                        <label class="pl-2" :for="feature.name">{{ feature.name.charAt(0).toUpperCase() + feature.name.slice(1) }}</label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 my-4">
+
+                    <div class="flex items-center mb-4 mr-3">
+                        <label for="types" class="pr-4">Type*: </label>
+                        <div>
+                            <select id="types" v-model="form.type_of_stay_id" class="rounded-lg" required>
+                                <option value="" selected disabled>Select a Type</option>
+                                <option v-for="elem in type_of_stays" :key="elem.id" :value="elem.id">{{ elem.name }}</option>
+                            </select>
+                        </div>
+                        <div v-if="$page.props.errors.type_of_stay_id" class="mb-3 error">
+                            {{ $page.props.errors.type_of_stay_id }}
+                        </div>
+                    </div>
+
+                    <div class="flex items-center mb-4 mr-1 sm:justify-self-end">
+                        <div>
+                            <label for="is_visible" class="pr-3 text-black">Public: </label>
+                            <input
+                                type="checkbox"
+                                name="is_visible"
+                                id="is_visible"
+                                class="rounded w-5 h-5"
+                                v-model="form.is_visible"
+                            />
                         </div>
                     </div>
                 </div>
 
-                <label for="types">Type*: </label>
-                <div>
-                    <select id="types" v-model="form.type_of_stay_id" required>
-                        <option value="" selected disabled>Select a Type</option>
-                        <option v-for="elem in type_of_stays" :key="elem.id" :value="elem.id">{{ elem.name }}</option>
-                    </select>
-                </div>
-                <div v-if="$page.props.errors.type_of_stay_id">
-                    {{ $page.props.errors.type_of_stay_id }}
+                <div class="w-full flex gap-2 my-4">
+                    <Link :href="route('dashboard.apartment.index')"
+                            as="button" class="px-10 py-3 bg-blue-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        Back
+                    </Link>
+
+                    <button type="submit" class="px-6 py-3 bg-green-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-400 focus:bg-green-400 active:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 grow">Create!</button>
                 </div>
 
-                <div>
-                    <label for="is_visible" class="pr-3 text-black">Public: </label>
-                    <input
-                        type="checkbox"
-                        name="is_visible"
-                        id="is_visible"
-                        v-model="form.is_visible"
-                    />
-                </div>
-
-                <button type="submit" class="px-6 py-3 bg-yellow-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">Vai</button>
 
             </form>
 
@@ -388,7 +402,7 @@ export default {
 
 <style>
 
-input + div, textarea + div, #searchbox + div{
+input + div, textarea + div, #searchbox + div, .error{
     color: red;
 }
 
@@ -400,18 +414,15 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type=number]{
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 #drop_cover img{
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-.active{
-    background-color: red;
 }
 
 </style>

@@ -98,6 +98,7 @@ export default{
 
 #searchbox .tt-search-box-input-container{
     padding: 0.5rem 0.75rem;
+    border-radius: 8px;
 }
 
 #searchbox .tt-search-box-input-container.-focused{
