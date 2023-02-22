@@ -37,6 +37,16 @@ export default {
         });
 
     },
+    computed:{
+        handleCreateDate(){
+            const data = new Date(this.apartment.created_at);
+            return data.toLocaleDateString('it-IT', {dateStyle: 'short'});
+        },
+        handleUpdateDate(){
+            const data = new Date(this.apartment.updated_at);
+            return data.toLocaleDateString('it-IT', {dateStyle: 'short'});
+        },
+    }
 };
 </script>
 
@@ -59,22 +69,27 @@ export default {
                 <img
                     :src="'/storage/' + apartment.cover_image"
                     alt="cover"
-                    class="w-96 mx-auto"
+                    class="w-96 mx-auto rounded-xl mb-2 mt-4"
                 />
             </div>
 
-            <p>Rooms: {{ apartment.rooms }}</p>
-            <p>Beds: {{ apartment.beds }}</p>
-            <p>Bathrooms: {{ apartment.bathrooms }}</p>
-            <p>Square Meters: {{ apartment.square_meters }} &#13217;</p>
-            <p>Price: {{ apartment.price }} &euro;</p>
-            <p>Currently Public: {{ apartment.is_visible ? "Yes" : "No" }}</p>
-            <p>Description: {{ apartment.description }}</p>
-            <p>Type: {{ apartment.type_of_stay.name }}</p>
+            <p><strong>Type:</strong> {{ apartment.type_of_stay.name }}</p>
+            <p><strong>Currently Public:</strong> {{ apartment.is_visible ? "Yes" : "No" }}</p>
+            <p><strong>Price:</strong> {{ apartment.price }} &euro;</p>
+            <hr class="my-2">
+            <p><strong>Rooms:</strong> {{ apartment.rooms }}</p>
+            <p><strong>Beds:</strong> {{ apartment.beds }}</p>
+            <p><strong>Bathrooms:</strong> {{ apartment.bathrooms }}</p>
+            <p><strong>Square Meters:</strong> {{ apartment.square_meters }} &#13217;</p>
+            <hr class="my-2">
+            <p><strong>Description:</strong> {{ apartment.description }}</p>
         </div>
 
         <div v-if="apartment.features.length != 0" class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
-            <div v-for="feature in apartment.features">{{ feature.name }}</div>
+            <p class="mb-3"><strong>Features:</strong></p>
+            <div class="flex gap-2 flex-wrap">
+                <div v-for="feature in apartment.features" class="border rounded-xl border-stone-700 py-1 px-4 w-fit hover:bg-slate-100">{{ feature.name }}</div>
+            </div>
         </div>
 
         <div
@@ -86,9 +101,9 @@ export default {
                 <div class="flex flex-wrap gap-3 items-center" v-if="apartment.images.length > 0">
                     <div v-for="(image, id) in apartment.images" :key="id">
                         <img
-                            :src="'/storage/' + image.url"
-                            alt="image_galler"
-                            class="rounded-2xl max-h-64"
+                        :src="'/storage/' + image.url"
+                        alt="image_galler"
+                        class="rounded-2xl max-h-64"
                         />
                     </div>
                 </div>
@@ -103,24 +118,26 @@ export default {
                         as="button"
                         class="px-5 py-1 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
                     >
-                        Here!
-                    </Link>
-                </p>
+                    Here!
+                </Link>
+            </p>
             </div>
         </div>
 
         <div
-            class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
+        class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
+            <h5 class="font-bold pb-4">Position:</h5>
+
             <p>
-                Address: {{ apartment.full_address }}, {{ apartment.city }},
+                <strong>Address:</strong> {{ apartment.full_address }}, {{ apartment.city }},
                 {{ apartment.country }}
             </p>
-            <p>Latitude: {{ apartment.latitude }}</p>
-            <p>Longitude: {{ apartment.longitude }}</p>
+            <p><strong>Latitude:</strong> {{ apartment.latitude }}</p>
+            <p><strong>Longitude:</strong> {{ apartment.longitude }}</p>
 
             <div
-                id="map"
+            id="map"
                 class="mx-auto my-8 w-10/12 h-[500px] rounded-2xl shadow-2xl"
             ></div>
         </div>
@@ -128,8 +145,8 @@ export default {
         <div
             class="container py-6 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
         >
-            <p>Created at: {{ apartment.created_at }}</p>
-            <p>Last update: {{ apartment.updated_at }}</p>
+            <p>Created at: {{ handleCreateDate }}</p>
+            <p>Last update: {{ handleUpdateDate }}</p>
         </div>
 
         <div
@@ -150,12 +167,26 @@ export default {
                 Edit
             </Link>
             <Link
-                :href="route('dashboard.apartment.destroy', apartment)"
-                method="delete"
+                :href="route('dashboard.apartment.edit', apartment.slug)"
                 as="button"
-                class="px-10 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="px-10 py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                Delete
+                Stats
+            </Link>
+            <Link
+            :href="route('dashboard.apartment.destroy', apartment)"
+            method="delete"
+            as="button"
+            class="px-10 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+            >
+            Delete
+            </Link>
+            <Link
+                :href="route('dashboard.apartment.edit', apartment.slug)"
+                as="button"
+                class="px-10 py-3 ml-auto bg-indigo-600 bg- border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+            >
+                Sponsor Apartment
             </Link>
         </div>
     </AuthenticatedLayout>
