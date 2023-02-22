@@ -173,7 +173,7 @@ export default {
 
                     <div class="flex gap-4 flex-wrap">
                         <Card
-                            v-for="apartment in this.filtered_apartments"
+                            v-for="apartment in handleFilters"
                             :key="apartment.id"
                             :apartment="apartment"
                             class="w-auto"
