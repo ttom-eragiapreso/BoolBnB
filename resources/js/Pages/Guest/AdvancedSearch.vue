@@ -19,10 +19,17 @@ export default {
                 rooms: 0,
                 bathrooms: 0,
                 features: [],
-                range: 20
+                range: 20000,
+                ignoreLocations: true
             },
             filtered_apartments: [],
-            store
+            center: {
+                latitude: null,
+                longitude: null
+            },
+            store,
+            UpdateMap: new CustomEvent('UpdateMap'),
+            markers: []
         };
     },
     props: {
@@ -31,31 +38,6 @@ export default {
         features: Array,
         lat: String,
         lng: String
-    },
-    mounted() {
-        this.filtered_apartments = this.apartments;
-
-        const map = tt.map({
-            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
-            container: "map",
-            center: [this.lng ? this.lng : 12.492230901450688, this.lat ? this.lat : 41.89027805140671],
-            zoom: 12,
-            style: "/satellitemap.json",
-        });
-
-        map.on("load", () => {
-            let popup = new tt.Popup({
-                closeButton: false,
-                offset: 35,
-                anchor: "bottom",
-            }).setText("Colosseo");
-            let marker = new tt.Marker()
-                .setLngLat([12.492230901450688, 41.89027805140671])
-                .setPopup(popup);
-            marker.addTo(map);
-            map.addControl(new tt.FullscreenControl());
-            map.addControl(new tt.NavigationControl());
-        });
     },
     methods: {
         addFeature(id) {
@@ -85,6 +67,28 @@ export default {
 
             });
             return flag;
+        },
+        distanceInMeters(p1, p2) {
+            const R = 6371000; // Earth's radius in meters
+            const dLat = this.toRadians(p2.latitude - p1.latitude);
+            const dLon = this.toRadians(p2.longitude - p1.longitude);
+            const lat1 = this.toRadians(p1.latitude);
+            const lat2 = this.toRadians(p2.latitude);
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        },
+        toRadians(degrees) {
+            return degrees * Math.PI / 180;
+        },
+        filterLocations(apartment){
+            const coord = {
+                latitude: apartment.latitude,
+                longitude: apartment.longitude
+            };
+            const distance = this.distanceInMeters(this.center, coord);
+            return distance <= this.filters.range;
         }
     },
     computed:{
@@ -96,10 +100,61 @@ export default {
                         && apartment.bathrooms >= this.filters.bathrooms
                         && this.checkFeature(apartment)
                         && (this.store.filtered_type == null ? true : apartment.type_of_stay_id == this.store.filtered_type)
+                        && this.filterLocations(apartment) || this.filters.ignoreLocations
             })
+
+            window.dispatchEvent(this.UpdateMap);
+
             return this.filtered_apartments;
         }
     },
+    mounted() {
+        this.filtered_apartments = this.apartments;
+
+        this.center.longitude = this.lng ?? 12.5;
+        this.center.latitude = this.lat ?? 49;
+
+        if(this.lat || this.lng) this.filters.ignoreLocations = false;
+
+        const map = tt.map({
+            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
+            container: "map",
+            center: [this.center.longitude, this.center.latitude],
+            zoom: 3,
+            style: "/satellitemap.json",
+        });
+
+        map.on("load", () => {
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
+        });
+
+        window.addEventListener('UpdateMap', () => {
+
+            this.markers.forEach(marker => {
+                marker.remove();
+            })
+            map.resize();
+
+            this.markers = [];
+
+            this.filtered_apartments.forEach(apartment => {
+                let popup = new tt.Popup({
+                    closeButton: false,
+                    offset: 35,
+                    anchor: "bottom",
+                }).setText(apartment.title);
+                let marker = new tt.Marker()
+                    .setLngLat([apartment.longitude, apartment.latitude])
+                    .setPopup(popup);
+                    marker.addTo(map);
+                this.markers.push(marker);
+            });
+        });
+    },
+    unmounted(){
+        this.store.searched_address = null;
+    }
 };
 </script>
 
@@ -110,6 +165,12 @@ export default {
             <div class="py-4 lg:px-20 px-8 flex w-full">
                 <div class="w-2/3">
                     <div>
+                        <h3 class="text-2xl mb-3">Range:</h3>
+                        <div class="flex ">
+                            <input type="range" class=" w-96 mr-4 mb-2" min="1000" max="100000" step="1000" v-model="this.filters.range">
+                            <p>{{ this.filters.range / 1000 }} Km</p>
+                        </div>
+
                         <h3 class="text-2xl mb-3">Features:</h3>
                         <button
                             :class="{'text-red-500': this.filters.features.includes(feature.id)}"
