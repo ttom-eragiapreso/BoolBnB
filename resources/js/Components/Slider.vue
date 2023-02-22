@@ -52,7 +52,7 @@ export default {
         <button @click="scroll_left"><i class="fa-solid fa-chevron-left"></i></button>
       </div>
       <div @scroll="scrollHandle()" class="px-6 flex wrapper-box hide-scroll w-screen overflow-auto">
-
+        <SliderItem :item="{icon: 'fa-solid fa-mountain-city', name: 'All Types', id: null}"/>
         <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/>
         <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/>
       </div>

@@ -14,7 +14,7 @@ export default{
                     key: 'LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM',
                     language: 'en-GB',
                     limit: 20,
-                    idxSet: 'Str'
+                    idxSet: this.idxSet
                 },
                 labels: {
                     noResultsMessage: 'No results found.'
@@ -23,6 +23,7 @@ export default{
         }
     },
     props:{
+        idxSet: String,
         address: {
             type: String,
             required: false,

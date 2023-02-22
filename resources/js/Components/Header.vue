@@ -3,6 +3,8 @@ import ApplicationLogo from "./ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
+import { Link, router } from "@inertiajs/vue3";
+import AutoSearchTT from '../Components/AutoSearchTT.vue';
 
 export default {
     name: "Header",
@@ -10,6 +12,8 @@ export default {
         return {
             open: false,
             var: null,
+            lat: null,
+            lng: null
         };
     },
     components: {
@@ -17,24 +21,22 @@ export default {
         Dropdown,
         DropdownLink,
         NavLink,
+        AutoSearchTT
     },
     props: {
         canLogin: Boolean,
         canRegister: Boolean,
     },
     methods: {
-        // dropDown(){
-        //     if(this.open){
-        //         this.unOpen();
-        //     } else {
-        //         this.open = true;
-        //         document.addEventListener('click', this.unOpen());
-        //     }
-        // },
-        // unOpen(){
-        //     this.open = false;
-        //     document.removeEventListener('click', this.unOpen);
-        // }
+        goToAdvancedSearch(){
+            router.get(route('advancedsearch', [this.lat, this.lng]));
+        },
+        handleGeoData(event){
+           this.lat = event.lat;
+           this.lng = event.lng;
+           console.log(this.lng);
+           console.log(this.lat);
+        }
     },
 };
 </script>
@@ -49,16 +51,18 @@ export default {
             </div>
 
             <div class="relative">
-                <input
+                <!-- <input
                     type="search"
                     id="search"
+                    v-model="search"
                     class="cursor-pointer px-5 py-3 block w-full border border-slate-200 rounded-full focus:ring-slate-500 focus:border-slate-500 dark:border-gray-200 dark:placeholder-slate-400 dark:text-black dark:focus:ring-slate-500 dark:focus:border-slate-500 shadow hover:shadow-md"
                     placeholder="City.."
-                    required
+                    @keydown.enter="goToAdvancedSearch()"
                 />
 
                 <div
-                    class="absolute inset-y-0 right-0 flex items-center pr-2 py-2 pointer-events-none"
+                    @click="goToAdvancedSearch()"
+                    class="absolute inset-y-0 right-0 flex items-center pr-2 py-2"
                 >
                     <svg
                         aria-hidden="true"
@@ -75,7 +79,10 @@ export default {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                         ></path>
                     </svg>
-                </div>
+                </div> -->
+
+                <AutoSearchTT @geodata="handleGeoData" idxSet="POI,Geo" @keydown.enter="goToAdvancedSearch()"/>
+
             </div>
 
             <div class="relative w-[168px] flex justify-end">
