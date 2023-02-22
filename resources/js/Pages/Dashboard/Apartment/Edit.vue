@@ -275,7 +275,7 @@ export default {
                 </div>
 
                 <label class="mb-1">Address: *</label>
-                <AutoSearchTT @geodata="handleGeoData" :address="this.form.full_address" class="mb-3"/>
+                <AutoSearchTT @geodata="handleGeoData" :address="this.form.full_address" idxSet="Str" class="mb-3"/>
                 <div v-if="$page.props.errors.full_address || $page.props.errors.city || $page.props.errors.country || $page.props.errors.latitude || $page.props.errors.longitude" class="mb-3 error">
                     {{ $page.props.errors.full_address }}<br>Please, select an address from the dropdown.
                 </div>

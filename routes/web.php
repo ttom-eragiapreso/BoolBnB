@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 // Guest Pages
 Route::get('/', [GuestController::class, 'index'])->name('home');
-Route::get('/advanced-search', [GuestController::class, 'advancedSearch'])->name('advancedsearch');
+Route::get('/advanced-search/{lat?}/{lng?}', [GuestController::class, 'advancedSearch'])->name('advancedsearch');
 Route::get('/details/{slug}', [GuestController::class, 'details'])->name('details');
 
 // Auth Pages

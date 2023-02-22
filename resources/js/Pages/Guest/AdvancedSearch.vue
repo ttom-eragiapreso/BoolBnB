@@ -3,6 +3,7 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Slider from "@/Components/Slider.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 import Card from "@/Components/Card.vue";
+import {store} from '../../data/store';
 
 export default {
     name: "AdvancedSearch",
@@ -17,16 +18,19 @@ export default {
                 beds: 0,
                 rooms: 0,
                 bathrooms: 0,
-                type_of_stay: null,
                 features: [],
+                range: 20
             },
             filtered_apartments: [],
+            store
         };
     },
     props: {
         types_of_stay: Array,
         apartments: Array,
         features: Array,
+        lat: String,
+        lng: String
     },
     mounted() {
         this.filtered_apartments = this.apartments;
@@ -34,8 +38,8 @@ export default {
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
             container: "map",
-            center: [12.492230901450688, 41.89027805140671],
-            zoom: 15,
+            center: [this.lng ? this.lng : 12.492230901450688, this.lat ? this.lat : 41.89027805140671],
+            zoom: 12,
             style: "/satellitemap.json",
         });
 
@@ -91,6 +95,7 @@ export default {
                         && apartment.rooms >= this.filters.rooms
                         && apartment.bathrooms >= this.filters.bathrooms
                         && this.checkFeature(apartment)
+                        && (this.store.filtered_type == null ? true : apartment.type_of_stay_id == this.store.filtered_type)
             })
             return this.filtered_apartments;
         }
@@ -175,13 +180,16 @@ export default {
 
                     <hr class="mr-4 mb-12 mt-4">
 
-                    <div class="flex gap-4 flex-wrap">
+                    <div class="flex gap-4 flex-wrap" v-if="handleFilters.length != 0">
                         <Card
                             v-for="apartment in handleFilters"
                             :key="apartment.id"
                             :apartment="apartment"
                             class="w-auto"
                         />
+                    </div>
+                    <div v-else>
+                        <p>No apartments found.</p>
                     </div>
                 </div>
                 <div class="w-1/3">
