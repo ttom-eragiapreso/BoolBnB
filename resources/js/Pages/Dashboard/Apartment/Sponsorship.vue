@@ -5,11 +5,13 @@ import { store } from "@/data/store";
 
 export default {
     name: "Sponsorship",
-    layout: AuthenticatedLayout,
     data() {
         return {
             store,
         };
+    },
+    components:{
+        AuthenticatedLayout
     },
     mounted() {
         braintree.dropin.create(
@@ -45,15 +47,29 @@ export default {
 </script>
 
 <template>
-    <div class="max-w-screen-lg mx-auto">
-        <div id="dropin-container"></div>
-        <button
-            id="submit-button"
-            class="p-3 bg-blue-400 rounded-lg text-white"
-        >
-            Request payment method
-        </button>
-    </div>
+
+    <Head title="Sponsorship" />
+
+    <AuthenticatedLayout>
+
+        <template v-slot:header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Sponsorships</h2>
+        </template>
+
+        <div class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+            <div class="max-w-screen-lg mx-auto">
+                <div id="dropin-container"></div>
+                <button
+                    id="submit-button"
+                    class="p-3 bg-blue-400 rounded-lg text-white"
+                >
+                    Request payment method
+                </button>
+            </div>
+        </div>
+
+    </AuthenticatedLayout>
+
 </template>
 
 <style></style>

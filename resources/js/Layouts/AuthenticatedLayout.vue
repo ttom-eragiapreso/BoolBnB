@@ -120,7 +120,11 @@ const showingNavigationDropdown = ref(false);
                                             Add New Apartment
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="route('dashboard.apartment.sponsorship')"
+                                            :href="
+                                                route(
+                                                    'dashboard.apartment.sponsorship'
+                                                )
+                                            "
                                             as="button"
                                         >
                                             Sponsorships
