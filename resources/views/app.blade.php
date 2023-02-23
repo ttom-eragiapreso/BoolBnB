@@ -14,8 +14,13 @@
     integrity='sha512-+ouAqATs1y4kpPMCHfKHVJwf308zo+tC9dlEYK9rKe7kiP35NiP+Oi35rCFnc16zdvk9aBkDUtEO3tIPl0xN5w=='
     crossorigin='anonymous' />
 
-    {{-- tomtom --}}
-    <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css"/>
+  {{-- tomtom --}}
+  <link rel="stylesheet" type="text/css"
+    href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css" />
+
+  {{-- BrainTree --}}
+  <script src="https://js.braintreegateway.com/web/dropin/1.34.0/js/dropin.min.js"></script>
+
 
   <!-- Scripts -->
   @routes
