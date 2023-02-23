@@ -26,14 +26,12 @@ export default {
         this.showModal = !this.showModal;
         }
     },
-    handleCreateDate() {
-            const data = new Date(this.apartment.created_at);
-            return data.toLocaleDateString("it-IT", { dateStyle: "short" });
-        },
-        handleUpdateDate() {
-            const data = new Date(this.apartment.updated_at);
-            return data.toLocaleDateString("it-IT", { dateStyle: "short" });
-        },
+    computed:{
+        handleCreateDate() {
+                const data = new Date(this.date);
+                return data.toLocaleDateString("it-IT", { dateStyle: "short" });
+            }
+    },
     mounted() {
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
@@ -118,7 +116,7 @@ export default {
                         <button class="text-white font-bold w-full rounded-xl mt-8 py-2 bg-gradient-to-br from-pink-800 to-pink-600 hover:bg-gradient-to-bl">Reserve</button>
                         <hr class="my-8">
                         <h2 class="font-bold text-lg">Host: {{ name }}</h2>
-                        <p class="text-slate-500 text-sm">Joined in:{{ apartment.created_at }}</p>
+                        <p class="text-slate-500 text-sm">Joined in: {{ handleCreateDate }}</p>
                         <h2 class="font-bold text-base mt-4">During your stay</h2>
                         <p>In order to make your stay as pleasant as possible, we personally prepare the apartment and make sure that everything is in order for your arrival, down to the smallest detail.
 
