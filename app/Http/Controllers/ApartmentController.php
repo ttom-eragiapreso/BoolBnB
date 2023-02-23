@@ -6,6 +6,7 @@ use App\Models\Apartment;
 use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Type_of_stay;
+use Braintree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -245,8 +246,70 @@ class ApartmentController extends Controller
 
     public function transaction(Request $request){
 
-        dd($request->all());
 
-        return redirect()->route('dashboard.apartment.sponsorship');
+         //dd($request->all());
+
+        Braintree\Configuration::environment('sandbox');
+        Braintree\Configuration::merchantId('4vzxvdhwmxsz2ggq');
+        Braintree\Configuration::publicKey('5k7pk6n4hcyg4wg9');
+        Braintree\Configuration::privateKey('6022bd4a6a11f4082820ba9b219d8021');
+
+        $nonce = $request['payload']['nonce'];
+        $deviceData = $request['deviceData'];
+
+
+
+        $gateway = new Braintree\Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => '4vzxvdhwmxsz2ggq',
+            'publicKey' => '5k7pk6n4hcyg4wg9',
+            'privateKey' => '6022bd4a6a11f4082820ba9b219d8021'
+        ]);
+
+        $customer = $gateway->customer()->create([
+            'firstName' => 'Mike',
+            'lastName' => 'Jones',
+            'company' => 'Jones Co.',
+            'email' => 'mike.jones@example.com',
+            'phone' => '281.330.8004',
+            'fax' => '419.555.1235',
+            'website' => 'http://example.com/'
+        ]);
+
+        $validation = $gateway->paymentMethod()->create([
+            'customerId' => $customer->customer->id,
+            'paymentMethodNonce' => $nonce,
+            'options' => [
+              'verifyCard' => true,
+            ]
+          ]);
+
+          //$gateway->customer()->delete($customer->customer->id);
+
+          if($validation->success){
+
+            $token = $validation->paymentMethod->token;
+
+            $transaction = Braintree\Transaction::sale([
+                'amount' => '10.00',
+                'paymentMethdToken' => $token,
+                'options' => [
+                    'submitForSettlement' => true
+                    ]
+                    ]);
+
+             $result = $transaction->success;
+
+             if($result){
+                 return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your payment was successful!');
+             }else {
+                return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your transaction was unsuccessful');
+             }
+          }else {
+            return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your card was declined, please try another card.');
+          }
+
+
+
     }
 }

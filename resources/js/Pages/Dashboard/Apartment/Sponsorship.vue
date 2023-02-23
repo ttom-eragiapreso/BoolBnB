@@ -10,6 +10,7 @@ export default {
             store,
             submit: null,
             form: null,
+            deviceData: null,
         };
     },
     components: {
@@ -19,11 +20,25 @@ export default {
     mounted() {
         let submit = document.querySelector('input[type="submit"]');
         let form = document.querySelector("#my-sample-form");
+        let deviceData;
         braintree.client.create(
             {
                 authorization: this.store.BT_Token,
             },
             function (clientErr, clientInstance) {
+                braintree.dataCollector.create(
+                    {
+                        client: clientInstance,
+                    },
+                    function (err, dataCollectorInstance) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        deviceData = dataCollectorInstance.deviceData;
+                    }
+                );
+
                 if (clientErr) {
                     console.error(clientErr);
                     return;
@@ -106,7 +121,10 @@ export default {
 
                                     router.post(
                                         route("dashboard.transaction"),
-                                        payload
+                                        {
+                                            payload: payload,
+                                            deviceData: deviceData,
+                                        }
                                     );
                                     console.log(payload);
                                 });
