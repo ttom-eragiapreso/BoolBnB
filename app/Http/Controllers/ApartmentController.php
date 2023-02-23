@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\Feature;
 use App\Models\Image;
+use App\Models\Sponsorship;
 use App\Models\Type_of_stay;
 use Braintree;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -246,8 +249,7 @@ class ApartmentController extends Controller
 
     public function transaction(Request $request){
 
-
-         //dd($request->all());
+        //dd($request->all());
 
         // Braintree\Configuration::environment('sandbox');
         // Braintree\Configuration::merchantId('4vzxvdhwmxsz2ggq');
@@ -256,6 +258,9 @@ class ApartmentController extends Controller
 
         $nonce = $request['payload']['nonce'];
 
+        $target = $request['target'];
+        $apartment = Apartment::find($target['apartment_id']);
+        $sponsorship = Sponsorship::find($target['sponsorship_id']);
 
 
         $gateway = new Braintree\Gateway([
@@ -300,6 +305,16 @@ class ApartmentController extends Controller
              $result = $transaction->success;
 
              if($result){
+                // Salviamo nel db la sponsorship & apartment
+
+                $now = new DateTime();
+
+                $apartment->sponsorships()->attach($sponsorship->id,[
+                    'start' => new DateTime(),
+                    'end' => $now->add(new DateInterval("PT" . $sponsorship->length_hours . "H"))
+                ]);
+
+
                  return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your payment was successful!');
              }else {
                 return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your transaction was unsuccessful');
