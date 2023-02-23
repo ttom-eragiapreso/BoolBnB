@@ -116,28 +116,20 @@ const showingNavigationDropdown = ref(false);
                                                 )
                                             "
                                             as="button"
-                                        >
+                                            >
                                             Add New Apartment
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="
-                                                route(
-                                                    'dashboard.apartment.index'
-                                                )
-                                            "
-                                            as="button"
-                                        >
-                                            Transactions history
-                                        </DropdownLink>
-                                        <DropdownLink
-                                            :href="
-                                                route(
-                                                    'dashboard.apartment.sponsorship'
-                                                )
-                                            "
+                                            :href="route('dashboard.apartment.sponsorship')"
                                             as="button"
                                         >
                                             Sponsorships
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('dashboard.apartment.index')"
+                                            as="button"
+                                        >
+                                            Transactions history
                                         </DropdownLink>
                                         <hr />
                                         <DropdownLink
