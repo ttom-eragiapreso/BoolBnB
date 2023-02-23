@@ -242,4 +242,11 @@ class ApartmentController extends Controller
 
         return Inertia::render('Dashboard/Apartment/Sponsorship');
     }
+
+    public function transaction(Request $request){
+
+        dd($request->all());
+
+        return redirect()->route('dashboard.apartment.sponsorship');
+    }
 }
