@@ -96,8 +96,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('dashboard.apartment.create')"
                                             as="button"
-                                        >
+                                            >
                                             Add New Apartment
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('dashboard.apartment.sponsorship')"
+                                            as="button"
+                                        >
+                                            Sponsorships
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('dashboard.apartment.index')"

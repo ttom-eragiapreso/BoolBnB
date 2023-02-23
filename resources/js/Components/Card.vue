@@ -1,9 +1,9 @@
 <template>
     <div class="container mx-auto flex justify-center">
-        <div>
+        <div @click="goToPage">
             <!-- Img container -->
             <div
-                class="w-60 aspect-square border rounded-xl overflow-hidden relative"
+                class="w-60 aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
             >
                 <swiper
                     class="w-full h-full"
@@ -57,6 +57,7 @@
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination } from "swiper";
+import { Link, router } from "@inertiajs/vue3";
 
 import "swiper/scss";
 import "swiper/scss/navigation";
@@ -74,6 +75,11 @@ export default {
     props: {
         apartment: Object,
     },
+    methods: {
+        goToPage(){
+            router.get(route('details', this.apartment.slug));
+        }
+    }
 };
 </script>
 <style lang="scss" scoped></style>

@@ -14,7 +14,6 @@ import { Link } from '@inertiajs/vue3';
 
     <div class="min-h-screen pt-6 sm:pt-0 bg-white">
 
-
             <slot />
 
     </div>
