@@ -273,12 +273,12 @@ export default {
 
                     <hr class="mr-4 mb-12 mt-4">
 
-                    <div class="flex gap-4 flex-wrap" v-if="handleFilters.length != 0">
+                    <div class=" grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-if="handleFilters.length != 0">
                         <Card
                             v-for="apartment in handleFilters"
                             :key="apartment.id"
                             :apartment="apartment"
-                            class="w-auto"
+                            class="mb-8"
                         />
                     </div>
                     <div v-else>
@@ -286,10 +286,10 @@ export default {
                     </div>
 
                 </div>
-                <div class="w-1/3 fixed top-[180px] right-0 border-l border-gray-200">
+                <div class="w-1/3 fixed top-[163px] right-0 border-l border-gray-200">
                     <div
                         id="map"
-                        class="my-0 h-[490px] ml-3 mr-7 lg:mr-20 rounded-2xl shadow"
+                        class="my-0 ml-3 lg:mr-20 rounded-2xl shadow"
                     ></div>
                 </div>
             </div>
@@ -306,6 +306,10 @@ export default {
 #boxfilters.hide{
     transform: translateY(-100%);
     display: none;
+}
+
+#map{
+    height: calc(100vh - 213px);
 }
 
 </style>
