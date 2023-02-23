@@ -96,7 +96,7 @@ export default {
                 <div class="w-[60%]">
                     <div class="pb-4 mb-4 border-b">
                         <h2 class="text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
-                        <p>2 guests &middot; {{ apartment.rooms }} {{apartment.rooms > 1 ? 'rooms' : 'room'}} &middot; {{ apartment.beds }} {{apartment.rooms > 1 ? 'beds' : 'bed'}} &middot; {{ apartment.bathrooms }} &middot; {{apartment.rooms > 1 ? 'bathrooms' : 'bathroom'}} &middot; {{ apartment.square_meters }}&#13217;</p>
+                        <p>2 guests &middot; {{ apartment.rooms }} {{apartment.rooms > 1 ? 'rooms' : 'room'}} &middot; {{ apartment.beds }} {{apartment.rooms > 1 ? 'beds' : 'bed'}} &middot; {{ apartment.bathrooms }} {{apartment.rooms > 1 ? 'bathrooms' : 'bathroom'}} &middot; {{ apartment.square_meters }}&#13217;</p>
                     </div>
                     <div class="pb-4 mb-4 border-b">
                         <h2 class="text-2xl pb-2 font-bold">Description</h2>
