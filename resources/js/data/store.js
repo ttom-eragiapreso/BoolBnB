@@ -6,4 +6,8 @@ export const store = reactive({
     BT_Token: "sandbox_csdswdwm_4vzxvdhwmxsz2ggq",
     valid_card_number: 4111111111111111,
     invalid_card_number: 4000111111111115,
+    target: {
+        apartment_id: 1,
+        sponsorship_id: 3,
+    },
 });

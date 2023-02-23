@@ -1,9 +1,5 @@
 <template>
-    <form
-        :action="route('dashboard.transaction')"
-        id="my-sample-form"
-        method="post"
-    >
+    <form id="my-sample-form" method="post" v-show="this.modalPaolo">
         <label for="card-number">Card Number</label>
         <div id="card-number"></div>
 
@@ -18,16 +14,32 @@
 </template>
 <script>
 import { router } from "@inertiajs/vue3";
-
+import { store } from "../data/store";
+import Modal from "./Modal.vue";
 export default {
-    name: "Sponsorship",
+    name: "Payment",
     data() {
         return {
             submit: null,
             form: null,
+            store,
+            modalPaolo: false,
         };
     },
+    components: {
+        Modal,
+    },
+    props: {
+        show: Boolean,
+    },
+    methods: {},
     mounted() {
+        this.modalPaolo = this.show;
+
+        function hideModal() {
+            this.modalPaolo = false;
+        }
+
         let submit = document.querySelector('input[type="submit"]');
         let form = document.querySelector("#my-sample-form");
         braintree.client.create(
@@ -114,10 +126,13 @@ export default {
                                     // If this was a real integration, this is where you would
                                     // send the nonce to your server.
 
+                                    hideModal();
+
                                     router.post(
                                         route("dashboard.transaction"),
                                         {
                                             payload: payload,
+                                            target: store.target,
                                         }
                                     );
                                 });
