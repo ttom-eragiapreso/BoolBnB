@@ -68,7 +68,7 @@ export default {
             class="container max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl px-8 lg:px-20 py-8"
         >
             <h1 class="text-3xl pb-2 font-bold">{{ apartment.title }}</h1>
-            <a href="#" class=" mb-4 font-bold underline"> &#8669;
+            <a href="#map" class=" mb-4 font-bold underline"> &#8669;
                 {{ apartment.full_address }}, {{ apartment.city }},
                 {{ apartment.country }}
             </a>
@@ -178,8 +178,9 @@ export default {
 
         </div>
 
-            <h2 class="font-bold text-2xl mt-8 text-center">Where you’ll be</h2>
+            <h2 name="map" class="font-bold text-2xl mt-8 text-center">Where you’ll be</h2>
             <div
+
                 id="map"
                 class="mx-auto my-8 max-w-5xl h-[500px] rounded-2xl shadow-2xl">
             </div>
