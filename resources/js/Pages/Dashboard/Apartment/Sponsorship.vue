@@ -9,10 +9,7 @@ export default {
     data() {
         return {
             showModal: false,
-            target: {
-                apartment_id: 1,
-                sponsorship_id: 1,
-            },
+            store
         };
     },
     components: {
@@ -20,6 +17,11 @@ export default {
         Head,
         Payment,
     },
+    computed:{
+        handleModal(){
+            return this.showModal;
+        }
+    }
 };
 </script>
 
@@ -33,13 +35,11 @@ export default {
             </h2>
         </template>
 
-        <Payment :show="showModal" />
-
-        <div
-            class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
-        >
+        <div class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
             <button @click="showModal = true">Proceed to checkout</button>
+            <Payment/>
         </div>
+
     </AuthenticatedLayout>
 </template>
 
