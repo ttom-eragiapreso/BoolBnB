@@ -249,13 +249,12 @@ class ApartmentController extends Controller
 
          //dd($request->all());
 
-        Braintree\Configuration::environment('sandbox');
-        Braintree\Configuration::merchantId('4vzxvdhwmxsz2ggq');
-        Braintree\Configuration::publicKey('5k7pk6n4hcyg4wg9');
-        Braintree\Configuration::privateKey('6022bd4a6a11f4082820ba9b219d8021');
+        // Braintree\Configuration::environment('sandbox');
+        // Braintree\Configuration::merchantId('4vzxvdhwmxsz2ggq');
+        // Braintree\Configuration::publicKey('5k7pk6n4hcyg4wg9');
+        // Braintree\Configuration::privateKey('6022bd4a6a11f4082820ba9b219d8021');
 
         $nonce = $request['payload']['nonce'];
-        $deviceData = $request['deviceData'];
 
 
 
@@ -290,9 +289,9 @@ class ApartmentController extends Controller
 
             $token = $validation->paymentMethod->token;
 
-            $transaction = Braintree\Transaction::sale([
+            $transaction = $gateway->transaction()->sale([
                 'amount' => '10.00',
-                'paymentMethdToken' => $token,
+                'paymentMethodToken' => $token,
                 'options' => [
                     'submitForSettlement' => true
                     ]

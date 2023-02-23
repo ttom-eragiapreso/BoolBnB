@@ -1,21 +1,31 @@
+<template>
+    <form
+        :action="route('dashboard.transaction')"
+        id="my-sample-form"
+        method="post"
+    >
+        <label for="card-number">Card Number</label>
+        <div id="card-number"></div>
+
+        <label for="cvv">CVV</label>
+        <div id="cvv"></div>
+
+        <label for="expiration-date">Expiration Date</label>
+        <div id="expiration-date"></div>
+
+        <input type="submit" value="Pay" disabled />
+    </form>
+</template>
 <script>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, router } from "@inertiajs/vue3";
-import { store } from "@/data/store";
+import { router } from "@inertiajs/vue3";
 
 export default {
     name: "Sponsorship",
     data() {
         return {
-            store,
             submit: null,
             form: null,
-            deviceData: null,
         };
-    },
-    components: {
-        AuthenticatedLayout,
-        Head,
     },
     mounted() {
         let submit = document.querySelector('input[type="submit"]');
@@ -29,7 +39,6 @@ export default {
                     console.error(clientErr);
                     return;
                 }
-
                 braintree.hostedFields.create(
                     {
                         client: clientInstance,
@@ -122,38 +131,3 @@ export default {
     },
 };
 </script>
-
-<template>
-    <Head title="Sponsorship" />
-
-    <AuthenticatedLayout>
-        <template v-slot:header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Sponsorships
-            </h2>
-        </template>
-
-        <div
-            class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4"
-        >
-            <form
-                :action="route('dashboard.transaction')"
-                id="my-sample-form"
-                method="post"
-            >
-                <label for="card-number">Card Number</label>
-                <div id="card-number"></div>
-
-                <label for="cvv">CVV</label>
-                <div id="cvv"></div>
-
-                <label for="expiration-date">Expiration Date</label>
-                <div id="expiration-date"></div>
-
-                <input type="submit" value="Pay" disabled />
-            </form>
-        </div>
-    </AuthenticatedLayout>
-</template>
-
-<style></style>
