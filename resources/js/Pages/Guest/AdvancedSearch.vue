@@ -29,7 +29,8 @@ export default {
             },
             store,
             UpdateMap: new CustomEvent('UpdateMap'),
-            markers: []
+            markers: [],
+            hideFilters: false
         };
     },
     props: {
@@ -100,7 +101,7 @@ export default {
                         && apartment.bathrooms >= this.filters.bathrooms
                         && this.checkFeature(apartment)
                         && (this.store.filtered_type == null ? true : apartment.type_of_stay_id == this.store.filtered_type)
-                        && this.filterLocations(apartment) || this.filters.ignoreLocations
+                        && (this.filterLocations(apartment) || this.filters.ignoreLocations)
             })
 
             window.dispatchEvent(this.UpdateMap);
@@ -114,7 +115,7 @@ export default {
         this.center.longitude = this.lng ?? 12.5;
         this.center.latitude = this.lat ?? 49;
 
-        if(this.lat || this.lng) this.filters.ignoreLocations = false;
+        if(this.lat != null && this.lng != null) this.filters.ignoreLocations = false;
 
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
@@ -164,14 +165,17 @@ export default {
             <Slider :types_of_stay="types_of_stay" />
             <div class="mt-[180px] py-4 lg:px-20 px-8 flex w-full">
                 <div class="w-2/3">
-                    <div>
-                        <h3 class="text-2xl mb-3">Range:</h3>
-                        <div class="flex ">
-                            <input type="range" class=" w-96 mr-4 mb-2" min="1000" max="100000" step="1000" v-model="this.filters.range">
-                            <p>{{ this.filters.range / 1000 }} Km</p>
+                    <div :class="{'hide': hideFilters}" id="boxfilters">
+
+                        <div v-if="!this.filters.ignoreLocations">
+                            <h3 class="text-xl mb-3">Range:</h3>
+                            <div class="flex ">
+                                <input type="range" class=" w-96 mr-4 mb-2" min="1000" max="100000" step="1000" v-model="this.filters.range">
+                                <p>{{ this.filters.range / 1000 }} Km</p>
+                            </div>
                         </div>
 
-                        <h3 class="text-2xl mb-3">Features:</h3>
+                        <h3 class="text-xl mb-3">Features:</h3>
                         <button
                             :class="{'text-red-500': this.filters.features.includes(feature.id)}"
                             @click="addFeature(feature.id)"
@@ -182,7 +186,7 @@ export default {
                             {{ feature.name }}
                         </button>
 
-                        <h3 class="text-2xl mb-3">Rooms:</h3>
+                        <h3 class="text-xl mb-3">Rooms:</h3>
 
                         <button
                             @click="this.filters.rooms = i"
@@ -193,7 +197,6 @@ export default {
                         >
                             {{ i }}
                         </button>
-
                         <button
                             @click="this.filters.rooms = 8"
                             :class="{ 'text-red-500': this.filters.rooms === 8 }"
@@ -201,8 +204,14 @@ export default {
                         >
                             8+
                         </button>
+                        <button
+                            @click="this.filters.rooms = 0"
+                            class="pl-1 mb-3 py-1 capitalize hover:border-black"
+                        >
+                            &times;
+                        </button>
 
-                        <h3 class="text-2xl mb-3">Beds:</h3>
+                        <h3 class="text-xl mb-3">Beds:</h3>
                         <button
                             @click="this.filters.beds = i"
                             :class="{ 'text-red-500': this.filters.beds === i }"
@@ -219,24 +228,47 @@ export default {
                         >
                             8+
                         </button>
+                        <button
+                            @click="this.filters.beds = 0"
+                            class="pl-1 mb-3 py-1 capitalize hover:border-black"
+                        >
+                            &times;
+                        </button>
 
-                        <h3 class="text-2xl mb-3">Bathrooms:</h3>
-                        <button
-                            @click="this.filters.bathrooms = i"
-                            :class="{ 'text-red-500': this.filters.bathrooms === i }"
-                            v-for="i in 3"
-                            :key="i"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                        >
-                            {{ i }}
-                        </button>
-                        <button
-                            @click="this.filters.bathrooms = 4"
-                            :class="{ 'text-red-500': this.filters.bathrooms === 4 }"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
-                        >
-                            4+
-                        </button>
+                        <div>
+                            <h3 class="text-xl mb-3">Bathrooms:</h3>
+                            <button
+                                @click="this.filters.bathrooms = i"
+                                :class="{ 'text-red-500': this.filters.bathrooms === i }"
+                                v-for="i in 3"
+                                :key="i"
+                                class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            >
+                                {{ i }}
+                            </button>
+                            <button
+                                @click="this.filters.bathrooms = 4"
+                                :class="{ 'text-red-500': this.filters.bathrooms === 4 }"
+                                class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            >
+                                4+
+                            </button>
+                            <button
+                                @click="this.filters.bathrooms = 0"
+                                class="pl-1 mb-3 py-1 capitalize hover:border-black"
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+
+                        <div class="text-right cursor-pointer" @click="hideFilters = !hideFilters">
+                            Close: <i class="px-1 fa-solid fa-chevron-up text-lg text-slate-400 hover:text-black"></i>
+                        </div>
+                    </div>
+
+                    <div v-if="hideFilters" class="text-right cursor-pointer" @click="hideFilters = !hideFilters">
+                        Additional Filters: <i class="px-1 fa-solid fa-chevron-down text-lg text-slate-400 hover:text-black"></i>
                     </div>
 
                     <hr class="mr-4 mb-12 mt-4">
@@ -252,11 +284,12 @@ export default {
                     <div v-else>
                         <p>No apartments found.</p>
                     </div>
+
                 </div>
-                <div class="w-1/3 fixed top-[180px] right-0">
+                <div class="w-1/3 fixed top-[180px] right-0 border-l border-gray-200">
                     <div
                         id="map"
-                        class="my-0 h-[490px] mr-8 lg:mr-20 rounded-2xl shadow-2xl"
+                        class="my-0 h-[490px] ml-3 mr-7 lg:mr-20 rounded-2xl shadow"
                     ></div>
                 </div>
             </div>
@@ -264,4 +297,15 @@ export default {
     </GuestLayout>
 </template>
 
-<style></style>
+<style>
+
+#boxfilters{
+    transition: 0.8s ease all;
+}
+
+#boxfilters.hide{
+    transform: translateY(-100%);
+    display: none;
+}
+
+</style>
