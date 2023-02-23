@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto flex justify-center">
+    <div class="container flex">
         <div @click="goToPage">
             <!-- Img container -->
             <div
@@ -23,7 +23,7 @@
                             class="h-full w-full object-cover"
                         />
                     </swiper-slide>
-                    <swiper-slide v-for="image in apartment.images">
+                    <swiper-slide v-for="image in apartment.images" :key="image.id">
                         <img
                             :src="'/storage/' + image.url"
                             alt="Immagine"

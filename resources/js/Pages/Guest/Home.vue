@@ -29,12 +29,12 @@ export default {
             </h5>
         </div>
 
-        <div class=" mt-[180px] py-4 flex gap-4 flex-wrap">
+        <div class=" w-full px-6 sm:px-6 lg:px-8 mt-[180px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             <Card
                 v-for="apartment in apartments"
                 :key="apartment.id"
                 :apartment="apartment"
-                class="w-auto"
+                class="w-auto justify-self-center mb-8"
             />
         </div>
     </GuestLayout>
