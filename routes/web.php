@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\GuestController;
+use App\Models\Apartment;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('apartment/messages', [ApartmentController::class, 'messages'])->name('apartment.messages');
         Route::get('apartment/stats', [ApartmentController::class, 'stats'])->name('apartment.stats');
         Route::get('apartment/sponsorship', [ApartmentController::class, 'sponsorship'])->name('apartment.sponsorship');
+        Route::post('apartment/sponsorship/transaction', [ApartmentController::class, 'transaction'])->name('transaction');
         Route::resource('/apartment', ApartmentController::class);
 });
 

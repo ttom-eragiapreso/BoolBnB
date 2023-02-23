@@ -19,7 +19,9 @@
     href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css" />
 
   {{-- BrainTree --}}
-  <script src="https://js.braintreegateway.com/web/dropin/1.34.0/js/dropin.min.js"></script>
+  {{-- <script src="https://js.braintreegateway.com/web/dropin/1.34.0/js/dropin.min.js"></script> --}}
+  <script src="https://js.braintreegateway.com/web/3.90.0/js/client.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.90.0/js/hosted-fields.min.js"></script>
 
 
   <!-- Scripts -->
