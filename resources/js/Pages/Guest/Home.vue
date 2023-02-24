@@ -12,8 +12,8 @@ export default {
     },
     props: {
         types_of_stay: Array,
-        sponsored_apartments: Array,
-        non_sponsored_apartments: Array,
+        sponsored_apartments: Object,
+        non_sponsored_apartments: Object,
     },
 };
 </script>

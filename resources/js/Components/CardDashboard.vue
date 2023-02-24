@@ -61,6 +61,8 @@
             <h5 class="text-slate-600">
                 Last update at: {{ handleUpdateDate }}
             </h5>
+            <!-- Expiry of sponsorship -->
+            <h5 v-if="handleSponsor" class="text-slate-600">Your sponsorship for this apartment will end <span class="font-semibold">{{ handleDate(apartment.sponsorships[apartment.sponsorships.length - 1].pivot.end) }}</span></h5>
         </div>
 
         <div
@@ -90,12 +92,7 @@
                 <i class="fa-solid fa-chart-simple text-sm"></i>
                 <span class="hidden sm:inline">Stats</span>
             </Link>
-            <!-- <button
-            @click.prevent="remove(apartment)"
-            class="px-1 md:px-8 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
-            >
-                <i class="fa-solid fa-trash text-sm"></i> <span class="hidden sm:inline">Delete</span>
-            </button> -->
+
             <DeleteButton @click="showModal = true" />
         </div>
     </div>
@@ -125,6 +122,11 @@ export default {
         remove(apartment) {
             router.delete(route("dashboard.apartment.destroy", apartment));
         },
+
+        handleDate(date){
+            const data = new Date(date);
+            return new Intl.DateTimeFormat("it-IT", { dateStyle: "short", timeStyle : "short"}).format(data)
+        }
     },
     computed: {
         handleCreateDate() {
