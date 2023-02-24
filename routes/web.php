@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GuestController::class, 'index'])->name('home');
 Route::get('/advanced-search/{lat?}/{lng?}', [GuestController::class, 'advancedSearch'])->name('advancedsearch');
 Route::get('/details/{slug}', [GuestController::class, 'details'])->name('details');
+Route::post('/store-messages', [GuestController::class, 'storeMessages'])->name('store-messages');
 
 // Auth Pages
 Route::middleware(['auth', 'verified'])
