@@ -20,6 +20,7 @@ export default {
     },
     props: {
         types_of_stay: Array,
+
         non_sponsored_apartments: Object,
         sponsored_apartments: Array,
     },
