@@ -298,7 +298,7 @@ const showingNavigationDropdown = ref(false);
                     :class="
                         $page.props.flash.message.includes('updated')
                             ? 'text-amber-600'
-                            : $page.props.flash.message.includes('created')
+                            : $page.props.flash.message.includes('created') || $page.props.flash.message.includes('payment')
                             ? 'text-green-600'
                             : 'text-red-600'
                     "
