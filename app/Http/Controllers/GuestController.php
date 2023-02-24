@@ -15,13 +15,35 @@ class GuestController extends Controller
 {
     public function index(){
         $types_of_stay = Type_of_stay::all();
-        $apartments = Apartment::with('images')->where('is_visible', 1)->get();
+        $apartments = Apartment::with('images', 'sponsorships')->where('is_visible', 1)->get()->toArray();
+
+        $sponsored_apartments = array_filter($apartments, function($apartment){
+
+            $now = time();
+
+            if(count($apartment['sponsorships']) == 0) return false;
+
+            foreach($apartment['sponsorships'] as $sponsorship) {
+                $endDate = strtotime($sponsorship['pivot']['end']);
+
+                if($endDate > $now) {
+                    return true;
+                }
+            }
+
+            return false;
+
+        });
+
+        $non_sponsored_apartments = array_diff_key($apartments, $sponsored_apartments);
+
 
         return Inertia::render('Guest/Home', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'types_of_stay' => $types_of_stay,
-            'apartments' => $apartments
+            'sponsored_apartments' => $sponsored_apartments,
+            'non_sponsored_apartments' => $non_sponsored_apartments
             ]);
     }
 

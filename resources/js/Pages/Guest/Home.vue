@@ -12,7 +12,8 @@ export default {
     },
     props: {
         types_of_stay: Array,
-        apartments: Array,
+        sponsored_apartments: Array,
+        non_sponsored_apartments: Array,
     },
 };
 </script>
@@ -31,9 +32,17 @@ export default {
 
         <div class=" w-full px-6 sm:px-6 lg:px-8 mt-[180px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             <Card
-                v-for="apartment in apartments"
+                v-for="apartment in sponsored_apartments"
                 :key="apartment.id"
                 :apartment="apartment"
+                :is_sponsored="true"
+                class="w-auto justify-self-center mb-8"
+            />
+            <Card
+                v-for="apartment in non_sponsored_apartments"
+                :key="apartment.id"
+                :apartment="apartment"
+                :is_sponsored="false"
                 class="w-auto justify-self-center mb-8"
             />
         </div>

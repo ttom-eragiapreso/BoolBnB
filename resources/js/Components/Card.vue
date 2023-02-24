@@ -33,7 +33,7 @@
                 </swiper>
 
                 <div class="absolute top-0 right-0 z-10 text-white p-3 text-xl">
-                    <i class="fa-regular fa-heart"></i>
+                    <i v-if="is_sponsored" class="fa-solid fa-award"></i>
                 </div>
             </div>
             <!-- Title and rating -->
@@ -43,9 +43,7 @@
                 </h2>
             </div>
             <!-- Vista -->
-            <h5 class="text-slate-600">Vista sul vigneto</h5>
-            <!-- Date -->
-            <h5 class="text-slate-600">01-06 apr . Host Privato</h5>
+            <h5 class="text-slate-600 truncate w-60">{{ apartment.title }}</h5>
             <!-- Price -->
             <h5 class="underline">
                 <strong>{{ apartment.price }} &euro; </strong>totale
@@ -74,6 +72,7 @@ export default {
     },
     props: {
         apartment: Object,
+        is_sponsored: Boolean
     },
     methods: {
         goToPage(){
