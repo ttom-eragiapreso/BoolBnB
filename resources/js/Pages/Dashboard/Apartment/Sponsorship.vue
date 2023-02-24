@@ -69,7 +69,7 @@ export default {
             </div>
 
             <div class="my-6">
-                <select name="sponsorship_select" id="sponsorships" v-model="target.apartment_id" class="rounded-lg">
+                <select name="sponsorship_select" id="sponsorships" v-model="target.apartment_id" class="rounded-lg focus:border-green-700 focus:ring-green-700">
                     <option value="null" selected disabled>Select an Apartment to sponsor</option>
                     <option v-for="apartments in user_apartments" :key="apartments.id" :value="apartments.id">{{ apartments.title }}</option>
                 </select>
