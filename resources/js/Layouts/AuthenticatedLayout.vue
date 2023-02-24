@@ -130,7 +130,7 @@ const showingNavigationDropdown = ref(false);
                                             Sponsorships
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="route('dashboard.apartment.index')"
+                                            :href="route('dashboard.transactions')"
                                             as="button"
                                         >
                                             Transactions history
@@ -245,9 +245,9 @@ const showingNavigationDropdown = ref(false);
                             Your Statistics
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
-                            :href="route('dashboard.apartment.stats')"
+                            :href="route('dashboard.transactions')"
                             :active="
-                                route().current('dashboard.apartment.stats')
+                                route().current('dashboard.transactions')
                             "
                         >
                             Transactions history
