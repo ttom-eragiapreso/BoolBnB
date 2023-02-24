@@ -65,23 +65,23 @@ export default {
 
 
         <div
-            class="container max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl px-8 lg:px-20 py-8"
+            class="container md:max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl px-8 lg:px-20 py-8"
         >
-            <h1 class="text-3xl pb-2 font-bold">{{ apartment.title }}</h1>
-            <a href="#map" class=" mb-4 font-bold underline"> &#8669;
+            <h1 class="text-center md:text-start text-3xl pb-2 font-bold">{{ apartment.title }}</h1>
+            <a href="#map" class="flex justify-center md:justify-start mb-4 font-bold underline"> &#8669;
                 {{ apartment.full_address }}, {{ apartment.city }},
                 {{ apartment.country }}
             </a>
 
-            <div class="flex">
-                <div class="pb-2 mb-8 w-[50%]">
+            <div class="md:flex">
+                <div class="mx-auto pb-2 md:mb-8 w-[80%] md:w-[50%]">
                     <img
                         :src="'/storage/' + apartment.cover_image"
                         alt="cover"
-                        class="w-full h-[350px] rounded-l-2xl p-1 hover:brightness-75"
+                        class="md:w-full h-[350px] md:rounded-l-2xl p-1 hover:brightness-75"
                     />
                 </div>
-                <div class="w-[50%] flex flex-wrap rounded-r-3xl overflow-hidden h-[350px]">
+                <div class="mx-auto w-[80%] md:w-[50%] flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px]">
                         <img
                             v-for="(image, id) in apartment.images"
                             :key="id"
@@ -92,24 +92,24 @@ export default {
                 </div>
             </div>
 
-            <div class="flex gap-20">
-                <div class="w-[60%]">
+            <div class="md:flex gap-20">
+                <div class="md:w-[60%]">
                     <div class="pb-4 mb-4 border-b">
-                        <h2 class="text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
-                        <p>2 guests &middot; {{ apartment.rooms }} {{apartment.rooms > 1 ? 'rooms' : 'room'}} &middot; {{ apartment.beds }} {{apartment.rooms > 1 ? 'beds' : 'bed'}} &middot; {{ apartment.bathrooms }} {{apartment.rooms > 1 ? 'bathrooms' : 'bathroom'}} &middot; {{ apartment.square_meters }}&#13217;</p>
+                        <h2 class="text-center md:text-start text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
+                        <p class="text-center md:text-start">2 guests &middot; {{ apartment.rooms }} {{apartment.rooms > 1 ? 'rooms' : 'room'}} &middot; {{ apartment.beds }} {{apartment.rooms > 1 ? 'beds' : 'bed'}} &middot; {{ apartment.bathrooms }} {{apartment.rooms > 1 ? 'bathrooms' : 'bathroom'}} &middot; {{ apartment.square_meters }}&#13217;</p>
                     </div>
-                    <div class="pb-4 mb-4 border-b">
+                    <div class="text-center md:text-start pb-4 mb-4 border-b">
                         <h2 class="text-2xl pb-2 font-bold">Description</h2>
                         <p>{{ apartment.description }}</p>
                     </div>
-                    <div class="pb-4 mb-4 border-b">
+                    <div class="text-center md:text-start pb-4 mb-4 border-b">
                         <h2 class="text-2xl pb-2 font-bold">What this place offers</h2>
                         <ul v-for="features in features" :key="features.id">
                             <li>{{ features.name }}</li>
                         </ul>
                     </div>
                 </div>
-                <div class="w-[40%]">
+                <div class="md:w-[40%]">
                     <div class="border rounded-xl p-8 shadow-lg hover:shadow-xl">
                         <h2 class="font-bold text-xl">&euro; {{ apartment.price }} <span class="font-thin text-base">night</span></h2>
                         <p class="text-sm text-slate-500">Fees included</p>
