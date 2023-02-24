@@ -1,5 +1,6 @@
 <template>
-    <form id="my-sample-form" method="post" v-show="this.modalPaolo">
+
+    <form id="my-sample-form" method="post">
         <label for="card-number">Card Number</label>
         <div id="card-number"></div>
 
@@ -9,48 +10,46 @@
         <label for="expiration-date">Expiration Date</label>
         <div id="expiration-date"></div>
 
-        <input type="submit" value="Pay" disabled />
+        <input @click="closeMyself()" type="submit" value="Pay" disabled class="px-12 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed"/>
     </form>
+
 </template>
+
 <script>
+
 import { router } from "@inertiajs/vue3";
 import { store } from "../data/store";
-import Modal from "./Modal.vue";
+
 export default {
     name: "Payment",
     data() {
         return {
-            submit: null,
-            form: null,
             store,
-            modalPaolo: false,
         };
     },
-    components: {
-        Modal,
-    },
-    props: {
-        show: Boolean,
-    },
-    methods: {},
-    mounted() {
-        this.modalPaolo = this.show;
-
-        function hideModal() {
-            this.modalPaolo = false;
+    methods:{
+        closeMyself(){
+            this.$emit('closemyself', {
+                    value: null
+                })
         }
+    },
+    mounted() {
 
         let submit = document.querySelector('input[type="submit"]');
         let form = document.querySelector("#my-sample-form");
+
         braintree.client.create(
             {
                 authorization: this.store.BT_Token,
             },
             function (clientErr, clientInstance) {
+
                 if (clientErr) {
                     console.error(clientErr);
                     return;
                 }
+
                 braintree.hostedFields.create(
                     {
                         client: clientInstance,
@@ -100,8 +99,8 @@ export default {
                                 placeholder: "10/2022",
                             },
                         },
-                    },
-                    function (hostedFieldsErr, hostedFieldsInstance) {
+                    },(hostedFieldsErr, hostedFieldsInstance) => {
+
                         if (hostedFieldsErr) {
                             console.error(hostedFieldsErr);
                             return;
@@ -109,36 +108,27 @@ export default {
 
                         submit.removeAttribute("disabled");
 
-                        form.addEventListener(
-                            "submit",
-                            function (event) {
-                                event.preventDefault();
+                        form.addEventListener("submit",(event) => {
 
-                                hostedFieldsInstance.tokenize(function (
-                                    tokenizeErr,
-                                    payload
-                                ) {
-                                    if (tokenizeErr) {
-                                        console.error(tokenizeErr);
-                                        return;
+                            event.preventDefault();
+
+                            hostedFieldsInstance.tokenize((tokenizeErr,payload) => {
+
+                                if (tokenizeErr) {
+                                    console.error(tokenizeErr);
+                                    return;
+                                }
+
+                                router.post(
+                                    route("dashboard.transaction"),
+                                    {
+                                        payload: payload,
+                                        target: store.target,
                                     }
+                                );
+                            });
 
-                                    // If this was a real integration, this is where you would
-                                    // send the nonce to your server.
-
-                                    hideModal();
-
-                                    router.post(
-                                        route("dashboard.transaction"),
-                                        {
-                                            payload: payload,
-                                            target: store.target,
-                                        }
-                                    );
-                                });
-                            },
-                            false
-                        );
+                        },false);
                     }
                 );
             }

@@ -244,7 +244,16 @@ class ApartmentController extends Controller
 
     public function sponsorship(){
 
-        return Inertia::render('Dashboard/Apartment/Sponsorship');
+        $user = auth()->user();
+        if($user->email == 'admin@admin.com'){
+            $user_apartments = Apartment::all();
+        } else {
+            $user_apartments = $user->apartments;
+        }
+
+        $sponsorships = Sponsorship::all();
+
+        return Inertia::render('Dashboard/Apartment/Sponsorship', compact('user_apartments', 'sponsorships'));
     }
 
     public function transaction(Request $request){
