@@ -271,9 +271,10 @@ class ApartmentController extends Controller
         $nonce = $request['payload']['nonce'];
 
         $target = $request['target'];
-        $apartment = Apartment::find($target['apartment_id']);
+        $apartment = Apartment::with('images', 'sponsorships')->where('id', $target['apartment_id'])->get()->toArray();
+        $coll_apartment = Apartment::find($target['apartment_id']);
         $sponsorship = Sponsorship::find($target['sponsorship_id']);
-
+        $apartment = $apartment[0];
 
         $gateway = new Braintree\Gateway([
             'environment' => 'sandbox',
@@ -320,10 +321,20 @@ class ApartmentController extends Controller
                 // Salviamo nel db la sponsorship & apartment
 
                 $now = new DateTime();
+                $last_sponsor_date = $apartment['sponsorships'][count($apartment['sponsorships']) - 1]['pivot']['end'] ?? null;
+                $last_sponsor_date = date_create_immutable($last_sponsor_date);
 
-                $apartment->sponsorships()->attach($sponsorship->id,[
-                    'start' => new DateTime(),
-                    'end' => $now->add(new DateInterval("PT" . $sponsorship->length_hours . "H"))
+                if( $last_sponsor_date > $now ){
+                    $start = $last_sponsor_date;
+                    $end = $last_sponsor_date->add(new DateInterval("PT" . $sponsorship->length_hours . "H"));
+                }else {
+                    $start = new DateTime();
+                    $end = $now->add(new DateInterval("PT" . $sponsorship->length_hours . "H"));
+                }
+
+                $coll_apartment->sponsorships()->attach($sponsorship->id,[
+                    'start' => $start,
+                    'end' => $end
                 ]);
 
 
