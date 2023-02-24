@@ -37,7 +37,10 @@
         >
             <!-- Title -->
             <div>
-                <h2 class="font-bold text-3xl">{{ apartment.title }}</h2>
+                <h2 class="font-bold text-3xl">
+                    {{ apartment.title }}
+                    <i v-if="handleSponsor" class="fa-solid fa-circle-up text-green-600"></i>
+                </h2>
             </div>
             <!-- Location -->
             <h5 class="text-slate-600">
@@ -132,6 +135,10 @@ export default {
             const data = new Date(this.apartment.updated_at);
             return data.toLocaleDateString("it-IT", { dateStyle: "short" });
         },
+        handleSponsor(){
+            console.log(this.apartment);
+            return true
+        }
     },
 };
 </script>
