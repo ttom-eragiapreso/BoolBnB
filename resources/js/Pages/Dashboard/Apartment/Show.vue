@@ -131,7 +131,7 @@ export default {
             <p class="mb-3"><strong>Features:</strong></p>
             <div class="flex gap-2 flex-wrap">
                 <div
-                    v-for="feature in apartment.features"
+                    v-for="feature in apartment.features" :key="feature.id"
                     class="border rounded-xl border-stone-700 py-1 px-4 w-fit hover:bg-slate-100"
                 >
                     {{ feature.name }}

@@ -1,12 +1,14 @@
 <script>
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
+import { Head } from '@inertiajs/vue3';
 
 export default {
     name: "Details",
     name: "large-modal",
     components: {
         GuestLayout,
+        Head
     },
     data() {
         return {
@@ -60,6 +62,7 @@ export default {
 </script>
 
 <template>
+    <Head :title="apartment.title" />
     <GuestLayout>
 
 
