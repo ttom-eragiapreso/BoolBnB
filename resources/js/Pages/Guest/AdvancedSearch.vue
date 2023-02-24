@@ -22,7 +22,8 @@ export default {
                 range: 20000,
                 ignoreLocations: true
             },
-            filtered_apartments: [],
+            filtered_sponsored_apartments: [],
+            filtered_non_sponsored_apartments: [],
             center: {
                 latitude: null,
                 longitude: null
@@ -30,12 +31,13 @@ export default {
             store,
             UpdateMap: new CustomEvent('UpdateMap'),
             markers: [],
-            hideFilters: false
+            hideFilters: true
         };
     },
     props: {
         types_of_stay: Array,
-        apartments: Array,
+        non_sponsored_apartments: Object,
+        sponsored_apartments: Array,
         features: Array,
         lat: String,
         lng: String
@@ -95,22 +97,32 @@ export default {
     computed:{
         handleFilters(){
 
-            this.filtered_apartments = this.apartments.filter((apartment) => {
-                return apartment.beds >= this.filters.beds
-                        && apartment.rooms >= this.filters.rooms
-                        && apartment.bathrooms >= this.filters.bathrooms
-                        && this.checkFeature(apartment)
-                        && (this.store.filtered_type == null ? true : apartment.type_of_stay_id == this.store.filtered_type)
-                        && (this.filterLocations(apartment) || this.filters.ignoreLocations)
+            this.filtered_sponsored_apartments = Object.values(this.sponsored_apartments).filter((sponsored_apartment) => {
+                return sponsored_apartment.beds >= this.filters.beds
+                        && sponsored_apartment.rooms >= this.filters.rooms
+                        && sponsored_apartment.bathrooms >= this.filters.bathrooms
+                        && this.checkFeature(sponsored_apartment)
+                        && (this.store.filtered_type == null ? true : sponsored_apartment.type_of_stay_id == this.store.filtered_type)
+                        && (this.filterLocations(sponsored_apartment) || this.filters.ignoreLocations)
+            })
+
+            this.filtered_non_sponsored_apartments = Object.values(this.non_sponsored_apartments).filter((non_sponsored_apartment) => {
+                return non_sponsored_apartment.beds >= this.filters.beds
+                        && non_sponsored_apartment.rooms >= this.filters.rooms
+                        && non_sponsored_apartment.bathrooms >= this.filters.bathrooms
+                        && this.checkFeature(non_sponsored_apartment)
+                        && (this.store.filtered_type == null ? true : non_sponsored_apartment.type_of_stay_id == this.store.filtered_type)
+                        && (this.filterLocations(non_sponsored_apartment) || this.filters.ignoreLocations)
             })
 
             window.dispatchEvent(this.UpdateMap);
 
-            return this.filtered_apartments;
+            return[ this.filtered_sponsored_apartments, this.filtered_non_sponsored_apartments]
         }
     },
     mounted() {
-        this.filtered_apartments = this.apartments;
+        this.filtered_sponsored_apartments = this.sponsored_apartments;
+        this.filtered_non_sponsored_apartments = this.non_sponsored_apartments;
 
         this.center.longitude = this.lng ?? 12.5;
         this.center.latitude = this.lat ?? 49;
@@ -139,7 +151,20 @@ export default {
 
             this.markers = [];
 
-            this.filtered_apartments.forEach(apartment => {
+            this.filtered_sponsored_apartments.forEach(apartment => {
+                let popup = new tt.Popup({
+                    closeButton: false,
+                    offset: 35,
+                    anchor: "bottom",
+                }).setText(apartment.title);
+                let marker = new tt.Marker()
+                    .setLngLat([apartment.longitude, apartment.latitude])
+                    .setPopup(popup);
+                    marker.addTo(map);
+                this.markers.push(marker);
+            });
+
+            this.filtered_non_sponsored_apartments.forEach(apartment => {
                 let popup = new tt.Popup({
                     closeButton: false,
                     offset: 35,
@@ -275,9 +300,17 @@ export default {
 
                     <div class=" grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-if="handleFilters.length != 0">
                         <Card
-                            v-for="apartment in handleFilters"
+                            v-for="apartment in handleFilters[0]"
                             :key="apartment.id"
                             :apartment="apartment"
+                            :is_sponsored="true"
+                            class="mb-8"
+                        />
+                        <Card
+                            v-for="apartment in handleFilters[1]"
+                            :key="apartment.id"
+                            :apartment="apartment"
+                            :is_sponsored="false"
                             class="mb-8"
                         />
                     </div>
