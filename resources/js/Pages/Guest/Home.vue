@@ -3,6 +3,7 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Slider from "@/Components/Slider.vue";
 import Card from "@/Components/Card.vue";
 import {store} from '../../data/store';
+import { Head } from '@inertiajs/vue3';
 
 export default {
     name: "Home",
@@ -10,6 +11,7 @@ export default {
         GuestLayout,
         Slider,
         Card,
+        Head
     },
     data(){
         return{
@@ -48,6 +50,7 @@ export default {
 </script>
 
 <template>
+    <Head title="Vacation Homes & Condo Rentals" />
     <GuestLayout>
         <Slider :types_of_stay="types_of_stay" />
         <div

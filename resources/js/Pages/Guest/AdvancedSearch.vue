@@ -4,6 +4,7 @@ import Slider from "@/Components/Slider.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 import Card from "@/Components/Card.vue";
 import {store} from '../../data/store';
+import { Head } from '@inertiajs/vue3';
 
 export default {
     name: "AdvancedSearch",
@@ -11,6 +12,7 @@ export default {
         GuestLayout,
         Slider,
         Card,
+        Head
     },
     data() {
         return {
@@ -185,6 +187,7 @@ export default {
 </script>
 
 <template>
+    <Head title="Advanced Search" />
     <GuestLayout>
         <div>
             <Slider :types_of_stay="types_of_stay" />

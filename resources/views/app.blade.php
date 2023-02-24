@@ -7,6 +7,8 @@
 
   <title inertia>{{ config('app.name', 'BoolBnb') }}</title>
 
+  <link rel="icon" type="image/x-icon" href="https://a0.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico">
+
   <!-- Fonts -->
   <link rel="stylesheet"
     href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
