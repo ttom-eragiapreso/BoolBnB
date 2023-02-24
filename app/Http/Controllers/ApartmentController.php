@@ -242,7 +242,7 @@ class ApartmentController extends Controller
         return Inertia::render('Dashboard/Apartment/Stats');
     }
 
-    public function sponsorship(){
+    public function sponsorship(Int $id = null){
 
         $user = auth()->user();
         if($user->email == 'admin@admin.com'){
@@ -251,9 +251,11 @@ class ApartmentController extends Controller
             $user_apartments = $user->apartments;
         }
 
+
+
         $sponsorships = Sponsorship::all();
 
-        return Inertia::render('Dashboard/Apartment/Sponsorship', compact('user_apartments', 'sponsorships'));
+        return Inertia::render('Dashboard/Apartment/Sponsorship', compact('user_apartments', 'sponsorships', 'id'));
     }
 
     public function transaction(Request $request){

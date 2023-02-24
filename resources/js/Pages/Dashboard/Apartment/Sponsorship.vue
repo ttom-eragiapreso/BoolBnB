@@ -20,7 +20,8 @@ export default {
     },
     props:{
         user_apartments: Array,
-        sponsorships: Array
+        sponsorships: Array,
+        id: Number
     },
     components: {
         AuthenticatedLayout,
@@ -41,6 +42,9 @@ export default {
         handleEmit(){
             this.showModal = false
         }
+    },
+    mounted(){
+        this.target.apartment_id = this.id
     }
 };
 </script>

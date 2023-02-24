@@ -224,17 +224,9 @@ export default {
             >
                 Stats
             </Link>
-            <!-- <Link
-            :href="route('dashboard.apartment.destroy', apartment)"
-            method="delete"
-            as="button"
-            class="px-10 py-3 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
-            >
-            Delete
-            </Link> -->
             <DeleteButton @click="showModal = true" />
             <Link
-                :href="route('dashboard.apartment.edit', apartment.slug)"
+                :href="route('dashboard.apartment.sponsorship', apartment.id)"
                 as="button"
                 class="px-10 py-3 ml-auto bg-indigo-600 bg- border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
