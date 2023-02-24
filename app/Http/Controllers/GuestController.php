@@ -37,13 +37,12 @@ class GuestController extends Controller
 
         $non_sponsored_apartments = array_diff_key($apartments, $sponsored_apartments);
 
-
         return Inertia::render('Guest/Home', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'types_of_stay' => $types_of_stay,
             'sponsored_apartments' => $sponsored_apartments,
-            'non_sponsored_apartments' => $non_sponsored_apartments
+            'non_sponsored_apartments' => (array) $non_sponsored_apartments
             ]);
     }
 
