@@ -20,25 +20,24 @@ export default {
     },
     props: {
         types_of_stay: Array,
-
         non_sponsored_apartments: Object,
-        sponsored_apartments: Array,
+        sponsored_apartments: Object,
     },
     computed:{
         handleFilters(){
 
-            this.filtered_sponsored_apartments = this.sponsored_apartments.filter((sponsored_apartment) => {
+            this.filtered_sponsored_apartments = Object.values(this.sponsored_apartments).filter((sponsored_apartment) => {
                 return (this.store.filtered_type == null ? true : sponsored_apartment.type_of_stay_id == this.store.filtered_type)
             });
 
             this.filtered_non_sponsored_apartments = Object.values(this.non_sponsored_apartments).filter((non_sponsored_apartment) => {
                 return (this.store.filtered_type == null ? true : non_sponsored_apartment.type_of_stay_id == this.store.filtered_type)
-            })
+            });
 
             return [
                 this.filtered_sponsored_apartments,
                 this.filtered_non_sponsored_apartments
-            ]
+            ];
         }
     },
     mounted(){
