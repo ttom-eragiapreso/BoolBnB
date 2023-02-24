@@ -136,7 +136,17 @@ export default {
             return data.toLocaleDateString("it-IT", { dateStyle: "short" });
         },
         handleSponsor(){
-            return true
+
+            let now = Date.now()
+
+            if(!this.apartment.sponsorships.length > 0) return false
+
+            return this.apartment.sponsorships.some(sponsorship => {
+
+                let endDate = new Date(sponsorship.pivot.end);
+
+                return endDate > now
+            });
         }
     },
 };
