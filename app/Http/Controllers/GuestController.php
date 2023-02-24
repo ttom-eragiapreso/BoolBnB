@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Message;
 use App\Models\Feature;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -77,5 +78,21 @@ class GuestController extends Controller
         }
 
 
+    }
+
+    public function storeMessages(Request $request){
+
+        $request = $request->all();
+
+        $new_message = new Message();
+
+        $new_message->email = $request['userEmail'];
+        $new_message->name = $request['userSubject'];
+        $new_message->content = $request['userMessage'];
+        $new_message->apartment_id = $request['apartmentId'];
+
+        $new_message->save();
+
+        return redirect()->back()->with('message', 'Your message was sent succesfull');
     }
 }

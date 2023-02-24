@@ -1,4 +1,5 @@
 <script>
+import {router} from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 
@@ -10,7 +11,10 @@ export default {
     },
     data() {
         return {
-        showModal: false
+        showModal: false,
+        userEmail: '',
+        userSubject: '',
+        userMessage: ''
         }
     },
     props: {
@@ -24,12 +28,25 @@ export default {
     methods:{
         toggleModal: function(){
         this.showModal = !this.showModal;
+    },
+        sendMessage(){
+            this.showModal = !this.showModal;
+            router.post(route('store-messages'),
+            {
+                "userEmail": this.userEmail,
+                "userSubject" : this.userSubject,
+                "userMessage": this.userMessage,
+                "apartmentId": this.apartment.id
+            });
         }
     },
     computed:{
         handleCreateDate() {
                 const data = new Date(this.date);
                 return data.toLocaleDateString("it-IT", { dateStyle: "short" });
+            },
+        checkDisable(){
+                 return ((this.userEmail.includes('@') && this.userEmail.includes('.')) && this.userSubject.length > 5 && this.userMessage.length > 10)
             }
     },
     mounted() {
@@ -54,6 +71,11 @@ export default {
             map.addControl(new tt.FullscreenControl);
             map.addControl(new tt.NavigationControl);
         });
+
+        // if($page.props.auth.user.email){
+        //     this.userEmail = $page.props.auth.user.email
+        //     console.log(this.userEmail);
+        // }
 
      }
 };
@@ -144,15 +166,15 @@ export default {
                                 <div class="relative p-6 flex-auto">
                                     <div>
                                         <label for="email" class="block mb-2 text-sm font-medium text-slate-500">Your email</label>
-                                        <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 mb-2" placeholder="name@email.com" required>
+                                        <input v-model="userEmail" type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 mb-2" placeholder="name@email.com" required>
                                     </div>
                                     <div>
                                         <label for="subject" class="block mb-2 text-sm font-medium text-slate-500">Subject</label>
-                                        <input type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
+                                        <input v-model="userSubject" type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
                                     </div>
                                     <div class="sm:col-span-2">
                                         <label for="message" class="block mb-2 text-sm font-medium text-slate-500">Your message</label>
-                                        <textarea id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
+                                        <textarea v-model="userMessage" id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
                                     </div>
                                 </div>
                                 <!--footer-->
@@ -160,7 +182,7 @@ export default {
                                     <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
                                     Close
                                     </button>
-                                    <button class="text-green-500 border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <button @click.prevent="sendMessage()" :class="{'text-red-500' : !checkDisable}" class=" border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                     Send message
                                     </button>
                                 </div>
