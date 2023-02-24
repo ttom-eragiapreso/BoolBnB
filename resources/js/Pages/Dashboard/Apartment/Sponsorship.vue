@@ -39,7 +39,7 @@ export default {
             }
         },
         handleEmit(){
-            console.log('ciao');
+            this.showModal = false
         }
     }
 };
@@ -68,7 +68,7 @@ export default {
                 </div>
             </div>
 
-            <div class="my-6">
+            <div class="my-6" >
                 <select name="sponsorship_select" id="sponsorships" v-model="target.apartment_id" class="rounded-lg focus:border-green-700 focus:ring-green-700">
                     <option value="null" selected disabled>Select an Apartment to sponsor</option>
                     <option v-for="apartments in user_apartments" :key="apartments.id" :value="apartments.id">{{ apartments.title }}</option>
@@ -81,7 +81,7 @@ export default {
         </div>
 
         <div v-show="showModal" class="p-10 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
-            <Payment :closemyself="handleEmit"/>
+            <Payment @closeMyself="handleEmit"/>
         </div>
 
     </AuthenticatedLayout>

@@ -1,6 +1,6 @@
 <template>
 
-    <form id="my-sample-form" method="post">
+    <form id="my-sample-form" method="post" class="flex justify-center flex-col items-center">
         <label for="card-number">Card Number</label>
         <div id="card-number"></div>
 
@@ -10,7 +10,7 @@
         <label for="expiration-date">Expiration Date</label>
         <div id="expiration-date"></div>
 
-        <input @click="closeMyself()" type="submit" value="Pay" disabled class="px-12 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed"/>
+        <input @click="$emit('closeMyself')"  type="submit" value="Pay" disabled class="px-12 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed"/>
     </form>
 
 </template>
@@ -28,11 +28,6 @@ export default {
         };
     },
     methods:{
-        closeMyself(){
-            this.$emit('closemyself', {
-                    value: null
-                })
-        }
     },
     mounted() {
 
@@ -58,12 +53,19 @@ export default {
                             input: {
                                 "font-size": "16px",
                                 color: "#3A3A3A",
+
                             },
 
                             // Styling a specific field
                             // Custom web fonts are not supported. Only use system installed fonts.
                             ".number": {
                                 "font-family": "monospace",
+                            },
+                            ".cvv": {
+                                "padding-left": "12px"
+                            },
+                            ".expirationDate": {
+                                "padding-left": "12px"
                             },
 
                             // Styling element state
@@ -136,3 +138,13 @@ export default {
     },
 };
 </script>
+<style lang="scss" scoped>
+    #card-number, #cvv, #expiration-date {
+        overflow: hidden;
+        border: 1px solid #333;
+        border-radius: 10px;
+        height: 2.5rem;
+        margin-bottom: 1rem;
+        width: 35%;
+        }
+</style>
