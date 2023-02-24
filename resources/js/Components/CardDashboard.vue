@@ -136,7 +136,6 @@ export default {
             return data.toLocaleDateString("it-IT", { dateStyle: "short" });
         },
         handleSponsor(){
-            console.log(this.apartment);
             return true
         }
     },

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\ApartmentSponsorship;
 class Apartment extends Model
 {
     use HasFactory;
@@ -50,7 +50,7 @@ class Apartment extends Model
     }
 
     public function sponsorships(){
-        return $this->belongsToMany(Sponsorship::class);
+        return $this->belongsToMany(Sponsorship::class)->withPivot(['start', 'end']);
     }
 
     public function type_of_stay(){

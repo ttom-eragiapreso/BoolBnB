@@ -25,10 +25,11 @@ class ApartmentController extends Controller
     {
         $user = auth()->user();
         if($user->email == 'admin@admin.com'){
-            $user_apartments = Apartment::all();
+            $user_apartments = Apartment::with('sponsorships')->get();
         } else {
-            $user_apartments = $user->apartments;
+            $user_apartments = Apartment::where('user_id', $user->id)->with('sponsorships')->get();
         }
+
         return Inertia::render('Dashboard/Apartment/Index', compact('user_apartments'));
     }
 
