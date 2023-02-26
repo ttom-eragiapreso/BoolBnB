@@ -31,7 +31,7 @@ export default {
     methods:{
         checkInput(){
             this.showError = false;
-            if(this.target.apartment_id != null && this.target.sponsorship_id != null){
+            if(this.target.apartment_id != null && this.target.sponsorship_id != null && this.checkCorrectOwner()){
                 store.target.apartment_id = this.target.apartment_id;
                 store.target.sponsorship_id = this.target.sponsorship_id;
                 this.showModal = true;
@@ -41,6 +41,11 @@ export default {
         },
         handleEmit(){
             this.showModal = false
+        },
+        checkCorrectOwner(){
+            return this.user_apartments.some((apartment) => {
+                return apartment.id == this.target.apartment_id
+            })
         }
     },
     mounted(){
