@@ -79,12 +79,12 @@ export default {
                 </select>
             </div>
 
-            <button class="px-6 py-3 bg-green-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-400 focus:bg-green-400 active:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 grow" @click="checkInput()">Proceed to checkout</button>
+            <a href="#payment" class="inline-block px-6 py-3 bg-green-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-400 focus:bg-green-400 active:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 grow" @click="checkInput()">Proceed to checkout</a>
 
             <p v-show="showError" class="text-red-500 mt-4">Please, select one of your apartments and a payment plan.</p>
         </div>
 
-        <div v-show="showModal" class="p-10 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+        <div id="payment" v-show="showModal" class="p-10 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
             <Payment @closeMyself="handleEmit"/>
         </div>
 
