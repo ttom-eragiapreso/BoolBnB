@@ -235,7 +235,7 @@ class ApartmentController extends Controller
 
     }
 
-    public function messages(){
+    public function messages(Int $id = null){
 
 
         $user = auth()->user();
@@ -253,7 +253,7 @@ class ApartmentController extends Controller
         // prendo tutti i messaggi legati agli id dell'utente
         $messages = Message::whereIn('apartment_id', $user_apartments_id)->orderBy('created_at', 'DESC')->paginate(8);
 
-        return Inertia::render('Dashboard/Apartment/Messages', compact('messages', 'apartments'));
+        return Inertia::render('Dashboard/Apartment/Messages', compact('messages', 'apartments', 'id'));
     }
 
     public function stats(){
@@ -269,8 +269,6 @@ class ApartmentController extends Controller
         } else {
             $user_apartments = $user->apartments;
         }
-
-
 
         $sponsorships = Sponsorship::all();
 
