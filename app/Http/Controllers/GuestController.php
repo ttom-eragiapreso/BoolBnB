@@ -9,8 +9,12 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Type_of_stay;
 use App\Models\User;
+use App\Models\View;
+use DateInterval;
+use DateTime;
 use Illuminate\Support\Facades\Route;
 
+use function PHPUnit\Framework\isEmpty;
 
 class GuestController extends Controller
 {
@@ -80,13 +84,28 @@ class GuestController extends Controller
 
     public function details(String $slug){
 
-        //dd($request->getClientIp());
+
         $apartment = Apartment::where('slug', $slug)->with('images', 'features')->first();
         $user = $apartment->user;
         $name = $apartment->user->name;
         $date = $apartment->user->created_at;
         $email = $apartment->user->email;
 
+        $user_ip = $_SERVER['REMOTE_ADDR'] ?? null;
+
+        $now = new DateTime();
+        $now->format('Y-m-d H:i:s');
+        $now->sub(new DateInterval('PT' . 59 . 'M'));
+
+        $view_exists = View::where('apartment_id', $apartment->id)->where('ip_address', $user_ip)->where('created_at', '>', $now)->count();
+
+        if(!$view_exists){
+            $new_view = new View();
+            $new_view->ip_address = $user_ip;
+            $new_view->apartment_id = $apartment->id;
+
+            $new_view->save();
+        }
 
         if($apartment->is_visible) {
             return Inertia::render('Guest/Details', compact('apartment', 'user', 'name', 'date', 'email'));
