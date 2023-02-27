@@ -46,6 +46,11 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Listings
                                 </NavLink>
+                                <NavLink
+                                    :href="route('home')"
+                                >
+                                    Public Site
+                                </NavLink>
                             </div>
                         </div>
 

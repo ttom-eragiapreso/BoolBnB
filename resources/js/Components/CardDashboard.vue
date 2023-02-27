@@ -73,7 +73,7 @@
                 as="button"
                 class="py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                <i class="fa-solid fa-circle-info text-sm"></i>
+                <i class="fa-solid fa-circle-info text-sm sm:mr-2"></i>
                 <span class="hidden sm:inline">Show</span>
             </Link>
             <Link
@@ -81,7 +81,7 @@
                 as="button"
                 class="py-3 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                <i class="fa-solid fa-sliders text-sm"></i>
+                <i class="fa-solid fa-sliders text-sm sm:mr-2"></i>
                 <span class="hidden sm:inline">Edit</span>
             </Link>
             <Link
@@ -89,7 +89,7 @@
                 as="button"
                 class="py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-                <i class="fa-solid fa-chart-simple text-sm"></i>
+                <i class="fa-solid fa-chart-simple text-sm sm:mr-2"></i>
                 <span class="hidden sm:inline">Stats</span>
             </Link>
 

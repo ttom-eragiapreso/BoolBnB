@@ -224,6 +224,13 @@ export default {
             >
                 Stats
             </Link>
+            <Link
+                :href="route('dashboard.apartment.messages', apartment.id)"
+                as="button"
+                class="px-10 py-3 bg-blue-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition ease-in-out duration-150"
+            >
+                Messages
+            </Link>
             <DeleteButton @click="showModal = true" />
             <Link
                 :href="route('dashboard.apartment.sponsorship', apartment.id)"

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\Feature;
 use App\Models\Image;
+use App\Models\Message;
 use App\Models\Sponsorship;
 use App\Models\Type_of_stay;
+use App\Models\User;
 use Braintree;
 use DateInterval;
 use DateTime;
@@ -233,9 +235,25 @@ class ApartmentController extends Controller
 
     }
 
-    public function messages(){
+    public function messages(Int $id = null){
 
-        return Inertia::render('Dashboard/Apartment/Messages');
+
+        $user = auth()->user();
+
+        if($user->email == 'admin@admin.com'){
+            $apartments = Apartment::select('id', 'title')->get();
+            $user_apartments_id = Apartment::select('id')->get();
+        } else {
+            // prendo i titoli e id degli apartamenti dell'utente
+            $apartments = Apartment::select('id', 'title')->where('user_id', $user->id)->get();
+            // prendo una lista con solo gli id degli appartamenti dell'utente
+            $user_apartments_id = Apartment::select('id')->where('user_id', $user->id)->get();
+        }
+
+        // prendo tutti i messaggi legati agli id dell'utente
+        $messages = Message::whereIn('apartment_id', $user_apartments_id)->orderBy('created_at', 'DESC')->paginate(8);
+
+        return Inertia::render('Dashboard/Apartment/Messages', compact('messages', 'apartments', 'id'));
     }
 
     public function stats(){
@@ -251,8 +269,6 @@ class ApartmentController extends Controller
         } else {
             $user_apartments = $user->apartments;
         }
-
-
 
         $sponsorships = Sponsorship::all();
 
