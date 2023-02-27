@@ -145,8 +145,18 @@ export default {
                                 v-if="$page.props.auth.user"
                                 :href="route('dashboard.home')"
                                 as="button"
-                            >
+                                >
                                 Dashboard
+                            </DropdownLink>
+
+                            <DropdownLink
+                                v-if="$page.props.auth.user"
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                                class="text-red-700"
+                            >
+                                Log Out
                             </DropdownLink>
 
                             <template v-else>

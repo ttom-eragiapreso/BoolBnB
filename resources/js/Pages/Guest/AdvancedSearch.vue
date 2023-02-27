@@ -154,7 +154,9 @@ export default {
 
         window.addEventListener('UpdateMap', () => {
 
-            map.flyTo({zoom: this.handleZoom});
+            if(!this.filters.ignoreLocations){
+                map.flyTo({zoom: this.handleZoom});
+            }
 
             this.markers.forEach(marker => {
                 marker.remove();
