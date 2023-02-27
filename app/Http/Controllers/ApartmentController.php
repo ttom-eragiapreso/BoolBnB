@@ -9,12 +9,14 @@ use App\Models\Message;
 use App\Models\Sponsorship;
 use App\Models\Type_of_stay;
 use App\Models\User;
+use App\Models\View;
 use Braintree;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class ApartmentController extends Controller
 {
@@ -26,7 +28,7 @@ class ApartmentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        if($user->email == 'admin@admin.com'){
+        if ($user->email == 'admin@admin.com') {
             $user_apartments = Apartment::with('sponsorships')->get();
         } else {
             $user_apartments = Apartment::where('user_id', $user->id)->with('sponsorships')->get();
@@ -44,7 +46,7 @@ class ApartmentController extends Controller
     {
         $features = Feature::all();
         $type_of_stays = Type_of_stay::all();
-        return Inertia::render('Dashboard/Apartment/Create', compact('features','type_of_stays'));
+        return Inertia::render('Dashboard/Apartment/Create', compact('features', 'type_of_stays'));
     }
 
     /**
@@ -60,20 +62,20 @@ class ApartmentController extends Controller
         $features = request('features');
 
         $validated_request = $request->validate([
-            'title'=>'required|max:100|min:3',
-            'rooms'=>'required|numeric|min:0|max:50',
-            'beds'=>'required|numeric|min:0|max:50',
-            'bathrooms'=>'required|numeric|min:0|max:50',
-            'square_meters'=>'required|numeric|min:0|max:60000',
-            'city'=>'required|max:50|min:3',
-            'country'=>'required|max:50|min:3',
-            'full_address'=>'required|max:100|min:3',
+            'title' => 'required|max:100|min:3',
+            'rooms' => 'required|numeric|min:0|max:50',
+            'beds' => 'required|numeric|min:0|max:50',
+            'bathrooms' => 'required|numeric|min:0|max:50',
+            'square_meters' => 'required|numeric|min:0|max:60000',
+            'city' => 'required|max:50|min:3',
+            'country' => 'required|max:50|min:3',
+            'full_address' => 'required|max:100|min:3',
             'latitude' => 'required',
             'longitude' => 'required',
-            'price'=>'required|decimal:2|min:0|max:90000',
-            'cover_image'=>'required|image|max:5000',
-            'description'=>'required|min:10',
-            'type_of_stay_id'=>'required',
+            'price' => 'required|decimal:2|min:0|max:90000',
+            'cover_image' => 'required|image|max:5000',
+            'description' => 'required|min:10',
+            'type_of_stay_id' => 'required',
             'is_visible' => 'required'
         ]);
 
@@ -83,12 +85,12 @@ class ApartmentController extends Controller
 
         $new_apartment = Apartment::create($validated_request);
 
-        if(!empty($features)){
+        if (!empty($features)) {
             $new_apartment->features()->attach($features);
         }
 
-        if(!empty($gallery)){
-            foreach($gallery as $image){
+        if (!empty($gallery)) {
+            foreach ($gallery as $image) {
                 $new_image = new Image();
                 $new_image->url = $image->store('uploads', 'public');
                 $new_image->apartment_id = $new_apartment->id;
@@ -111,16 +113,15 @@ class ApartmentController extends Controller
         $apartment = Apartment::with(['images', 'features', 'type_of_stay'])->where('slug', $slug)->first();
 
         // ???
-        if($user === null || $apartment === null){
+        if ($user === null || $apartment === null) {
             abort(404);
         }
 
-        if($apartment->user_id == $user->id || $user->email == 'admin@admin.com'){
+        if ($apartment->user_id == $user->id || $user->email == 'admin@admin.com') {
             return Inertia::render('Dashboard/Apartment/Show', compact('apartment'));
         } else {
             return to_route('dashboard.home')->with('message', 'Not allowed.');
         }
-
     }
 
     /**
@@ -137,7 +138,7 @@ class ApartmentController extends Controller
         $features = Feature::all();
         $type_of_stays = Type_of_stay::all();
 
-        if($apartment->user_id == $user->id || $user->email == 'admin@admin.com'){
+        if ($apartment->user_id == $user->id || $user->email == 'admin@admin.com') {
             return Inertia::render('Dashboard/Apartment/Edit', compact('apartment', 'features', 'type_of_stays'));
         } else {
             return to_route('dashboard.home')->with('message', 'Not allowed.');
@@ -159,40 +160,40 @@ class ApartmentController extends Controller
         $features = request('features');
 
         $validated_request = $request->validate([
-            'title'=>'required|max:100|min:3',
-            'rooms'=>'required|numeric|min:0|max:50',
-            'beds'=>'required|numeric|min:0|max:50',
-            'bathrooms'=>'required|numeric|min:0|max:50',
-            'square_meters'=>'required|numeric|min:0|max:60000',
-            'city'=>'required|max:50|min:3',
-            'country'=>'required|max:50|min:3',
-            'full_address'=>'required|max:100|min:3',
+            'title' => 'required|max:100|min:3',
+            'rooms' => 'required|numeric|min:0|max:50',
+            'beds' => 'required|numeric|min:0|max:50',
+            'bathrooms' => 'required|numeric|min:0|max:50',
+            'square_meters' => 'required|numeric|min:0|max:60000',
+            'city' => 'required|max:50|min:3',
+            'country' => 'required|max:50|min:3',
+            'full_address' => 'required|max:100|min:3',
             'latitude' => 'required',
             'longitude' => 'required',
-            'price'=>'required|decimal:2|min:0|max:90000',
-            'cover_image'=>'nullable|image|max:5000',
-            'type_of_stay_id'=>'required',
-            'description'=>'required|min:10',
-            'is_visible'=>'required'
+            'price' => 'required|decimal:2|min:0|max:90000',
+            'cover_image' => 'nullable|image|max:5000',
+            'type_of_stay_id' => 'required',
+            'description' => 'required|min:10',
+            'is_visible' => 'required'
         ]);
 
-        if(!empty($features)){
+        if (!empty($features)) {
             $apartment->features()->sync($features);
         } else {
             $apartment->features()->detach();
         }
 
-        if(isset($validated_request['cover_image'])){
+        if (isset($validated_request['cover_image'])) {
             Storage::disk('public')->delete($apartment->cover_image);
             $validated_request['cover_image'] = $validated_request['cover_image']->store('uploads', 'public');
-        }else {
+        } else {
             $validated_request['cover_image'] = $apartment->cover_image;
         }
 
         // Se ho inserito delle nuove immagini
-        if(!empty($new_gallery_images)){
+        if (!empty($new_gallery_images)) {
             // Le vado ad aggiungere a quelle gia esistenti
-            foreach($new_gallery_images as $image){
+            foreach ($new_gallery_images as $image) {
                 $new_image = new Image();
 
                 $new_image->url = $image->store('uploads', 'public');
@@ -203,10 +204,10 @@ class ApartmentController extends Controller
         }
 
         // Se avevo delle immagini nella galleria
-        if(!empty($old_gallery_images)){
+        if (!empty($old_gallery_images)) {
             // Ciclo tra queste e verifico se ne voglio cancellare qualcuna
-            foreach($old_gallery_images as $index => $flag){
-                if(!$flag){
+            foreach ($old_gallery_images as $index => $flag) {
+                if (!$flag) {
                     Storage::disk('public')->delete($apartment->images[$index]->url);
                     $image = Image::find($apartment->images[$index]->id);
                     $image->delete();
@@ -232,15 +233,15 @@ class ApartmentController extends Controller
         $apartment->delete();
 
         return redirect()->route('dashboard.apartment.index')->with('message', 'Apartment deleted succesfully.');
-
     }
 
-    public function messages(Int $id = null){
+    public function messages(Int $id = null)
+    {
 
 
         $user = auth()->user();
 
-        if($user->email == 'admin@admin.com'){
+        if ($user->email == 'admin@admin.com') {
             $apartments = Apartment::select('id', 'title')->get();
             $user_apartments_id = Apartment::select('id')->get();
         } else {
@@ -256,15 +257,33 @@ class ApartmentController extends Controller
         return Inertia::render('Dashboard/Apartment/Messages', compact('messages', 'apartments', 'id'));
     }
 
-    public function stats(){
-
-        return Inertia::render('Dashboard/Apartment/Stats');
-    }
-
-    public function sponsorship(Int $id = null){
+    public function stats()
+    {
 
         $user = auth()->user();
-        if($user->email == 'admin@admin.com'){
+        if ($user->email == 'admin@admin.com') {
+            $user_apartments_id = Apartment::select('id')->get()->toArray();
+        } else {
+            $user_apartments_id = Apartment::select('id', 'slug')->where('user_id', $user->id)->get()->toArray();
+        }
+
+
+        $data = [];
+
+        foreach ($user_apartments_id as $apartm) {
+            $data[$apartm['slug']] = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->where('apartment_id', $apartm['id'])->groupBy('date')->get()->toArray();
+        }
+
+        // $views_data = View::select('apartment_id', DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->whereIn('apartment_id', $user_apartments_id)->groupBy('apartment_id', 'date')->get()->toArray();
+
+        return Inertia::render('Dashboard/Apartment/Stats', compact('data'));
+    }
+
+    public function sponsorship(Int $id = null)
+    {
+
+        $user = auth()->user();
+        if ($user->email == 'admin@admin.com') {
             $user_apartments = Apartment::all();
         } else {
             $user_apartments = $user->apartments;
@@ -275,7 +294,8 @@ class ApartmentController extends Controller
         return Inertia::render('Dashboard/Apartment/Sponsorship', compact('user_apartments', 'sponsorships', 'id'));
     }
 
-    public function transaction(Request $request){
+    public function transaction(Request $request)
+    {
 
         //dd($request->all());
 
@@ -313,13 +333,13 @@ class ApartmentController extends Controller
             'customerId' => $customer->customer->id,
             'paymentMethodNonce' => $nonce,
             'options' => [
-              'verifyCard' => true,
+                'verifyCard' => true,
             ]
-          ]);
+        ]);
 
-          //$gateway->customer()->delete($customer->customer->id);
+        //$gateway->customer()->delete($customer->customer->id);
 
-          if($validation->success){
+        if ($validation->success) {
 
             $token = $validation->paymentMethod->token;
 
@@ -328,41 +348,38 @@ class ApartmentController extends Controller
                 'paymentMethodToken' => $token,
                 'options' => [
                     'submitForSettlement' => true
-                    ]
-                    ]);
+                ]
+            ]);
 
-             $result = $transaction->success;
+            $result = $transaction->success;
 
-             if($result){
+            if ($result) {
                 // Salviamo nel db la sponsorship & apartment
 
                 $now = new DateTime();
                 $last_sponsor_date = $apartment['sponsorships'][count($apartment['sponsorships']) - 1]['pivot']['end'] ?? null;
                 $last_sponsor_date = date_create_immutable($last_sponsor_date);
 
-                if( $last_sponsor_date > $now ){
+                if ($last_sponsor_date > $now) {
                     $start = $last_sponsor_date;
                     $end = $last_sponsor_date->add(new DateInterval("PT" . $sponsorship->length_hours . "H"));
-                }else {
+                } else {
                     $start = new DateTime();
                     $end = $now->add(new DateInterval("PT" . $sponsorship->length_hours . "H"));
                 }
 
-                $coll_apartment->sponsorships()->attach($sponsorship->id,[
+                $coll_apartment->sponsorships()->attach($sponsorship->id, [
                     'start' => $start,
                     'end' => $end
                 ]);
 
 
-                 return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your payment was successful!');
-             }else {
+                return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your payment was successful!');
+            } else {
                 return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your transaction was unsuccessful');
-             }
-          }else {
+            }
+        } else {
             return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your card was declined, please try another card.');
-          }
-
-
-
+        }
     }
 }

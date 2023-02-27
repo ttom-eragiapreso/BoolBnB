@@ -1,6 +1,6 @@
 <template>
     <div class="container flex">
-        <div @click="goToPage">
+        <Link @click="goToPage">
             <!-- Img container -->
             <div
                 class="w-60 aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
@@ -48,7 +48,7 @@
             <h5 class="underline">
                 <strong>{{ apartment.price }} &euro; </strong>totale
             </h5>
-        </div>
+        </Link>
     </div>
 </template>
 
@@ -69,6 +69,7 @@ export default {
         SwiperSlide,
         Navigation,
         Pagination,
+        Link
     },
     props: {
         apartment: Object,

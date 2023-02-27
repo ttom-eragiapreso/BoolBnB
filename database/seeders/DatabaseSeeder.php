@@ -23,16 +23,16 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
-                TypeOfStaySeeder::class,
+                // TypeOfStaySeeder::class,
                 // ApartmentSeeder::class,
-                FeatureSeeder::class,
+                // FeatureSeeder::class,
                 // ApartmentFeatureSeeder::class,
-                SponsorshipSeeder::class,
+                // SponsorshipSeeder::class,
                 // ApartmentSponsorshipSeeder::class,
                 // ImageSeeder::class,
-                // ViewSeeder::class,
+                ViewSeeder::class,
                 // MessageSeeder::class,
             ]
-            );
+        );
     }
 }

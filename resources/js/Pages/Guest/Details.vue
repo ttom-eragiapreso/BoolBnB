@@ -170,20 +170,21 @@ export default {
                                 </div>
                                 <!--body-->
                                 <div class="relative p-6 flex-auto">
+                                    <p class="mb-3 text-right text-sm text-slate-500">* Required fields.</p>
                                     <div>
-                                        <label for="email" class="block mb-2 text-sm font-medium text-slate-500">Your email</label>
+                                        <label for="email" class="block mb-2 text-sm font-medium text-slate-500">Your email *</label>
                                         <input v-model="userEmail" type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 mb-2" placeholder="name@email.com" required>
                                         <p class="text-red-600 text-sm pt-2" v-if="(!userEmail.includes('@') || !userEmail.includes('.')) && userEmail.length > 1">Please insert a valid email address.</p>
                                     </div>
                                     <div>
-                                        <label for="subject" class="block mb-2 text-sm font-medium text-slate-500">Subject</label>
-                                        <input minlength="6" maxlength="35" v-model="userSubject" type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
-                                        <p class="text-red-600 text-sm pt-2" v-if="(userSubject.length < 6 || userSubject.length > 35)">Please write between 6 and 35 characters</p>
+                                        <label for="subject" class="block mb-2 text-sm font-medium text-slate-500">Subject *</label>
+                                        <input minlength="6" maxlength="50" v-model="userSubject" type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
+                                        <p class="text-red-600 text-sm pb-3" v-if="((userSubject.length < 6 || userSubject.length > 50) && userSubject.length > 3)">Please write between 6 and 50 characters</p>
                                     </div>
                                     <div class="sm:col-span-2">
-                                        <label for="message" class="block mb-2 text-sm font-medium text-slate-500">Your message</label>
-                                        <textarea minlength="10" maxlength="255" v-model="userMessage" id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
-                                        <p class="text-red-600 text-sm pt-2" v-if="(userMessage.length < 10 || userMessage.length > 254)">Please write between 6 and 35 characters</p>
+                                        <label for="message" class="block mb-2 text-sm font-medium text-slate-500">Your message *</label>
+                                        <textarea minlength="10" maxlength="500" v-model="userMessage" id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
+                                        <p class="text-red-600 text-sm pt-2" v-if="(userMessage.length < 10 || userMessage.length > 500) && userMessage.length > 1">Please write between 10 and 500 characters</p>
                                     </div>
                                 </div>
                                 <!--footer-->
