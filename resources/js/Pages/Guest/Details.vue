@@ -39,7 +39,7 @@ export default {
                 "userMessage": this.userMessage,
                 "apartmentId": this.apartment.id
             });
-        }
+        },
     },
     computed:{
         handleCreateDate() {
@@ -51,6 +51,7 @@ export default {
             }
     },
     mounted() {
+
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
             container: "map",

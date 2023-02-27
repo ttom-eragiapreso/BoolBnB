@@ -80,6 +80,7 @@ class GuestController extends Controller
 
     public function details(String $slug){
 
+        //dd($request->getClientIp());
         $apartment = Apartment::where('slug', $slug)->with('images', 'features')->first();
         $user = $apartment->user;
         $name = $apartment->user->name;
