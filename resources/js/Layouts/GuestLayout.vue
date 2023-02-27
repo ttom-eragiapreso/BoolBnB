@@ -22,9 +22,7 @@ import { Link } from '@inertiajs/vue3';
                 <h5
                     class="align-middle font-semibold"
                     :class="
-                        $page.props.flash.message.includes('updated')
-                            ? 'text-amber-600'
-                            : $page.props.flash.message.includes('created') || $page.props.flash.message.includes('payment')
+                        $page.props.flash.message.includes('sent')
                             ? 'text-green-600'
                             : 'text-red-600'
                     "
