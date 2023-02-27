@@ -109,6 +109,6 @@ class GuestController extends Controller
 
         $new_message->save();
 
-        return redirect()->back()->with('message', 'Your message was sent succesfull');
+        return redirect()->back()->with('message', 'Your message was sent succesfully');
     }
 }

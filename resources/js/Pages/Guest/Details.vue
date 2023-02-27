@@ -2,7 +2,7 @@
 import {router} from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 
 export default {
     name: "Details",
@@ -14,7 +14,7 @@ export default {
     data() {
         return {
         showModal: false,
-        userEmail: '',
+        userEmail: usePage().props.auth.user? usePage().props.auth.user.email : '',
         userSubject: '',
         userMessage: ''
         }
@@ -172,14 +172,17 @@ export default {
                                     <div>
                                         <label for="email" class="block mb-2 text-sm font-medium text-slate-500">Your email</label>
                                         <input v-model="userEmail" type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 mb-2" placeholder="name@email.com" required>
+                                        <p class="text-red-600 text-sm pt-2" v-if="(!userEmail.includes('@') || !userEmail.includes('.')) && userEmail.length > 1">Please insert a valid email address.</p>
                                     </div>
                                     <div>
                                         <label for="subject" class="block mb-2 text-sm font-medium text-slate-500">Subject</label>
-                                        <input v-model="userSubject" type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
+                                        <input minlength="6" maxlength="35" v-model="userSubject" type="text" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-slate-500 focus:border-slate-500 mb-2" placeholder="Let us know how we can help you" required>
+                                        <p class="text-red-600 text-sm pt-2" v-if="(userSubject.length < 6 || userSubject.length > 35)">Please write between 6 and 35 characters</p>
                                     </div>
                                     <div class="sm:col-span-2">
                                         <label for="message" class="block mb-2 text-sm font-medium text-slate-500">Your message</label>
-                                        <textarea v-model="userMessage" id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
+                                        <textarea minlength="10" maxlength="255" v-model="userMessage" id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Leave a message..."></textarea>
+                                        <p class="text-red-600 text-sm pt-2" v-if="(userMessage.length < 10 || userMessage.length > 254)">Please write between 6 and 35 characters</p>
                                     </div>
                                 </div>
                                 <!--footer-->
@@ -187,7 +190,7 @@ export default {
                                     <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
                                     Close
                                     </button>
-                                    <button @click.prevent="sendMessage()" :class="{'text-red-500' : !checkDisable}" class=" border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <button :disabled="!checkDisable" @click.prevent="sendMessage()" :class="{'opacity-25' : !checkDisable}" class=" border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                     Send message
                                     </button>
                                 </div>
