@@ -22,7 +22,6 @@ export default {
     props: {
         apartment: Object,
         user: Object,
-        features: Object,
         name: String,
         date: String,
         email: String
@@ -74,11 +73,6 @@ export default {
             map.addControl(new tt.NavigationControl);
         });
 
-        // if($page.props.auth.user.email){
-        //     this.userEmail = $page.props.auth.user.email
-        //     console.log(this.userEmail);
-        // }
-
      }
 };
 </script>
@@ -112,7 +106,13 @@ export default {
                             :key="id"
                             :src="'/storage/' + image.url"
                             alt="image_galler"
-                            class="w-[50%] h-[175px] p-1 hover:brightness-75"
+                            class="p-1 hover:brightness-75"
+                            :class="
+                                apartment.images.length == 1 ? 'w-[100%] h-[100%]'
+                                : apartment.images.length == 2 ? 'w-[50%] h-[100%] object-cover'
+                                : apartment.images.length == 3 ? 'w-[50%] max-h-[175px] grow object-cover'
+                                : 'w-[50%] h-[175px]'
+                                "
                         />
                 </div>
             </div>
@@ -127,10 +127,10 @@ export default {
                         <h2 class="text-2xl pb-2 font-bold">Description</h2>
                         <p>{{ apartment.description }}</p>
                     </div>
-                    <div class="text-center md:text-start pb-4 mb-4 border-b">
+                    <div v-if="apartment.features.length != 0" class="text-center md:text-start pb-4 mb-4 border-b">
                         <h2 class="text-2xl pb-2 font-bold">What this place offers</h2>
-                        <ul v-for="features in features" :key="features.id">
-                            <li>{{ features.name }}</li>
+                        <ul class="grid md:grid-cols-2">
+                            <li v-for="features in apartment.features" :key="features.id" class="border rounded-xl border-stone-700 py-1 my-2 px-4 w-fit hover:bg-slate-100">{{ features.name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ export default {
                     <div class="border rounded-xl p-8 shadow-lg hover:shadow-xl">
                         <h2 class="font-bold text-xl">&euro; {{ apartment.price }} <span class="font-thin text-base">night</span></h2>
                         <p class="text-sm text-slate-500">Fees included</p>
-                        <button class="text-white font-bold w-full rounded-xl mt-8 py-2 bg-gradient-to-br from-pink-800 to-pink-600 hover:bg-gradient-to-bl">Reserve</button>
+                        <!-- <button class="text-white font-bold w-full rounded-xl mt-8 py-2 bg-gradient-to-br from-pink-800 to-pink-600 hover:bg-gradient-to-bl">Reserve</button> -->
                         <hr class="my-8">
                         <h2 class="font-bold text-lg">Host: {{ name }}</h2>
                         <p class="text-slate-500 text-sm">Joined in: {{ handleCreateDate }}</p>
@@ -147,8 +147,10 @@ export default {
 
                         We will be present on your arrival to welcome you and introduce you to the apartment. We will provide you with any information you may need. We will be in regular contact with you during your stay.</p>
                         <div>
-                        <button v-on:click="toggleModal()" type="button" class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host
+                        <button v-on:click="toggleModal()" type="button" class="text-white font-bold w-full rounded-xl mt-8 py-2 bg-gradient-to-br from-pink-800 to-pink-600 hover:bg-gradient-to-bl">Contact host
                         </button>
+                        <!-- <button v-on:click="toggleModal()" type="button" class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host
+                        </button> -->
                         <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
                             <div class="relative w-[50%] my-6 mx-auto max-w-6xl">
                                 <!--content-->
@@ -207,7 +209,7 @@ export default {
             <div
 
                 id="map"
-                class="mx-auto my-8 max-w-5xl h-[500px] rounded-2xl shadow-2xl">
+                class="mx-auto mt-8 mb-[50px] max-w-5xl h-[500px] rounded-2xl shadow-2xl">
             </div>
 
 

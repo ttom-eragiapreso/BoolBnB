@@ -80,18 +80,15 @@ class GuestController extends Controller
 
     public function details(String $slug){
 
-        $apartment = Apartment::where('slug', $slug)->with('images')->first();
+        $apartment = Apartment::where('slug', $slug)->with('images', 'features')->first();
         $user = $apartment->user;
         $name = $apartment->user->name;
         $date = $apartment->user->created_at;
         $email = $apartment->user->email;
-        $features = Feature::all();
 
-
-        return Inertia::render('Guest/Details', compact('apartment', 'user', 'features', 'name', 'date', 'email'));
 
         if($apartment->is_visible) {
-            return Inertia::render('Guest/Details', compact('apartment'));
+            return Inertia::render('Guest/Details', compact('apartment', 'user', 'name', 'date', 'email'));
         }else {
             return redirect(route('home'))->with('message', 'Invalid URL');
         }

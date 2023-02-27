@@ -28,7 +28,7 @@ export default {
     },
     props: {
         canLogin: Boolean,
-        canRegister: Boolean,
+        canRegister: Boolean
     },
     methods: {
         goToAdvancedSearch(){
@@ -55,6 +55,7 @@ export default {
             </div>
 
             <div class="relative">
+
                 <!-- <input
                     type="search"
                     id="search"
@@ -128,19 +129,34 @@ export default {
                             >
                                 Advanced Search
                             </DropdownLink>
+
+                            <hr>
+
                             <DropdownLink
-                                :href="route('details', 'cozy-apartment')"
+                            v-if="$page.props.auth.user"
+                                :href="route('profile.edit')"
                                 as="button"
                             >
-                                Details
+                                Profile
                             </DropdownLink>
+
 
                             <DropdownLink
                                 v-if="$page.props.auth.user"
                                 :href="route('dashboard.home')"
                                 as="button"
-                            >
+                                >
                                 Dashboard
+                            </DropdownLink>
+
+                            <DropdownLink
+                                v-if="$page.props.auth.user"
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                                class="text-red-700"
+                            >
+                                Log Out
                             </DropdownLink>
 
                             <template v-else>
