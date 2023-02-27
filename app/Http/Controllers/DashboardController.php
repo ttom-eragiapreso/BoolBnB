@@ -15,15 +15,26 @@ class DashboardController extends Controller
 
         $user = auth()->user();
 
-        $user_apartments_id = Apartment::select('id')->where('user_id', $user->id)->get();
+        if($user->email == 'admin@admin.com'){
 
-        $num_apartments = Apartment::where('user_id', $user->id)->count();
+            $num_apartments = Apartment::count();
+            $num_active_apartments = Apartment::where('is_visible', true)->count();
+            $num_messages = Message::count();
+            $num_messages_today = Message::whereDate('created_at', '=', date('Y-m-d'))->count();
 
-        $num_active_apartments = Apartment::where('user_id', $user->id)->where('is_visible', true)->count();
+        } else {
 
-        $num_messages = Message::whereIn('apartment_id', $user_apartments_id)->count();
+            $user_apartments_id = Apartment::select('id')->where('user_id', $user->id)->get();
 
-        $num_messages_today = Message::whereIn('apartment_id', $user_apartments_id)->whereDate('created_at', '=', date('Y-m-d'))->count();
+            $num_apartments = Apartment::where('user_id', $user->id)->count();
+
+            $num_active_apartments = Apartment::where('user_id', $user->id)->where('is_visible', true)->count();
+
+            $num_messages = Message::whereIn('apartment_id', $user_apartments_id)->count();
+
+            $num_messages_today = Message::whereIn('apartment_id', $user_apartments_id)->whereDate('created_at', '=', date('Y-m-d'))->count();
+
+        }
 
         return Inertia::render('Dashboard/Home', compact('num_apartments', 'num_messages', 'num_active_apartments', 'num_messages_today'));
     }
