@@ -33,7 +33,8 @@ export default {
             store,
             UpdateMap: new CustomEvent('UpdateMap'),
             markers: [],
-            hideFilters: true
+            hideFilters: true,
+            zoomValue: 3
         };
     },
     props: {
@@ -120,6 +121,10 @@ export default {
             window.dispatchEvent(this.UpdateMap);
 
             return[ this.filtered_sponsored_apartments, this.filtered_non_sponsored_apartments]
+        },
+        handleZoom(){
+            // y=-0.00005 x+12
+            return Math.round((-0.00005 * this.filters.range) + 12);
         }
     },
     mounted() {
@@ -129,13 +134,16 @@ export default {
         this.center.longitude = this.lng ?? 12.5;
         this.center.latitude = this.lat ?? 49;
 
-        if(this.lat != null && this.lng != null) this.filters.ignoreLocations = false;
+        if(this.lat != null && this.lng != null){
+            this.filters.ignoreLocations = false;
+            this.zoomValue = this.handleZoom;
+        }
 
         const map = tt.map({
             key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
             container: "map",
             center: [this.center.longitude, this.center.latitude],
-            zoom: 3,
+            zoom: this.zoomValue,
             style: "/satellitemap.json",
         });
 
@@ -145,6 +153,8 @@ export default {
         });
 
         window.addEventListener('UpdateMap', () => {
+
+            map.flyTo({zoom: this.handleZoom});
 
             this.markers.forEach(marker => {
                 marker.remove();
