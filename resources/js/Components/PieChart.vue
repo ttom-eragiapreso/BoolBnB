@@ -3,10 +3,16 @@
 </template>
 1
 <script>
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend,
+    Colors,
+} from "chart.js";
 import { Pie } from "vue-chartjs";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Colors);
 
 export default {
     name: "PieChart",
@@ -19,12 +25,6 @@ export default {
                 labels: [],
                 datasets: [
                     {
-                        backgroundColor: [
-                            "#41B883",
-                            "#E46651",
-                            "#00D8FF",
-                            "#DD1B16",
-                        ],
                         data: [],
                     },
                 ],
