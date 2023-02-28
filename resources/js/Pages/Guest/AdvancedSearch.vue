@@ -313,7 +313,7 @@ export default {
 
                     <hr class="mr-4 mb-12 mt-4">
 
-                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-if="handleFilters.length != 0">
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-12" v-if="handleFilters.length != 0">
                         <Card
                             v-for="apartment in handleFilters[0]"
                             :key="apartment.id"
