@@ -1,6 +1,6 @@
 <template>
     <div class="container flex">
-        <Link @click="goToPage">
+        <Link :href="route('details', apartment.slug)">
             <!-- Img container -->
             <div
                 class="w-60 aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
