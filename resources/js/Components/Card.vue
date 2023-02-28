@@ -1,6 +1,6 @@
 <template>
     <div class="container flex">
-        <Link @click="goToPage">
+        <Link :href="route('details', this.apartment.slug)">
             <!-- Img container -->
             <div
                 class="w-60 aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
@@ -23,7 +23,10 @@
                             class="h-full w-full object-cover"
                         />
                     </swiper-slide>
-                    <swiper-slide v-for="image in apartment.images" :key="image.id">
+                    <swiper-slide
+                        v-for="image in apartment.images"
+                        :key="image.id"
+                    >
                         <img
                             :src="'/storage/' + image.url"
                             alt="Immagine"
@@ -69,17 +72,18 @@ export default {
         SwiperSlide,
         Navigation,
         Pagination,
-        Link
+        Link,
     },
     props: {
         apartment: Object,
-        is_sponsored: Boolean
+        is_sponsored: Boolean,
     },
     methods: {
-        goToPage(){
-            router.get(route('details', this.apartment.slug));
-        }
-    }
+        goToPage() {
+            router.get(route("details", this.apartment.slug));
+        },
+    },
+    created() {},
 };
 </script>
 <style lang="scss" scoped></style>
