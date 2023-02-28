@@ -53,7 +53,7 @@ export default {
                         <i
                             class="fa-solid fa-comment text-5xl mr-4 text-yellow-400"
                         ></i
-                        >You have recieved<span class="font-bold mx-2">
+                        >You have received<span class="font-bold mx-2">
                             {{ num_messages_today }}
                         </span>
                         message{{ num_messages_today > 1 ? "s" : "" }} today!
@@ -62,7 +62,7 @@ export default {
                         <i
                             class="fa-solid fa-comments text-5xl mr-4 text-orange-700"
                         ></i
-                        >In total you have recieved
+                        >In total you have received
                         <span class="font-bold mx-2"> {{ num_messages }} </span>
                         message{{ num_messages > 1 ? "s" : "" }}.
                     </p>
@@ -73,6 +73,9 @@ export default {
                 class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
             >
                 <div class="p-6 text-gray-900">
+                    <h2 class="text-center text-3xl">
+                        Number of views per apartment
+                    </h2>
                     <PieChart :my_data="data" />
                 </div>
             </div>

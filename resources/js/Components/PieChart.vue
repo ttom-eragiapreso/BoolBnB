@@ -32,6 +32,12 @@ export default {
             options: {
                 responsive: true,
                 maintainAspectRation: false,
+                plugins: {
+                    legend: {
+                        display:
+                            Object.keys(this.my_data).length > 5 ? false : true,
+                    },
+                },
             },
         };
     },
@@ -46,8 +52,6 @@ export default {
     },
 
     created() {
-        console.log(this.my_data);
-
         for (let apartment in this.my_data) {
             this.data.labels.push(this.decodeSlug(apartment));
             let total = 0;
