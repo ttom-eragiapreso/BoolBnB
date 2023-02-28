@@ -187,7 +187,7 @@ export default {
             </div>
         </div>
 
-        <div
+        <!-- <div
             id="footer_mobile"
             class="flex md:hidden fixed bottom-0 justify-center items-center bg-white w-full h-[65px] text-xs border-t-[1px] border-[#dddddd]"
             :class="{ hide: hideFooterMobile }"
@@ -233,7 +233,7 @@ export default {
                     <span>Accedi</span>
                 </div>
             </nav>
-        </div>
+        </div> -->
     </footer>
 </template>
 
