@@ -50,7 +50,7 @@ export default {
         <div
             class=" fixed top-0 left-0 bg-white z-20 w-screen h-[80px] border-b-[1px] flex justify-between items-center px-8 lg:px-20"
         >
-            <div class="logo h-auto cursor-grab flex items-center">
+            <div class="logo pr-2 h-auto cursor-grab flex items-center">
                 <a href="/"><ApplicationLogo/></a>
             </div>
 
