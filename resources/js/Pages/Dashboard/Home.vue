@@ -32,8 +32,8 @@ export default {
         </template>
 
         <div class="pt-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="max-w-7xl mx-2 sm:mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm rounded-lg">
                     <div class="p-6 text-lg font-semibold">
                         You're logged in!
                     </div>
@@ -42,38 +42,38 @@ export default {
         </div>
 
         <div
-            class="pt-4 gap-4 my_container max-w-7xl mx-auto sm:px-6 lg:px-8 text-gray-900"
+            class="pt-4 gap-4 my_container md:max-w-7xl mx-2 sm:mx-auto sm:px-6 lg:px-8 text-gray-900"
         >
             <div
                 id="box-a"
-                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
+                class="w-full bg-white overflow-hidden shadow-sm rounded-lg"
             >
                 <div class="p-6">
-                    <p class="flex items-center py-2 text-lg">
+                    <p class="flex justify-center sm:justify-start items-center py-2 text-lg">
                         <i
                             class="fa-solid fa-comment text-5xl mr-4 text-yellow-400"
                         ></i
-                        >You have received<span class="font-bold mx-2">
+                        ><span class="hidden md:block">have received</span><span class="font-bold mx-2">
                             {{ num_messages_today }}
                         </span>
-                        message{{ num_messages_today > 1 ? "s" : "" }} today!
+                        <span class="hidden sm:block">message{{ num_messages_today > 1 ? "s" : "" }} today!</span>
                     </p>
-                    <p class="flex items-center py-2 text-lg">
+                    <p class="flex justify-center sm:justify-start items-center py-2 text-lg">
                         <i
                             class="fa-solid fa-comments text-5xl mr-4 text-orange-700"
                         ></i
-                        >In total you have received
+                        ><span class="hidden md:block">In total you have received</span>
                         <span class="font-bold mx-2"> {{ num_messages }} </span>
-                        message{{ num_messages > 1 ? "s" : "" }}.
+                        <span class="hidden sm:block">message{{ num_messages > 1 ? "s" : "" }}.</span>
                     </p>
                 </div>
             </div>
             <div
                 id="box-b"
-                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
+                class="w-full bg-white overflow-hidden shadow-sm rounded-lg"
             >
                 <div class="p-6 text-gray-900">
-                    <h2 class="text-center text-3xl">
+                    <h2 class="text-center text-xl sm:text-3xl">
                         Number of views per apartment
                     </h2>
                     <PieChart :my_data="data" />
@@ -81,30 +81,30 @@ export default {
             </div>
             <div
                 id="box-c"
-                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
+                class="w-full bg-white overflow-hidden shadow-sm rounded-lg"
             >
                 <div class="p-6">
-                    <p class="flex items-center py-2 text-lg">
+                    <p class="flex justify-center sm:justify-start items-center py-2 text-lg">
                         <i
                             class="fa-solid fa-house text-5xl mr-4 text-blue-700"
                         ></i
-                        >You have a total of
+                        ><span class="hidden md:block">You have a total of</span>
                         <span class="font-bold mx-2">
                             {{ num_apartments }}
                         </span>
-                        apartment{{ num_apartments > 1 ? "s" : "" }} registered!
+                        <span class="hidden sm:block">apartment{{ num_apartments > 1 ? "s" : "" }} registered!</span>
                     </p>
-                    <p class="flex items-center py-2 text-lg">
+                    <p class="flex justify-center sm:justify-start items-center py-2 text-lg">
                         <i
                             class="fa-solid fa-house-circle-check text-5xl mr-4 text-emerald-700"
                         ></i
-                        >Of these apartment{{
+                        ><span class="hidden md:block">Of these apartment{{
                             num_active_apartments > 1 ? "s" : ""
-                        }}
+                        }}</span>
                         <span class="font-bold mx-2">
                             {{ num_active_apartments }}
                         </span>
-                        are public!
+                        <span class="hidden sm:block">are public!</span>
                     </p>
                 </div>
             </div>

@@ -31,11 +31,11 @@ export default {
 
         <div class="py-12" v-if="user_apartments.length > 0">
             <div
-                class="max-w-7xl mx-auto md:px-6 lg:px-8 pb-6"
+                class="max-w-7xl mx-4 md:mx-auto md:px-6 lg:px-8 pb-6"
                 v-for="apartment in user_apartments"
                 :key="apartment.id"
             >
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-2xl p-4 hover:shadow-md">
+                <div class="bg-white overflow-hidden shadow-sm rounded-xl sm:rounded-2xl p-4 hover:shadow-md">
                     <CardDashboard :apartment="apartment" />
                 </div>
             </div>

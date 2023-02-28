@@ -46,7 +46,7 @@ export default {
     </h2>
 </template>
 
-<div class="py-6 mt-12 max-w-[76rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+<div class="p-6 mt-12 max-w-[95%] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
 <Chart :my_data="data"  />
 
