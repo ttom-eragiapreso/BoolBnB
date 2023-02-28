@@ -262,7 +262,7 @@ class ApartmentController extends Controller
 
         $user = auth()->user();
         if ($user->email == 'admin@admin.com') {
-            $user_apartments_id = Apartment::select('id')->get()->toArray();
+            $user_apartments_id = Apartment::select('id', 'slug')->get()->toArray();
         } else {
             $user_apartments_id = Apartment::select('id', 'slug')->where('user_id', $user->id)->get()->toArray();
         }
