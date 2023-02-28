@@ -6,7 +6,9 @@ use App\Models\Apartment;
 use App\Models\Message;
 use App\Models\Sponsorship;
 use App\Models\Type_of_stay;
+use App\Models\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -36,7 +38,20 @@ class DashboardController extends Controller
 
         }
 
-        return Inertia::render('Dashboard/Home', compact('num_apartments', 'num_messages', 'num_active_apartments', 'num_messages_today'));
+        if ($user->email == 'admin@admin.com') {
+            $user_apartments_id = Apartment::select('id', 'slug')->get()->toArray();
+        } else {
+            $user_apartments_id = Apartment::select('id', 'slug')->where('user_id', $user->id)->get()->toArray();
+        }
+
+
+        $data = [];
+
+        foreach ($user_apartments_id as $apartm) {
+            $data[$apartm['slug']] = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->where('apartment_id', $apartm['id'])->groupBy('date')->get()->toArray();
+        }
+
+        return Inertia::render('Dashboard/Home', compact('num_apartments', 'num_messages', 'num_active_apartments', 'num_messages_today', 'data'));
     }
 
     public function transactions(){
