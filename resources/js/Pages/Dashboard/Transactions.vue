@@ -33,7 +33,7 @@ export default {
             </h2>
         </template>
 
-        <div class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 text-center">
+        <div class="p-2 mt-12 max-w-[95%] rounded-xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 text-center">
 
             <table class="w-full">
                 <thead>

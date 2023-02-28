@@ -63,11 +63,11 @@ export default {
             </h2>
         </template>
 
-        <div v-show="!showModal" class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 text-center">
+        <div v-show="!showModal" class="py-6 mt-12 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4 text-center">
 
             <p class="font-semibold text-lg">Sponsor your apartments to increase their visibility, choose the best plan for you:</p>
 
-            <div class="flex w-full gap-6 my-8 text-left">
+            <div class="flex flex-wrap w-full gap-6 my-8 text-left">
                 <div v-for="sponsor in sponsorships" :key="sponsor.id" class="border-4 p-6 rounded-3xl grow" :class="target.sponsorship_id == sponsor.id ? 'border-emerald-600' : 'shadow-sm'">
                     <h2 class="font-bold text-lg" :class="{'text-emerald-700' : target.sponsorship_id == sponsor.id}">{{ sponsor.name.toUpperCase() }}</h2>
                     <hr class="mb-2 mt-1">
