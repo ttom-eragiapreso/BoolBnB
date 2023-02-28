@@ -3,6 +3,7 @@
 import SliderItem from './SliderItem.vue';
 import { Link } from "@inertiajs/vue3";
 
+
 export default {
     name: 'Slider',
     components: {
@@ -42,6 +43,16 @@ export default {
 
         window.addEventListener('scroll', this.shadowHandle)
     },
+    computed: {
+  showPart() {
+    if(this.$page.url.includes('/advanced-search')){
+        return false
+    }else{
+        return true
+    }
+  }
+}
+
 }
 
 </script>
@@ -49,7 +60,7 @@ export default {
 <template>
     <div class="bg-white lg:px-20 sm:px-8 wrapper fixed top-[80px] right-0 z-10 w-screen flex items-center" :class="{'shadow': this.scroll_positionY > 15}">
 
-        <div class="flex relative content-wrap w-full">
+        <div class="flex relative  w-full" :class="{'content-wrap': showPart}">
             <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_positionX > 30">
                 <button @click="scroll_left"><i class="fa-solid fa-chevron-left"></i></button>
             </div>
@@ -66,9 +77,10 @@ export default {
 
         </div>
     <Link
+        v-if="showPart"
         :href="route('advancedsearch')"
-        class="sm:inline-block hidden h-full w-[100px] border ml-[20px] text-sm rounded-xl border-slate-300 py-1 my-2 text-center hover:bg-slate-100 bg-white ">
-        Advanced Search
+        class="sm:inline-block hidden h-full w-[80px] border ml-[20px] text-sm rounded-xl border-slate-300 py-2 my-2 text-center hover:bg-slate-100 bg-white ">
+        <i class="fa-solid fa-sliders"></i> Filters
     </Link>
     </div>
 </template>
@@ -77,7 +89,7 @@ export default {
 
 .content-wrap{
     @media (min-width: 640px){
-        width: calc(100% - 120px);
+        width: calc(100% - 100px);
 
     }
 }
