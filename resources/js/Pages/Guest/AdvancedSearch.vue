@@ -204,7 +204,9 @@ export default {
         <div>
             <Slider :types_of_stay="types_of_stay" class="border border-b-1 border-b-slate-200 border-t-white"/>
             <div class="mt-12 sm:mt-[180px] w-[100%] py-4 lg:px-20 px-8 flex">
-                <div class="w-[100%] lg:w-[66%]">
+
+                <div class="w-[100%] lg:w-[66%]">               
+
                     <div :class="{'hide': hideFilters}" id="boxfilters">
 
                         <div v-if="!this.filters.ignoreLocations">
