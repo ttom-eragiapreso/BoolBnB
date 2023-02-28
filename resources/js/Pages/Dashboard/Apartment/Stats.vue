@@ -14,7 +14,20 @@ export default {
     props:{
         data: Object
     },
-    mounted(){
+    methods:{
+        handleCreateDate(el) {
+            const date = new Date(el);
+            return date.toLocaleDateString("it-IT", { dateStyle: "short" });
+        },
+    },
+    created(){
+
+        for(let apartment in this.data){
+           this.data[apartment].forEach(element => {
+            element['date'] = this.handleCreateDate(element['date'])
+           });
+        }
+
     }
 
 }
@@ -33,7 +46,7 @@ export default {
     </h2>
 </template>
 
-<div class="py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
+<div class="py-6 mt-12 max-w-[76rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4">
 
 <Chart :my_data="data"  />
 

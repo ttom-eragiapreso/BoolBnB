@@ -17,16 +17,23 @@ class ViewSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 500; $i++) {
-            $new_view = new View();
-
-            $new_view->ip_address = $faker->ipv4();
-            $new_view->apartment_id = Apartment::inRandomOrder()->first()->id;
 
 
-            $new_view->created_at = $faker->dateTimeBetween('-1 week', 'now');
+        $apartments = Apartment::all()->toArray();
 
-            $new_view->save();
+        foreach ($apartments as $apartment) {
+
+            for ($z = random_int(1, 50); $z > 0; $z--) {
+
+                for ($i = 7; $i > 0; $i--) {
+                    $new_view = new View();
+                    $new_view->ip_address = $faker->ipv4();
+                    $new_view->apartment_id = $apartment['id'];
+                    $y = $i - 1;
+                    $new_view->created_at = $faker->dateTimeBetween(" -$i days", "-$y days");
+                    $new_view->save();
+                }
+            }
         }
     }
 }

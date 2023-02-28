@@ -11,7 +11,8 @@
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Colors
   } from 'chart.js'
   import { Line } from 'vue-chartjs'
 
@@ -22,7 +23,8 @@
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Colors
 )
 
   export default {
@@ -35,7 +37,6 @@
     },
     data() {
       return {
-        colors: ['red', 'yellow', 'blue', 'green', 'burlywood', 'cornflowerblue', 'coral', 'darkblue'],
         data : {
             datasets: []
         },
@@ -54,19 +55,21 @@
     },
     created(){
 
-        console.log(this.data.datasets);
 
         for(let apartment in this.my_data){
             this.data.datasets.push({
                 data: this.my_data[apartment],
-                label: apartment,
-                borderColor: this.colors[Math.floor(Math.random()* this.colors.length)],
-                backgroundColor: this.colors[Math.floor(Math.random()* this.colors.length)],
-
+                label: this.decodeSlug(apartment),
             })
         }
 
 
+    },
+    methods:{
+        decodeSlug(string){
+            const res = string.replace( /-/g , ' ');
+            return res.charAt(0).toUpperCase() + res.slice(1);
+        }
     }
   }
   </script>
