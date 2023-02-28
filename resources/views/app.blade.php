@@ -26,6 +26,8 @@
     <script src="https://js.braintreegateway.com/web/3.90.0/js/hosted-fields.min.js"></script>
     <script src="https://js.braintreegateway.com/web/3.90.0/js/data-collector.min.js"></script>
 
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
     @routes

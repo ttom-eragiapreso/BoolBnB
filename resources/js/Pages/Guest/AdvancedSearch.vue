@@ -203,7 +203,7 @@ export default {
     <GuestLayout>
         <div>
             <Slider :types_of_stay="types_of_stay" />
-            <div class="mt-[180px] py-4 lg:px-20 px-8 flex w-full">
+            <div class="mt-12 sm:mt-[180px] py-4 lg:px-20 px-8 flex w-full">
                 <div class="w-2/3">
                     <div :class="{'hide': hideFilters}" id="boxfilters">
 

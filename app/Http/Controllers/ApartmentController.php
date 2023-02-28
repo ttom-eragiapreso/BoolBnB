@@ -373,13 +373,12 @@ class ApartmentController extends Controller
                     'end' => $end
                 ]);
 
-
-                return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your payment was successful!');
+                return redirect()->route('dashboard.apartment.show', $apartment['slug'])->with('message', 'Your payment was successful! This apartment will now be sponsored until ' . $end->format('d-m-Y H:i'));
             } else {
-                return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your transaction was unsuccessful');
+                return redirect()->route('dashboard.home')->with('message', 'Your transaction was unsuccessful');
             }
         } else {
-            return redirect()->route('dashboard.apartment.sponsorship')->with('message', 'Your card was declined, please try another card.');
+            return redirect()->route('dashboard.home')->with('message', 'Your card was declined, please try another card.');
         }
     }
 }
