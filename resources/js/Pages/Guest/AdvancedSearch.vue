@@ -202,9 +202,11 @@ export default {
     <Head title="Advanced Search" />
     <GuestLayout>
         <div>
-            <Slider :types_of_stay="types_of_stay" />
-            <div class="mt-[180px] py-4 lg:px-20 px-8 flex w-full">
-                <div class="w-2/3">
+            <Slider :types_of_stay="types_of_stay" class="border border-b-1 border-b-slate-200 border-t-white"/>
+            <div class="mt-12 sm:mt-[180px] w-[100%] py-4 lg:px-20 px-8 flex">
+
+                <div class="w-[100%] lg:w-[66%]">               
+
                     <div :class="{'hide': hideFilters}" id="boxfilters">
 
                         <div v-if="!this.filters.ignoreLocations">
@@ -313,7 +315,7 @@ export default {
 
                     <hr class="mr-4 mb-12 mt-4">
 
-                    <div class=" grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-if="handleFilters.length != 0">
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-12" v-if="handleFilters.length != 0">
                         <Card
                             v-for="apartment in handleFilters[0]"
                             :key="apartment.id"
@@ -334,10 +336,10 @@ export default {
                     </div>
 
                 </div>
-                <div class="w-1/3 fixed top-[163px] right-0 border-l border-gray-200">
+                <div class="hidden lg:block w-1/3 fixed top-[163px] right-0 border-l border-gray-200">
                     <div
                         id="map"
-                        class="my-0 ml-3 lg:mr-20 rounded-2xl shadow"
+                        class="my-0 shadow"
                     ></div>
                 </div>
             </div>
@@ -357,7 +359,7 @@ export default {
 }
 
 #map{
-    height: calc(100vh - 213px);
+    height: calc(100vh - 212px);
 }
 
 </style>

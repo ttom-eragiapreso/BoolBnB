@@ -1,9 +1,9 @@
 <template>
-    <div class="container flex">
-        <Link :href="route('details', this.apartment.slug)">
+    <div class="container">
+        <Link :href="route('details', apartment.slug)">
             <!-- Img container -->
             <div
-                class="w-60 aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
+                class="aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
             >
                 <swiper
                     class="w-full h-full"

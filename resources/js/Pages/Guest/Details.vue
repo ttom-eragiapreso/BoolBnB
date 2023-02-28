@@ -124,8 +124,8 @@ export default {
                         <h2 class="text-center md:text-start text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
                         <p class="text-center md:text-start">2 guests &middot; {{ apartment.rooms }} {{apartment.rooms > 1 ? 'rooms' : 'room'}} &middot; {{ apartment.beds }} {{apartment.rooms > 1 ? 'beds' : 'bed'}} &middot; {{ apartment.bathrooms }} {{apartment.rooms > 1 ? 'bathrooms' : 'bathroom'}} &middot; {{ apartment.square_meters }}&#13217;</p>
                     </div>
-                    <div class="text-center md:text-start pb-4 mb-4 border-b">
-                        <h2 class="text-2xl pb-2 font-bold">Description</h2>
+                    <div class="md:text-start pb-4 mb-4 border-b">
+                        <h2 class="text-center md:text-start text-2xl pb-2 font-bold">Description</h2>
                         <p>{{ apartment.description }}</p>
                     </div>
                     <div v-if="apartment.features.length != 0" class="text-center md:text-start pb-4 mb-4 border-b">
@@ -161,8 +161,8 @@ export default {
                                     <h3 class="text-3xl font-semibold">
                                     Host: {{name}}
                                     </h3>
-                                    <span class="ml-6">to: {{ email }}</span>
-                                    <button class="p-1 ml-auto bg-transparent  float-right text-3xl leading-none font-semibold outline-none focus:outline-none items-center" v-on:click="toggleModal()">
+                                    <span class="hidden md:block ml-6">to: {{ email }}</span>
+                                    <button class="hidden sm:block p-1 ml-auto bg-transparent  float-right text-3xl leading-none font-semibold outline-none focus:outline-none items-center" v-on:click="toggleModal()">
                                     <span class="bg-transparent h-6 w-6 text-2xl block outline-none focus:outline-none">
                                         ×
                                     </span>
@@ -214,7 +214,7 @@ export default {
             <div
 
                 id="map"
-                class="mx-auto mt-8 mb-[50px] max-w-5xl h-[500px] rounded-2xl shadow-2xl">
+                class="mx-8 lg:mx-auto mt-8 mb-[50px] max-w-5xl h-[500px] rounded-2xl shadow-2xl">
             </div>
 
 
