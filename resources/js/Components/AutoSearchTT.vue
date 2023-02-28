@@ -69,7 +69,7 @@ export default{
     mounted(){
         this.createSearchBox();
 
-        document.querySelector('.tt-search-box-input').placeholder = 'Ex. Piazza del Colosseo, Rome, Italy'
+        document.querySelector('.tt-search-box-input').placeholder = 'Ex. Rome, Italy'
     }
 }
 
@@ -90,7 +90,7 @@ export default{
     border: 1px solid #6b7280;
     font-family: inherit !important;
     margin-block: 8px;
-    border-radius: 8px;
+    border-radius: 20px;
 }
 
 #searchbox .tt-search-box input{
@@ -99,12 +99,12 @@ export default{
 
 #searchbox .tt-search-box-input-container{
     padding: 0.5rem 0.75rem;
-    border-radius: 8px;
+    border-radius: 20px;
 }
 
 #searchbox .tt-search-box-input-container.-focused{
-    border: 1px solid #2563eb;
-    border-radius: 8px;
+    border: 1px solid #6b7280;
+    border-radius: 20px;
     box-shadow: none;
 }
 
