@@ -54,7 +54,7 @@ export default {
         },
         showLoad() {
             return (
-                this.filtered_non_sponsored_apartments.length > this.upper_limit
+                this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length > this.upper_limit
             );
         },
         howManyMore(){
@@ -71,11 +71,11 @@ export default {
     },
     methods: {
         loadMore() {
-            this.filtered_non_sponsored_apartments.length - this.upper_limit >
+            this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length - this.upper_limit >
             10
                 ? (this.upper_limit += 10)
                 : (this.upper_limit =
-                      this.filtered_non_sponsored_apartments.length);
+                      this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length);
         },
     },
 };
