@@ -19,7 +19,6 @@ export default {
             filtered_sponsored_apartments: [],
             filtered_non_sponsored_apartments: [],
             store,
-            lower_limit: 0,
             upper_limit: 24,
         };
     },
@@ -88,30 +87,29 @@ export default {
             </h5>
         </div>
 
-
-        <div class=" w-full px-8 mb-8 sm:px-6 lg:px-20 sm:mt-[170px] mt-[40px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
+        <div
+            class="w-full px-8 sm:px-6 lg:px-20 sm:mt-[170px] mt-[40px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12"
+        >
             <Card
                 v-for="apartment in handleFilters[0].slice(0, upper_limit)"
                 :key="apartment.id"
                 :apartment="apartment"
                 :is_sponsored="true"
-
             />
             <Card
                 v-for="non_sponsored_apartment in handleFilters[1].slice(0, upper_limit)"
                 :key="non_sponsored_apartment.id"
                 :apartment="non_sponsored_apartment"
                 :is_sponsored="false"
-
             />
-        </div>
-
-        <div class="w-full text-center">
-            <button @click="loadMore" class="mb-8 py-3 px-6 border-2 rounded-3xl font-semibold border-slate-300 text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100" v-if="showLoad">
+            <button
+                @click="loadMore"
+                class="p-3 my-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mx-4"
+                v-if="showLoad"
+            >
                 Load More
             </button>
         </div>
-
     </GuestLayout>
 </template>
 
