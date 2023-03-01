@@ -16,7 +16,7 @@ export default {
     },
     data() {
         return {
-            upper_limit: 24,
+            upper_limit: 10,
             filters: {
                 beds: 0,
                 rooms: 0,
@@ -109,8 +109,8 @@ export default {
         },
         loadMore() {
             this.filtered_non_sponsored_apartments.length - this.upper_limit >
-            24
-                ? (this.upper_limit += 24)
+            10
+                ? (this.upper_limit += 10)
                 : (this.upper_limit =
                       this.filtered_non_sponsored_apartments.length);
         },
