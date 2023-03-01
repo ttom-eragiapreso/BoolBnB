@@ -19,19 +19,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        // User::factory(1)->create();
-
         $this->call(
             [
-                // TypeOfStaySeeder::class,
-                // ApartmentSeeder::class,
-                // FeatureSeeder::class,
-                // ApartmentFeatureSeeder::class,
-                // SponsorshipSeeder::class,
-                // ApartmentSponsorshipSeeder::class,
-                // ImageSeeder::class,
+                UserSeeder::class,
+                TypeOfStaySeeder::class,
+                ApartmentSeeder::class,
+                FeatureSeeder::class,
+                ApartmentFeatureSeeder::class,
+                SponsorshipSeeder::class,
+                ApartmentSponsorshipSeeder::class,
+                ImageSeeder::class,
                 ViewSeeder::class,
-                // MessageSeeder::class,
+                MessageSeeder::class,
             ]
         );
     }
