@@ -58,11 +58,11 @@ export default {
 </script>
 
 <template>
-    <div class="bg-white lg:px-20 sm:px-8 wrapper fixed top-[80px] right-0 z-10 w-screen flex items-center" :class="{'shadow-lg': this.scroll_positionY > 5}">
+    <div class="bg-white lg:px-20 sm:px-8 wrapper fixed top-[80px] right-0 z-30 w-screen flex items-center" :class="{'shadow-lg': this.scroll_positionY > 5}">
 
         <div class="flex relative w-full" :class="{'content-wrap': showPart}">
 
-            <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_positionX > 30">
+            <div class="btn-wrap-l sm:flex hidden absolute z-30 left-0" v-if="this.scroll_positionX > 30">
                 <button @click="scroll_left"><i class="fa-solid fa-chevron-left"></i></button>
             </div>
             <div @scroll="scrollHandle()" class="flex wrapper-box hide-scroll w-screen overflow-auto">
@@ -70,7 +70,7 @@ export default {
                 <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/>
                 <!-- <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/> -->
             </div>
-            <div class="sm:flex hidden btn-wrap-r absolute z-10 right-0">
+            <div class="sm:flex hidden btn-wrap-r absolute z-30 right-0">
 
                 <button class="sm:block hidden" @click="scroll_right"><i class="fa-solid fa-chevron-right z-20"></i></button>
             </div>

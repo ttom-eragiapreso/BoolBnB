@@ -48,7 +48,7 @@ export default {
 <template>
     <header>
         <div
-            class=" fixed top-0 left-0 bg-white z-20 w-screen h-[80px] border-b-[1px] flex justify-between items-center px-8 lg:px-20"
+            class=" fixed top-0 left-0 bg-white z-50 w-screen h-[80px] border-b-[1px] flex justify-between items-center px-8 lg:px-20"
         >
             <div class="logo pr-4 h-auto cursor-grab flex items-center">
                 <a href="/"><ApplicationLogo/></a>
