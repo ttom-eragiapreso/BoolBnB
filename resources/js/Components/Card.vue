@@ -46,7 +46,7 @@
                 </h2>
             </div>
             <!-- Vista -->
-            <h5 class="text-slate-600 truncate w-60">{{ apartment.title }}</h5>
+            <h5 class="text-slate-600 truncate">{{ apartment.title }}</h5>
             <!-- Price -->
             <h5 class="underline underline-offset-2">
                 <strong>{{ apartment.price }} &euro; </strong> night
