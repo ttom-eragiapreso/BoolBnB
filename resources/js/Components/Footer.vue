@@ -84,93 +84,36 @@ export default {
 
         <div
             id="footerPopUp"
-            class="fixed bottom-0 px-20 pt-12 pb-16 grid grid-cols-4 bg-white rounded-t-3xl z-10 w-full"
+            class="fixed bottom-0 px-20 pt-12 pb-20 grid grid-cols-4 bg-white rounded-t-3xl z-10 w-full"
             :class="{ hide: hideFooterPopUp }"
         >
-            <div>
-                <h5 class="font-semibold pb-2">Assistenza</h5>
-                <ul>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Air Cover</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Accessibilità</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Assistenza</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Centro</a>
-                    </li>
-                </ul>
+            <div class="text-center">
+                <h5 class="font-bold pb-4 text-center text-lg">Paolo Colombo</h5>
+                <div class="w-[100%] flex justify-center pb-4">
+                    <img class="w-[30%] rounded-full" src="../../../public/img/paolo.png" alt="user_1">
+                </div>
+                <a class="hover:text-slate-500 hover:underline" href="https://github.com/clmb00" target="_blank">Link GitHub</a>
             </div>
-            <div>
-                <h5 class="font-semibold pb-2">Community</h5>
-                <ul>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Air Cover</a>
-                    </li>
-                </ul>
+            <div class="text-center">
+                <h5 class="font-bold pb-4 text-center text-lg">Enrico Michelotto</h5>
+                <div class="w-[100%] flex justify-center pb-4">
+                    <img class="w-[30%] rounded-full" src="../../../public/img/enrico.jpg" alt="user_2">
+                </div>
+                <a class="hover:text-slate-500 hover:underline" href="https://github.com/ttom-eragiapreso" target="_blank">Link GitHub</a>
             </div>
-            <div>
-                <h5 class="font-semibold pb-2">Ospitare</h5>
-                <ul>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Air Cover</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Accessibilità</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                </ul>
+            <div class="text-center">
+                <h5 class="font-bold pb-4 text-center text-lg">Cristina Lietti</h5>
+                <div class="w-[100%] flex justify-center pb-4">
+                    <img class="w-[30%] rounded-full" src="../../../public/img/cri.jpg" alt="user_3">
+                </div>
+                <a class="hover:text-slate-500 hover:underline" href="https://github.com/mlietti1" target="_blank">Link GitHub</a>
             </div>
-            <div>
-                <h5 class="font-semibold pb-2">BoolBnb</h5>
-                <ul>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Accessibilità</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline"
-                            >Centro Assistenza</a
-                        >
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Assistenza</a>
-                    </li>
-                    <li class="py-1">
-                        <a href="/" class="hover:underline">Centro</a>
-                    </li>
-                </ul>
+            <div class="text-center">
+                <h5 class="font-bold pb-4 text-center text-lg">Lino Pannella</h5>
+                <div class="w-[100%] flex justify-center pb-4">
+                    <img class="w-[30%] rounded-full" src="../../../public/img/lino.jpg" alt="user_4">
+                </div>
+                <a class="hover:text-slate-500 hover:underline" href="https://github.com/pannellalino" target="_blank">Link GitHub</a>
             </div>
             <div
                 class="absolute top-5 left-7"
