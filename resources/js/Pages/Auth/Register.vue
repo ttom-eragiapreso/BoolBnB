@@ -35,8 +35,10 @@ const checkDisable = computed(() => {
 
 <template>
     <GuestLayout>
+
         <Head title="Register" />
-        <div class="flex justify-center items-center ">
+
+        <div class="flex justify-center items-center box">
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <form @submit.prevent="submit">
                     <div>
@@ -152,3 +154,11 @@ const checkDisable = computed(() => {
 
     </GuestLayout>
 </template>
+
+<style>
+
+.box{
+    height: calc(100vh - 130px);
+}
+
+</style>

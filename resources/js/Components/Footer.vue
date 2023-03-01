@@ -30,7 +30,7 @@ export default {
 <template>
     <footer class="w-full" v-on:scroll.native="scrollWindow">
         <div
-            class="flex flex-col md:flex-row px-8 lg:px-20 w-full py-3.5 md:fixed bottom-0 z-20 justify-between text-sm text-[#222222] tracking-wide bg-white border-t-[1px] border-[#dddddd]"
+            class="flex flex-col md:flex-row px-8 lg:px-20 w-full py-3.5 mt-[46vh] md:mt-0 md:fixed bottom-0 z-20 justify-between text-sm text-[#222222] tracking-wide bg-white border-t-[1px] border-[#dddddd]"
         >
             <div class="order-2">
                 <nav class="inline" id="footer_nav_desktop">

@@ -12,27 +12,73 @@ export default {
         AuthenticatedLayout
     },
     props:{
-        data: Object
+        data_views: Object,
+        data_messages: Object
     },
     methods:{
         handleCreateDate(el) {
             const date = new Date(el);
-            return date.toLocaleDateString("it-IT", { dateStyle: "short" });
+            return date.toLocaleDateString();
         },
     },
     created(){
 
-        for(let apartment in this.data){
-           this.data[apartment].forEach(element => {
+        let end = new Date();
+        let start = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        let dateArray = [];
+        for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
+            dateArray.push(new Date(d).toLocaleDateString());
+        }
+
+        for(let apartment in this.data_views){
+           this.data_views[apartment].forEach(element => {
             element['date'] = this.handleCreateDate(element['date'])
            });
+           dateArray.forEach(date => {
+                let exists = false;
+                this.data_views[apartment].forEach(obj => {
+                    if (obj.date === date) {
+                    exists = true;
+                }
+                });
+                if (!exists) {
+                    this.data_views[apartment].push({ date: date, total: 0 });
+                }
+            });
+
+            this.data_views[apartment].sort((a, b) => {
+                let dateA = new Date(a.date);
+                let dateB = new Date(b.date);
+                return dateA - dateB;
+            });
+        }
+
+        for(let apartment in this.data_messages){
+           this.data_messages[apartment].forEach(element => {
+           element['date'] = this.handleCreateDate(element['date'])
+           });
+           dateArray.forEach(date => {
+                let exists = false;
+                this.data_messages[apartment].forEach(obj => {
+                    if (obj.date === date) {
+                    exists = true;
+                }
+                });
+                if (!exists) {
+                    this.data_messages[apartment].push({ date: date, total: 0 });
+                }
+            });
+
+            this.data_messages[apartment].sort((a, b) => {
+                let dateA = new Date(a.date);
+                let dateB = new Date(b.date);
+                return dateA - dateB;
+            });
         }
 
     }
 
 }
-
-
 
 </script>
 
@@ -46,9 +92,15 @@ export default {
     </h2>
 </template>
 
-<div class="p-6 mt-12 max-w-[95%] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+<div class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
-<Chart :my_data="data"  />
+    <Chart :my_data="data_views"  />
+
+</div>
+
+<div class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+
+    <Chart :my_data="data_messages"  />
 
 </div>
 

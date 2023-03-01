@@ -1,5 +1,5 @@
 <template>
-    <Pie :data="data" :options="options" />
+    <Pie :data="data" :options="options"/>
 </template>
 1
 <script>
@@ -31,11 +31,16 @@ export default {
             },
             options: {
                 responsive: true,
-                maintainAspectRation: false,
+                maintainAspectRation: true,
                 plugins: {
                     legend: {
-                        display:
-                            Object.keys(this.my_data).length > 5 ? false : true,
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 15,
+                            }
+                        },
+                        display: Object.keys(this.my_data).length > 5 ? false : true,
                     },
                 },
             },
@@ -52,13 +57,19 @@ export default {
     },
 
     created() {
+
+        // for (let apartment in this.my_data) {
+        //     this.data.labels.push(this.decodeSlug(apartment));
+        //     let total = 0;
+        //     this.my_data[apartment].forEach((element) => {
+        //         total += element.total;
+        //     });
+        //     this.data.datasets[0].data.push(total);
+        // }
+
         for (let apartment in this.my_data) {
             this.data.labels.push(this.decodeSlug(apartment));
-            let total = 0;
-            this.my_data[apartment].forEach((element) => {
-                total += element.total;
-            });
-            this.data.datasets[0].data.push(total);
+            this.data.datasets[0].data.push(this.my_data[apartment][0].total);
         }
     },
 };

@@ -16,7 +16,8 @@ export default {
         num_messages: Number,
         num_active_apartments: Number,
         num_messages_today: Number,
-        data: Object,
+        data_views: Object,
+        data_messages: Object
     },
 };
 </script>
@@ -53,7 +54,7 @@ export default {
                         <i
                             class="fa-solid fa-comment text-5xl mr-4 text-yellow-400"
                         ></i
-                        ><span class="hidden md:block">have received</span><span class="font-bold mx-2">
+                        ><span class="hidden md:block">You have received</span><span class="font-bold mx-2">
                             {{ num_messages_today }}
                         </span>
                         <span class="hidden sm:block">message{{ num_messages_today > 1 ? "s" : "" }} today!</span>
@@ -73,15 +74,30 @@ export default {
                 class="w-full bg-white overflow-hidden shadow-sm rounded-lg"
             >
                 <div class="p-6 text-gray-900">
-                    <h2 class="text-center text-xl sm:text-3xl">
+                    <h2 class="text-center text-xl sm:text-2xl mb-4">
                         Number of views per apartment
                     </h2>
-                    <PieChart :my_data="data" />
+                    <div class="max-h-[450px] flex justify-center">
+                        <PieChart :my_data="data_views"/>
+                    </div>
                 </div>
             </div>
             <div
                 id="box-c"
                 class="w-full bg-white overflow-hidden shadow-sm rounded-lg"
+            >
+                <div class="p-6 text-gray-900">
+                    <h2 class="text-center text-xl sm:text-2xl mb-4">
+                        Number of messages per apartment
+                    </h2>
+                    <div class="max-h-[450px] flex justify-center">
+                        <PieChart :my_data="data_messages"/>
+                    </div>
+                </div>
+            </div>
+            <div
+                id="box-d"
+                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
             >
                 <div class="p-6">
                     <p class="flex justify-center sm:justify-start items-center py-2 text-lg">
@@ -108,24 +124,6 @@ export default {
                     </p>
                 </div>
             </div>
-            <div
-                id="box-d"
-                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
-            >
-                <div class="p-6 text-gray-900">D</div>
-            </div>
-            <div
-                id="box-e"
-                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
-            >
-                <div class="p-6 text-gray-900">E</div>
-            </div>
-            <div
-                id="box-f"
-                class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg"
-            >
-                <div class="p-6 text-gray-900">F</div>
-            </div>
         </div>
     </AuthenticatedLayout>
 </template>
@@ -143,21 +141,24 @@ export default {
 #box-d {
     grid-area: d;
 }
-#box-e {
-    grid-area: e;
-}
-#box-f {
-    grid-area: f;
-}
 
 .my_container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-        "a a b b"
-        "c c b b"
-        "c c d d"
-        "e f d d";
+        "a b"
+        "c b"
+        "c d";
+}
+
+@media (max-width: 768px) {
+    .my_container{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "a"
+            "c"
+            "b"
+            "d";
+    }
 }
 </style>

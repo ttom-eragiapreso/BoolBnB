@@ -40,8 +40,6 @@
         data : {
             datasets: []
         },
-
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
