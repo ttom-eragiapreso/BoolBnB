@@ -1,5 +1,4 @@
 <script>
-
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Slider from "@/Components/Slider.vue";
 import Card from "@/Components/Card.vue";
@@ -64,11 +63,20 @@ export default {
                 return 0
             }
         }
+
     },
     created() {
         this.filtered_sponsored_apartments = this.sponsored_apartments;
         this.filtered_non_sponsored_apartments = this.non_sponsored_apartments;
     },
+    // mounted() {
+    //     window.addEventListener("scroll", () => {
+    //         console.log(this.scrollPercent);
+    //         if (window.scrollY > 1300) {
+    //             setTimeout(this.loadMore(), 5000);
+    //         }
+    //     });
+    // },
     methods: {
         loadMore() {
             this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length - this.upper_limit >
@@ -109,11 +117,14 @@ export default {
                 :apartment="non_sponsored_apartment"
                 :is_sponsored="false"
             />
-
         </div>
 
         <div class="w-full text-center">
-            <button @click="loadMore" class="mb-8 py-3 px-6 border-2 rounded-3xl font-semibold border-slate-300 text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100" v-if="showLoad">
+            <button
+                @click="loadMore"
+                class="mb-8 py-3 px-6 border-2 rounded-3xl font-semibold border-slate-300 text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100"
+                v-if="showLoad"
+            >
                 Load More
             </button>
         </div>

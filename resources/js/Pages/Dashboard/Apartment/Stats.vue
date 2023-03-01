@@ -1,30 +1,29 @@
 <script>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Link, Head } from "@inertiajs/vue3";
 
-import Chart from '@/Components/Chart.vue';
+import Chart from "@/Components/Chart.vue";
 
 export default {
-    name: 'Stats',
-    components:{
+    name: "Stats",
+    components: {
         Head,
         Link,
         Chart,
-        AuthenticatedLayout
+        AuthenticatedLayout,
     },
-    props:{
+    props: {
         data_views: Object,
         data_messages: Object,
         slug: String,
     },
-    methods:{
+    methods: {
         handleCreateDate(el) {
             const date = new Date(el);
             return date.toLocaleDateString('en-US');
         },
     },
-    created(){
-
+    created() {
         let end = new Date();
         let start = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
         let dateArray = [];
@@ -32,16 +31,16 @@ export default {
             dateArray.push(new Date(d).toLocaleDateString('en-US'));
         }
 
-        for(let apartment in this.data_views){
-           this.data_views[apartment].forEach(element => {
-            element['date'] = this.handleCreateDate(element['date'])
-           });
-           dateArray.forEach(date => {
+        for (let apartment in this.data_views) {
+            this.data_views[apartment].forEach((element) => {
+                element["date"] = this.handleCreateDate(element["date"]);
+            });
+            dateArray.forEach((date) => {
                 let exists = false;
-                this.data_views[apartment].forEach(obj => {
+                this.data_views[apartment].forEach((obj) => {
                     if (obj.date === date) {
-                    exists = true;
-                }
+                        exists = true;
+                    }
                 });
                 if (!exists) {
                     this.data_views[apartment].push({ date: date, total: 0 });
@@ -55,19 +54,22 @@ export default {
             });
         }
 
-        for(let apartment in this.data_messages){
-           this.data_messages[apartment].forEach(element => {
-           element['date'] = this.handleCreateDate(element['date'])
-           });
-           dateArray.forEach(date => {
+        for (let apartment in this.data_messages) {
+            this.data_messages[apartment].forEach((element) => {
+                element["date"] = this.handleCreateDate(element["date"]);
+            });
+            dateArray.forEach((date) => {
                 let exists = false;
-                this.data_messages[apartment].forEach(obj => {
+                this.data_messages[apartment].forEach((obj) => {
                     if (obj.date === date) {
-                    exists = true;
-                }
+                        exists = true;
+                    }
                 });
                 if (!exists) {
-                    this.data_messages[apartment].push({ date: date, total: 0 });
+                    this.data_messages[apartment].push({
+                        date: date,
+                        total: 0,
+                    });
                 }
             });
 
@@ -77,17 +79,13 @@ export default {
                 return dateA - dateB;
             });
         }
-
-    }
-
-}
-
+    },
+};
 </script>
 
 <template>
     <Head title="Statistics" />
     <AuthenticatedLayout>
-
         <template v-slot:header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Statistics
@@ -111,7 +109,8 @@ export default {
 
         <div v-else class="p-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4 flex items-center justify-between">
             <p>
-                On this page you will see your statistics about your apartments. List your first apartment and/or wait to have some data!
+                On this page you will see your statistics about your apartments.
+                List your first apartment and/or wait to have some data!
             </p>
             <Link
                 :href="route('dashboard.apartment.create')"
@@ -119,11 +118,7 @@ export default {
                 >here!</Link
             >
         </div>
-
-
     </AuthenticatedLayout>
 </template>
 
-<style>
-
-</style>
+<style></style>
