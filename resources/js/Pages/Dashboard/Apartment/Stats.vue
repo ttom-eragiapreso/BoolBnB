@@ -1,6 +1,6 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Link, Head } from "@inertiajs/vue3";
 
 import Chart from '@/Components/Chart.vue';
 
@@ -8,6 +8,7 @@ export default {
     name: 'Stats',
     components:{
         Head,
+        Link,
         Chart,
         AuthenticatedLayout
     },
@@ -86,25 +87,39 @@ export default {
     <Head title="Statistics" />
     <AuthenticatedLayout>
 
-<template v-slot:header>
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Statistics
-    </h2>
-</template>
+        <template v-slot:header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Statistics
+            </h2>
+        </template>
 
-<div class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div v-if="data_views.length != 0 || data_messages.length != 0">
+            <div v-if="data_views.length != 0" class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
-    <Chart :my_data="data_views"  />
+                <Chart :my_data="data_views"  />
 
-</div>
+            </div>
 
-<div class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+            <div v-if="data_messages.length != 0" class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
-    <Chart :my_data="data_messages"  />
+                <Chart :my_data="data_messages"  />
 
-</div>
+            </div>
+        </div>
 
-</AuthenticatedLayout>
+        <div v-else class="p-6 mt-12 max-w-[78rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4 flex items-center justify-between">
+            <p>
+                On this page you will see your statistics about your apartments. List your first apartment and/or wait to have some data!
+            </p>
+            <Link
+                :href="route('dashboard.apartment.create')"
+                class="px-3 py-2 bg-green-600 border border-transparent rounded-md font-bold text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 text-sm"
+                >here!</Link
+            >
+        </div>
+
+
+    </AuthenticatedLayout>
 </template>
 
 <style>

@@ -34,6 +34,7 @@ export default {
     },
     mounted(){
         this.apartment_filter = this.id;
+        console.log(this.messages.data.length);
     }
 }
 </script>
@@ -49,7 +50,7 @@ export default {
             </h2>
         </template>
 
-        <div class="p-6 mt-12 max-w-[95%] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div v-if="messages.data.length != 0" class="p-6 mt-12 max-w-[95%] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
             <div class="flex my-4 items-center">
                 <p class="mr-4">Filter per apartments: </p>
                 <select v-model="apartment_filter" id="apartment_filter" class="rounded-2xl text-sm w-[100%] sm:w-[30%]">
@@ -112,6 +113,17 @@ export default {
                 <div v-if="showModal == message.id" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
             </div>
             <Pagination :links="messages.links"/>
+        </div>
+
+        <div v-else class="p-6 mt-12 max-w-[95%] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+            <p>
+                On this page you will see your messages about your apartments. List your first apartment and/or wait to have some messages!
+            </p>
+            <Link
+                :href="route('dashboard.apartment.create')"
+                class="px-3 py-2 bg-green-600 border border-transparent rounded-md font-bold text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 text-sm"
+                >here!</Link
+            >
         </div>
 
     </AuthenticatedLayout>

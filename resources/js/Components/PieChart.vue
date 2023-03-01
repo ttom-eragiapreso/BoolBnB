@@ -67,10 +67,12 @@ export default {
         //     this.data.datasets[0].data.push(total);
         // }
 
-        for (let apartment in this.my_data) {
-            this.data.labels.push(this.decodeSlug(apartment));
-            this.data.datasets[0].data.push(this.my_data[apartment][0].total);
-        }
+            for (let apartment in this.my_data) {
+                if(this.my_data[apartment][0]){
+                    this.data.labels.push(this.decodeSlug(apartment));
+                    this.data.datasets[0].data.push(this.my_data[apartment][0].total);
+                }
+            }
     },
 };
 </script>

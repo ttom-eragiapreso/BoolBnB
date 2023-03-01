@@ -19,6 +19,18 @@ export default {
         data_views: Object,
         data_messages: Object
     },
+    methods:{
+        handleShowGraphs(data){
+            let flag = true;
+            console.log(data);
+            for (let apartment in data) {
+                if(!data[apartment][0]){
+                    flag = false
+                }
+            }
+            return flag
+        }
+    }
 };
 </script>
 
@@ -77,8 +89,11 @@ export default {
                     <h2 class="text-center text-xl sm:text-2xl mb-4">
                         Number of views per apartment
                     </h2>
-                    <div class="max-h-[450px] flex justify-center">
+                    <div v-if="handleShowGraphs(data_views)" class="max-h-[450px] flex justify-center">
                         <PieChart :my_data="data_views"/>
+                    </div>
+                    <div v-else class="w-100 h-[450px] flex items-center justify-center bg-red-800/10 border-dotted border-slate-900 border-2">
+                        <p class="text-xl">No data</p>
                     </div>
                 </div>
             </div>
@@ -90,8 +105,11 @@ export default {
                     <h2 class="text-center text-xl sm:text-2xl mb-4">
                         Number of messages per apartment
                     </h2>
-                    <div class="max-h-[450px] flex justify-center">
+                    <div v-if="handleShowGraphs(data_messages)" class="max-h-[450px] flex justify-center">
                         <PieChart :my_data="data_messages"/>
+                    </div>
+                    <div v-else class="w-100 h-[450px] flex items-center justify-center bg-red-800/10 border-dotted border-slate-900 border-2 rounded-3xl">
+                        <p class="text-xl">No data</p>
                     </div>
                 </div>
             </div>

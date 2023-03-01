@@ -267,6 +267,9 @@ class ApartmentController extends Controller
             $user_apartments_id = Apartment::select('id', 'slug')->where('user_id', $user->id)->get()->toArray();
         }
 
+        $data_views = [];
+        $data_messages = [];
+
         foreach ($user_apartments_id as $apartm) {
 
             $data_views[$apartm['slug']] = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->where('apartment_id', $apartm['id'])->groupBy('date')->get()->toArray();

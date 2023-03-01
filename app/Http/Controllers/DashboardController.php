@@ -40,6 +40,9 @@ class DashboardController extends Controller
             $user_apartments_id = Apartment::select('id', 'slug')->where('user_id', $user->id)->get()->toArray();
         }
 
+        $data_views = [];
+        $data_messages = [];
+
         // logica num messages
         foreach ($user_apartments_id as $apartm) {
 
