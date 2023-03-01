@@ -438,16 +438,16 @@ export default {
                             :is_sponsored="false"
                             class="mb-8"
                         />
-                        <button
-                            @click="loadMore"
-                            class="p-3 my-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mx-4"
-                            v-if="showLoad"
-                        >
-                            Load More
-                        </button>
+
                     </div>
+
                     <div v-else>
                         <p>No apartments found.</p>
+                    </div>
+                    <div class="w-full text-center">
+                        <button @click="loadMore" class="mb-8 py-3 px-6 border-2 rounded-3xl font-semibold border-slate-300 text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100" v-if="showLoad">
+                            Load More
+                        </button>
                     </div>
                 </div>
                 <div
