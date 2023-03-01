@@ -43,7 +43,7 @@ export default {
             </h2>
         </template>
 
-        <div class="p-2 mt-12 max-w-[78rem] overflow-x-auto rounded-xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 text-center">
+        <div class="p-2 mt-12 max-w-[76rem] overflow-x-auto rounded-xl mx-auto sm:px-6 lg:px-8 bg-white sm:rounded-xl my-4 text-center">
 
             <table class="w-full" v-if="checkIfAnyTransaction()">
                 <thead>

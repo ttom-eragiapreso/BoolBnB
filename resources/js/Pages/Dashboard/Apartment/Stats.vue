@@ -15,11 +15,12 @@ export default {
     props: {
         data_views: Object,
         data_messages: Object,
+        slug: String,
     },
     methods: {
         handleCreateDate(el) {
             const date = new Date(el);
-            return date.toLocaleDateString("it-IT");
+            return date.toLocaleDateString('en-US');
         },
     },
     created() {
@@ -27,7 +28,7 @@ export default {
         let start = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
         let dateArray = [];
         for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
-            dateArray.push(new Date(d).toLocaleDateString("it-IT"));
+            dateArray.push(new Date(d).toLocaleDateString('en-US'));
         }
 
         for (let apartment in this.data_views) {
@@ -92,25 +93,21 @@ export default {
         </template>
 
         <div v-if="data_views.length != 0 || data_messages.length != 0">
-            <div
-                v-if="data_views.length != 0"
-                class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4"
-            >
-                <Chart :my_data="data_views" />
+            <div v-if="data_views.length != 0" class="p-6 mt-12 max-w-[76rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+
+                <Chart :my_data="data_views" yname="Views" :slug="this.slug" />
+
             </div>
 
-            <div
-                v-if="data_messages.length != 0"
-                class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4"
-            >
-                <Chart :my_data="data_messages" />
+
+            <div v-if="data_messages.length != 0" class="p-6 mt-12 max-w-[76rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+
+                <Chart :my_data="data_messages" yname="Messages" :slug="this.slug" />
+
             </div>
         </div>
 
-        <div
-            v-else
-            class="p-6 mt-12 max-w-[78rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4 flex items-center justify-between"
-        >
+        <div v-else class="p-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4 flex items-center justify-between">
             <p>
                 On this page you will see your statistics about your apartments.
                 List your first apartment and/or wait to have some data!

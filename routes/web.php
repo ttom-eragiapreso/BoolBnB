@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/', [DashboardController::class, 'index'])->name('home');
         Route::get('transactions-history', [DashboardController::class, 'transactions'])->name('transactions');
         Route::get('apartment/messages/{apartment_id?}', [ApartmentController::class, 'messages'])->name('apartment.messages');
-        Route::get('apartment/stats', [ApartmentController::class, 'stats'])->name('apartment.stats');
+        Route::get('apartment/stats/{apartment_slug?}', [ApartmentController::class, 'stats'])->name('apartment.stats');
         Route::get('apartment/sponsorship/{apartment_id?}', [ApartmentController::class, 'sponsorship'])->name('apartment.sponsorship');
         Route::post('apartment/sponsorship/transaction', [ApartmentController::class, 'transaction'])->name('transaction');
         Route::resource('/apartment', ApartmentController::class);

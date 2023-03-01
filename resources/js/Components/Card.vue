@@ -3,7 +3,7 @@
         <Link :href="route('details', apartment.slug)">
             <!-- Img container -->
             <div
-                class="aspect-square border rounded-xl overflow-hidden relative cursor-pointer"
+                class="aspect-square rounded-xl overflow-hidden relative cursor-pointer"
             >
                 <swiper
                     class="w-full h-full"

@@ -99,7 +99,8 @@ export default {
                     <img
                         :src="'/storage/' + apartment.cover_image"
                         alt="cover"
-                        class="w-full h-[350px] object-cover md:rounded-l-2xl p-1 hover:brightness-75 rounded-3xl"
+                        class="w-full h-[350px] object-cover md:rounded-l-3xl p-1 hover:brightness-75"
+                        :class="apartment.images.length == 0 ? 'rounded-3xl' : ''"
                     />
                 </div>
                 <div class="mx-auto flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px] relative" :class="apartment.images.length == 0 ? 'w-0' : 'w-[80%] md:w-[50%]'">
@@ -120,7 +121,7 @@ export default {
                         <div @click="showMoreImages = true" class="user-select-none text-white font-bold cursor-pointer hover:bg-slate-900/25 rounded-full bg-slate-900/50 w-8 h-8 absolute bottom-3 right-3 text-center leading-8">
                             +
                         </div>
-                        <div v-if="showMoreImages" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        <div v-if="showMoreImages" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none justify-center items-center flex">
                             <div class="relative w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] my-6 mx-auto max-w-6xl">
                                 <!--content-->
                                 <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -160,7 +161,7 @@ export default {
                                 </div>
                             </div>
                             </div>
-                            <div v-if="showMoreImages" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                            <div v-if="showMoreImages" class="opacity-25 fixed inset-0 z-50 bg-black"></div>
                         </div>
                 </div>
 
@@ -198,7 +199,7 @@ export default {
                         </button>
                         <!-- <button v-on:click="toggleModal()" type="button" class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host
                         </button> -->
-                        <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none justify-center items-center flex">
                             <div class="relative w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] my-6 mx-auto max-w-6xl">
                                 <!--content-->
                                 <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -245,7 +246,7 @@ export default {
                                 </div>
                             </div>
                             </div>
-                            <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                            <div v-if="showModal" class="opacity-25 fixed inset-0 z-50 bg-black"></div>
                         </div>
 
                     </div>

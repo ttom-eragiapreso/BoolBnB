@@ -142,7 +142,7 @@ export default {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Your Apartments - Add New</h2>
         </template>
 
-        <div class="container py-6 mt-12 max-w-[95%] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div class="container py-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
             <form @submit.prevent="form.post(route('dashboard.apartment.store', form))" class="flex flex-col px-10">
 
@@ -230,7 +230,6 @@ export default {
                     </div>
 
                 </div>
-
 
                 <label for="square_meters" class="mb-1">Square Meters: *</label>
                 <div class="mb-3 flex">

@@ -53,14 +53,17 @@ export default {
         },
         showLoad() {
             return (
-                this.filtered_non_sponsored_apartments.length > this.upper_limit
+                this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length > this.upper_limit
             );
         },
-        scrollPercent() {
-            let doc_height = document.body.offsetHeight;
-            let win_height = window.innerHeight;
-            return window.scrollY / (doc_height - win_height);
-        },
+        howManyMore(){
+            if(this.upper_limit > this.filtered_sponsored_apartments.length){
+                return this.upper_limit - this.filtered_sponsored_apartments.length;
+            } else {
+                return 0
+            }
+        }
+
     },
     created() {
         this.filtered_sponsored_apartments = this.sponsored_apartments;
@@ -76,11 +79,11 @@ export default {
     // },
     methods: {
         loadMore() {
-            this.filtered_non_sponsored_apartments.length - this.upper_limit >
+            this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length - this.upper_limit >
             10
                 ? (this.upper_limit += 10)
                 : (this.upper_limit =
-                      this.filtered_non_sponsored_apartments.length);
+                      this.filtered_non_sponsored_apartments.length + this.filtered_sponsored_apartments.length);
         },
     },
 };
@@ -109,10 +112,7 @@ export default {
                 :is_sponsored="true"
             />
             <Card
-                v-for="non_sponsored_apartment in handleFilters[1].slice(
-                    0,
-                    upper_limit
-                )"
+                v-for="non_sponsored_apartment in handleFilters[1].slice(0, howManyMore)"
                 :key="non_sponsored_apartment.id"
                 :apartment="non_sponsored_apartment"
                 :is_sponsored="false"

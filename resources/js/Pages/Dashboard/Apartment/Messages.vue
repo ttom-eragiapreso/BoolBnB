@@ -53,7 +53,7 @@ export default {
             </h2>
         </template>
 
-        <div v-if="messages.data.length != 0" class="p-6 mt-12 max-w-[95%] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div v-if="messages.data.length != 0" class="p-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
             <div class="flex my-4 items-center">
                 <p class="mr-4">Filter per apartments: </p>
                 <select v-model="apartment_filter" id="apartment_filter" class="rounded-2xl text-sm w-[100%] sm:w-[30%]">
@@ -62,9 +62,9 @@ export default {
                 </select>
                 <button
                     @click="sendGetRequest()"
-                    class="px-3 py-2 text-sm"
+                    class="text-blue-500 bg-transparent border border-solid border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-4 ml-2 py-2 rounded-xl outline-none focus:outline-none ease-linear transition-all duration-150"
                 >
-                    Go!
+                    Filter!
                 </button>
             </div>
             <hr class="mt-3 mb-4">
@@ -80,7 +80,7 @@ export default {
                 <hr class="mt-3 mb-4">
 
                 <div v-if="showModal == message.id" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-                    <div class="relative w-[50%] my-6 mx-auto max-w-6xl">
+                    <div class="relative w-[78rem] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] my-6 mx-auto max-w-6xl">
                         <!--content-->
                         <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                             <!--header-->
@@ -124,7 +124,7 @@ export default {
             <Pagination :links="messages.links"/>
         </div>
 
-        <div v-else class="p-6 mt-12 max-w-[95%] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div v-else class="p-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
             <p>
                 On this page you will see your messages about your apartments. List your first apartment and/or wait to have some messages!
             </p>

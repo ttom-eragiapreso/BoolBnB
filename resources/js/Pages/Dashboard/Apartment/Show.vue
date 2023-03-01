@@ -97,7 +97,7 @@ export default {
         </template>
         <!-- max-w-[95%] -->
         <div
-            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl mt-12 mb-4"
+            class="container py-6 max-w-[76rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl mt-12 mb-4"
         >
             <h1 class="text-center sm:text-start text-3xl pb-2">{{ apartment.title }}</h1>
             <div class="pb-8 sm:pb-2 text-center">
@@ -128,7 +128,7 @@ export default {
 
         <div
             v-if="apartment.features.length != 0"
-            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <p class="mb-3"><strong>Features:</strong></p>
             <div class="flex gap-2 flex-wrap">
@@ -142,7 +142,7 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <h5 class="font-bold pb-4">Gallery:</h5>
 
@@ -177,7 +177,7 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <h5 class="font-bold pb-4">Position:</h5>
 
@@ -196,14 +196,14 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[76rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <p>Created at: {{ handleCreateDate }}</p>
             <p>Last update: {{ handleUpdateDate }}</p>
         </div>
 
         <div
-            class="container py-6 max-w-[78rem] mx-auto px-16 lg:px-8 bg-white rounded-xl my-4 items-center gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6"
+            class="container py-6 max-w-[76rem] mx-auto px-16 lg:px-8 bg-white rounded-xl my-4 items-center gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6"
         >
             <Link
                 :href="route('dashboard.apartment.index')"
