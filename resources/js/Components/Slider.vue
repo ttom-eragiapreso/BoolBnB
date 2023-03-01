@@ -58,16 +58,17 @@ export default {
 </script>
 
 <template>
-    <div class="bg-white lg:px-20 sm:px-8 wrapper fixed top-[80px] right-0 z-10 w-screen flex items-center" :class="{'shadow': this.scroll_positionY > 5}">
+    <div class="bg-white lg:px-20 sm:px-8 wrapper fixed top-[80px] right-0 z-10 w-screen flex items-center" :class="{'shadow-lg': this.scroll_positionY > 5}">
 
-        <div class="flex relative  w-full" :class="{'content-wrap': showPart}">
+        <div class="flex relative w-full" :class="{'content-wrap': showPart}">
+
             <div class="btn-wrap-l sm:flex hidden absolute z-10 left-0" v-if="this.scroll_positionX > 30">
                 <button @click="scroll_left"><i class="fa-solid fa-chevron-left"></i></button>
             </div>
             <div @scroll="scrollHandle()" class="flex wrapper-box hide-scroll w-screen overflow-auto">
                 <SliderItem :item="{icon: 'fa-solid fa-mountain-city', name: 'All Types', id: null}"/>
                 <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/>
-                <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/>
+                <!-- <SliderItem  v-for="item in types_of_stay" :item="item" :key="item.id"/> -->
             </div>
             <div class="sm:flex hidden btn-wrap-r absolute z-10 right-0">
 
@@ -76,12 +77,14 @@ export default {
 
 
         </div>
-    <Link
-        v-if="showPart"
-        :href="route('advancedsearch')"
-        class="sm:inline-block hidden h-full w-[80px] border ml-[20px] text-sm rounded-xl border-slate-300 py-2 my-2 text-center hover:bg-slate-100 bg-white ">
-        <i class="fa-solid fa-sliders"></i> Filters
-    </Link>
+
+        <Link
+            v-if="showPart"
+            :href="route('advancedsearch')"
+            class="sm:inline-block hidden h-full w-[90px] border ml-[20px] text-sm rounded-xl border-slate-300 py-3 my-2 text-center text-slate-700 hover:text-black hover:bg-slate-100 bg-white ">
+            <i class="fa-solid fa-sliders"></i> Filters
+        </Link>
+
     </div>
 </template>
 
@@ -89,7 +92,7 @@ export default {
 
 .content-wrap{
     @media (min-width: 640px){
-        width: calc(100% - 100px);
+        width: calc(100% - 110px);
 
     }
 }
@@ -100,7 +103,7 @@ export default {
 
 .hide-scroll::-webkit-scrollbar {
     display: none;
-  }
+}
 
 .hide-scroll{
     -ms-overflow-style: none;  /* IE and Edge */
@@ -115,32 +118,28 @@ button {
   height: 28px;
   width: 28px;
   line-height: 28px;
-
   transition: all 300ms;
+
   &:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     scale: 1.05;
-
   }
 }
 
 .btn-wrap-l{
-
   align-items: center;
   height: 100%;
   padding-right: 50px;
   background: rgb(255,255,255);
-background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0) 100%);
 }
 
 .btn-wrap-r{
-
   align-items: center;
-
   height: 100%;
   padding-left:50px;
   background: rgb(255,255,255);
-background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.9) 70%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0) 100%);
 }
 
 </style>

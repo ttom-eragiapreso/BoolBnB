@@ -1,4 +1,5 @@
 <script>
+
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Slider from "@/Components/Slider.vue";
 import Card from "@/Components/Card.vue";
@@ -88,7 +89,7 @@ export default {
         </div>
 
 
-        <div class=" w-full px-8 sm:px-6 lg:px-20 sm:mt-[170px] mt-[40px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
+        <div class=" w-full px-8 mb-8 sm:px-6 lg:px-20 sm:mt-[170px] mt-[40px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
             <Card
                 v-for="apartment in handleFilters[0].slice(0, upper_limit)"
                 :key="apartment.id"
@@ -97,19 +98,20 @@ export default {
 
             />
             <Card
-                v-for="non_sponsored_apartment in handleFilters[1].slice(
-                    0,
-                    upper_limit
-                )"
+                v-for="non_sponsored_apartment in handleFilters[1].slice(0, upper_limit)"
                 :key="non_sponsored_apartment.id"
                 :apartment="non_sponsored_apartment"
                 :is_sponsored="false"
 
             />
         </div>
-        <button @click="loadMore" class="py-4" v-if="showLoad">
-            Load More
-        </button>
+
+        <div class="w-full text-center">
+            <button @click="loadMore" class="mb-8 py-3 px-6 border-2 rounded-3xl font-semibold border-slate-300 text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100" v-if="showLoad">
+                Load More
+            </button>
+        </div>
+
     </GuestLayout>
 </template>
 

@@ -36,31 +36,26 @@ export default {
                 <nav class="inline" id="footer_nav_desktop">
                     <ul class="inline-flex flex-wrap">
                         <p class="w-full md:w-auto inline-block pr-2">
-                            © 2023 Airbnb, Inc.
+                            2023 BoolBnb, Inc.
                         </p>
                         <li class="md:before:content-['\00B7']">
                             <a href="/" class="md:pl-2 pr-2 hover:underline"
-                                >Privacy
+                                >Home
                             </a>
                         </li>
                         <li class="before:content-['\00B7']">
-                            <a href="/" class="px-2 hover:underline"
-                                >Termini
+                            <a href="/advanced-search" class="px-2 hover:underline"
+                                >Advanced Search
                             </a>
                         </li>
                         <li class="before:content-['\00B7']">
-                            <a href="/" class="px-2 hover:underline"
-                                >Mappa del sito
+                            <a href="/register" class="px-2 hover:underline"
+                                >Register
                             </a>
                         </li>
                         <li class="before:content-['\00B7']">
-                            <a href="/" class="px-2 hover:underline"
-                                >Dettagli dell'azienda
-                            </a>
-                        </li>
-                        <li class="before:content-['\00B7']">
-                            <a href="/" class="px-2 hover:underline"
-                                >Destinazioni
+                            <a href="/login" class="px-2 hover:underline"
+                                >Log in
                             </a>
                         </li>
                     </ul>
@@ -71,7 +66,7 @@ export default {
             >
                 <button class="tracking-wide">
                     <i class="fa-solid fa-globe pr-2"></i>
-                    <span class="hover:underline">Italiano (IT)</span>
+                    <span class="hover:underline">English (EU)</span>
                 </button>
                 <button class="tracking-wide">
                     <span class="pr-2">&euro;</span>
@@ -81,7 +76,7 @@ export default {
                     class="hidden md:block hover:text-black active:text-[#444444] tracking-wide"
                     @click="hideFooterPopUp = !hideFooterPopUp"
                 >
-                    <span>Supporto e risorse</span>
+                    <span>About us</span>
                     <i class="fa-solid fa-chevron-up pl-2"></i>
                 </button>
             </div>
@@ -89,11 +84,11 @@ export default {
 
         <div
             id="footerPopUp"
-            class="fixed bottom-0 px-20 pt-12 pb-10 grid grid-cols-4 bg-white rounded-t-3xl z-10 w-full"
+            class="fixed bottom-0 px-20 pt-12 pb-16 grid grid-cols-4 bg-white rounded-t-3xl z-10 w-full"
             :class="{ hide: hideFooterPopUp }"
         >
             <div>
-                <h5 class="font-[500] pb-2">Assistenza</h5>
+                <h5 class="font-semibold pb-2">Assistenza</h5>
                 <ul>
                     <li class="py-1">
                         <a href="/" class="hover:underline"
@@ -120,7 +115,7 @@ export default {
                 </ul>
             </div>
             <div>
-                <h5 class="font-[500] pb-2">Community</h5>
+                <h5 class="font-semibold pb-2">Community</h5>
                 <ul>
                     <li class="py-1">
                         <a href="/" class="hover:underline"
@@ -133,7 +128,7 @@ export default {
                 </ul>
             </div>
             <div>
-                <h5 class="font-[500] pb-2">Ospitare</h5>
+                <h5 class="font-semibold pb-2">Ospitare</h5>
                 <ul>
                     <li class="py-1">
                         <a href="/" class="hover:underline"
@@ -154,7 +149,7 @@ export default {
                 </ul>
             </div>
             <div>
-                <h5 class="font-[500] pb-2">BoolBnb</h5>
+                <h5 class="font-semibold pb-2">BoolBnb</h5>
                 <ul>
                     <li class="py-1">
                         <a href="/" class="hover:underline"

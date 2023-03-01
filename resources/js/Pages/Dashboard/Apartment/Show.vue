@@ -2,6 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 import { Link, Head, router } from "@inertiajs/vue3";
+import { store } from "@/data/store";
 import Modal from "@/Components/Modal.vue";
 import DeleteButton from "@/Components/DeleteButton.vue";
 
@@ -20,11 +21,12 @@ export default {
     data() {
         return {
             showModal: false,
+            store
         };
     },
     mounted() {
         const map = tt.map({
-            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
+            key: store.API_Key_TomTom,
             container: "map",
             center: [this.apartment.longitude, this.apartment.latitude],
             zoom: 15,
