@@ -258,12 +258,9 @@ export default {
 
             <h2 name="map" class="font-bold text-2xl mt-8 text-center">Where you’ll be</h2>
             <div
-
                 id="map"
                 class="mx-8 lg:mx-auto mt-8 mb-[50px] max-w-5xl h-[500px] rounded-2xl shadow-2xl">
             </div>
-
-
 
     </GuestLayout>
 </template>

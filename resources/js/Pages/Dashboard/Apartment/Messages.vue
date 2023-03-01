@@ -1,7 +1,7 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Pagination from '@/Components/Pagination.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from "@inertiajs/vue3";
 
 export default {
     name: 'Messages',
@@ -30,6 +30,9 @@ export default {
             return this.apartments.filter((apartment) => {
                 return apartment.id == id
             })[0].title
+        },
+        sendGetRequest(){
+            router.get(route("dashboard.apartment.messages", this.apartment_filter));
         }
     },
     mounted(){
@@ -57,9 +60,15 @@ export default {
                     <option :value="null" selected>All</option>
                     <option v-for="apartment in apartments" :key="apartment.id" :value="apartment.id">{{ apartment.title }}</option>
                 </select>
+                <button
+                    @click="sendGetRequest()"
+                    class="px-3 py-2 text-sm"
+                >
+                    Go!
+                </button>
             </div>
             <hr class="mt-3 mb-4">
-            <div v-for="message in messages.data" :key="'msg' + message.id" v-show="message.apartment_id == apartment_filter || apartment_filter == null">
+            <div v-for="message in messages.data" :key="'msg' + message.id">
 
                 <div class="md:grid md:grid-cols-[2fr_3fr_3fr_0.5fr] mb-4 items-center">
                     <h3 class="pb-2"><strong>From: </strong>{{ message.email }}</h3>

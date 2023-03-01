@@ -237,8 +237,6 @@ class ApartmentController extends Controller
 
     public function messages(Int $id = null)
     {
-
-
         $user = auth()->user();
 
         if ($user->email == 'admin@admin.com') {
@@ -251,8 +249,12 @@ class ApartmentController extends Controller
             $user_apartments_id = Apartment::select('id')->where('user_id', $user->id)->get();
         }
 
-        // prendo tutti i messaggi legati agli id dell'utente
-        $messages = Message::whereIn('apartment_id', $user_apartments_id)->orderBy('created_at', 'DESC')->paginate(8);
+        if($id != null){
+            $messages = Message::where('apartment_id', $id)->orderBy('created_at', 'DESC')->paginate(8);
+        } else {
+            // prendo tutti i messaggi legati agli id dell'utente
+            $messages = Message::whereIn('apartment_id', $user_apartments_id)->orderBy('created_at', 'DESC')->paginate(8);
+        }
 
         return Inertia::render('Dashboard/Apartment/Messages', compact('messages', 'apartments', 'id'));
     }
