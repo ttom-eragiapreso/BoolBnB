@@ -22,11 +22,14 @@ export default {
     methods:{
         handleShowGraphs(data){
             let flag = true;
-            console.log(data);
-            for (let apartment in data) {
-                if(!data[apartment][0]){
-                    flag = false
+            if(data.length != 0){
+                for (let apartment in data) {
+                    if(!data[apartment][0]){
+                        flag = false
+                    }
                 }
+            } else {
+                flag = false;
             }
             return flag
         }
@@ -92,7 +95,7 @@ export default {
                     <div v-if="handleShowGraphs(data_views)" class="max-h-[450px] flex justify-center">
                         <PieChart :my_data="data_views"/>
                     </div>
-                    <div v-else class="w-100 h-[450px] flex items-center justify-center bg-red-800/10 border-dotted border-slate-900 border-2">
+                    <div v-else class="w-100 h-[450px] flex items-center justify-center bg-red-800/10 border-dotted border-slate-900 border-2 rounded-3xl">
                         <p class="text-xl">No data</p>
                     </div>
                 </div>

@@ -95,14 +95,14 @@ export default {
             </a>
 
             <div class="md:flex">
-                <div class="mx-auto pb-2 md:mb-8 w-[80%] md:w-[50%]">
+                <div class="mx-auto pb-2 md:mb-8" :class="apartment.images.length == 0 ? 'w-full' : 'w-[80%] md:w-[50%]'">
                     <img
                         :src="'/storage/' + apartment.cover_image"
                         alt="cover"
-                        class="md:w-full h-[350px] md:rounded-l-2xl p-1 hover:brightness-75"
+                        class="w-full h-[350px] object-cover md:rounded-l-2xl p-1 hover:brightness-75 rounded-3xl"
                     />
                 </div>
-                <div class="mx-auto w-[80%] md:w-[50%] flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px] relative">
+                <div class="mx-auto flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px] relative" :class="apartment.images.length == 0 ? 'w-0' : 'w-[80%] md:w-[50%]'">
                         <img
                             v-for="(image, id) in apartment.images"
                             :key="id"
