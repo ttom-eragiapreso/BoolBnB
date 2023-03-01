@@ -20,7 +20,7 @@ export default {
     methods:{
         handleCreateDate(el) {
             const date = new Date(el);
-            return date.toLocaleDateString();
+            return date.toLocaleDateString('en-US');
         },
     },
     created(){
@@ -29,7 +29,7 @@ export default {
         let start = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
         let dateArray = [];
         for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
-            dateArray.push(new Date(d).toLocaleDateString());
+            dateArray.push(new Date(d).toLocaleDateString('en-US'));
         }
 
         for(let apartment in this.data_views){
