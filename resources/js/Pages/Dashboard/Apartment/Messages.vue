@@ -62,9 +62,9 @@ export default {
                 </select>
                 <button
                     @click="sendGetRequest()"
-                    class="px-3 py-2 text-sm"
+                    class="text-blue-500 bg-transparent border border-solid border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-4 ml-2 py-2 rounded-xl outline-none focus:outline-none ease-linear transition-all duration-150"
                 >
-                    Go!
+                    Filter!
                 </button>
             </div>
             <hr class="mt-3 mb-4">
@@ -80,7 +80,7 @@ export default {
                 <hr class="mt-3 mb-4">
 
                 <div v-if="showModal == message.id" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-                    <div class="relative w-[50%] my-6 mx-auto max-w-6xl">
+                    <div class="relative w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] my-6 mx-auto max-w-6xl">
                         <!--content-->
                         <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                             <!--header-->
