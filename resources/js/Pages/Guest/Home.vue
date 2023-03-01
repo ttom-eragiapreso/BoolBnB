@@ -88,7 +88,7 @@ export default {
         </div>
 
         <div
-            class="w-full px-8 sm:px-6 lg:px-20 sm:mt-[170px] mt-[40px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12"
+            class="w-full px-8 sm:px-6 lg:px-20 sm:mt-[170px] mt-[40px] py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-12"
         >
             <Card
                 v-for="apartment in handleFilters[0].slice(0, upper_limit)"
