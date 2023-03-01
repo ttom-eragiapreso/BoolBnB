@@ -16,7 +16,7 @@ export default {
     },
     data() {
         return {
-            upper_limit: 10,
+            upper_limit: 12,
             filters: {
                 beds: 0,
                 rooms: 0,
@@ -106,6 +106,7 @@ export default {
             this.filters.bathrooms = 0;
             this.filters.features = [];
             this.filters.range = 20000;
+            this.store.filtered_type = null;
         },
         loadMore() {
             this.filtered_non_sponsored_apartments.length - this.upper_limit >
@@ -168,6 +169,14 @@ export default {
                 this.filtered_non_sponsored_apartments.length > this.upper_limit
             );
         },
+        howManyMore(){
+            // console.log(this.handleFilters[0].length - this.upper_limit);
+            if(this.upper_limit > this.handleFilters[0].length){
+                return this.upper_limit - this.handleFilters[0].length;
+            } else {
+                return 0
+            }
+        }
     },
     mounted() {
         this.filtered_sponsored_apartments = this.sponsored_apartments;
@@ -416,7 +425,7 @@ export default {
 
                     <div
                         class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-12"
-                        v-if="handleFilters.length != 0"
+                        v-if="handleFilters[0].length != 0 || handleFilters[1].length != 0"
                     >
                         <Card
                             v-for="apartment in handleFilters[0].slice(
@@ -431,7 +440,7 @@ export default {
                         <Card
                             v-for="apartment in handleFilters[1].slice(
                                 0,
-                                upper_limit
+                                howManyMore
                             )"
                             :key="apartment.id"
                             :apartment="apartment"

@@ -57,6 +57,13 @@ export default {
                 this.filtered_non_sponsored_apartments.length > this.upper_limit
             );
         },
+        howManyMore(){
+            if(this.upper_limit > this.filtered_sponsored_apartments.length){
+                return this.upper_limit - this.filtered_sponsored_apartments.length;
+            } else {
+                return 0
+            }
+        }
     },
     created() {
         this.filtered_sponsored_apartments = this.sponsored_apartments;
@@ -97,7 +104,7 @@ export default {
                 :is_sponsored="true"
             />
             <Card
-                v-for="non_sponsored_apartment in handleFilters[1].slice(0, upper_limit)"
+                v-for="non_sponsored_apartment in handleFilters[1].slice(0, howManyMore)"
                 :key="non_sponsored_apartment.id"
                 :apartment="non_sponsored_apartment"
                 :is_sponsored="false"
