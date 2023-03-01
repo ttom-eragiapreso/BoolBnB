@@ -53,7 +53,7 @@ export default {
             </h2>
         </template>
 
-        <div v-if="messages.data.length != 0" class="p-6 mt-12 max-w-[78rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div v-if="messages.data.length != 0" class="p-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
             <div class="flex my-4 items-center">
                 <p class="mr-4">Filter per apartments: </p>
                 <select v-model="apartment_filter" id="apartment_filter" class="rounded-2xl text-sm w-[100%] sm:w-[30%]">
@@ -124,7 +124,7 @@ export default {
             <Pagination :links="messages.links"/>
         </div>
 
-        <div v-else class="p-6 mt-12 max-w-[78rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
+        <div v-else class="p-6 mt-12 max-w-[76rem] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
             <p>
                 On this page you will see your messages about your apartments. List your first apartment and/or wait to have some messages!
             </p>
