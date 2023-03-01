@@ -99,7 +99,8 @@ export default {
                     <img
                         :src="'/storage/' + apartment.cover_image"
                         alt="cover"
-                        class="w-full h-[350px] object-cover md:rounded-l-2xl p-1 hover:brightness-75 rounded-3xl"
+                        class="w-full h-[350px] object-cover md:rounded-l-3xl p-1 hover:brightness-75"
+                        :class="apartment.images.length == 0 ? 'rounded-3xl' : ''"
                     />
                 </div>
                 <div class="mx-auto flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px] relative" :class="apartment.images.length == 0 ? 'w-0' : 'w-[80%] md:w-[50%]'">
