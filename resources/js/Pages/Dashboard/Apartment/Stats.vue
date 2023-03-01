@@ -14,7 +14,8 @@ export default {
     },
     props:{
         data_views: Object,
-        data_messages: Object
+        data_messages: Object,
+        slug: String,
     },
     methods:{
         handleCreateDate(el) {
@@ -96,13 +97,14 @@ export default {
         <div v-if="data_views.length != 0 || data_messages.length != 0">
             <div v-if="data_views.length != 0" class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
-                <Chart :my_data="data_views"  />
+                <Chart :my_data="data_views" yname="Views" :slug="this.slug" />
 
             </div>
 
+
             <div v-if="data_messages.length != 0" class="p-6 mt-12 max-w-[78rem] min-h-[50vh] mx-auto sm:px-6 lg:px-8 bg-white rounded-xl my-4">
 
-                <Chart :my_data="data_messages"  />
+                <Chart :my_data="data_messages" yname="Messages" :slug="this.slug" />
 
             </div>
         </div>

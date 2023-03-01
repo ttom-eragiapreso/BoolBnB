@@ -259,7 +259,7 @@ class ApartmentController extends Controller
         return Inertia::render('Dashboard/Apartment/Messages', compact('messages', 'apartments', 'id'));
     }
 
-    public function stats()
+    public function stats(String $slug = null)
     {
 
         $user = auth()->user();
@@ -281,7 +281,7 @@ class ApartmentController extends Controller
 
         // $views_data = View::select('apartment_id', DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->whereIn('apartment_id', $user_apartments_id)->groupBy('apartment_id', 'date')->get()->toArray();
 
-        return Inertia::render('Dashboard/Apartment/Stats', compact('data_views', 'data_messages'));
+        return Inertia::render('Dashboard/Apartment/Stats', compact('data_views', 'data_messages', 'slug'));
     }
 
     public function sponsorship(Int $id = null)
