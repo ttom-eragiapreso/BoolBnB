@@ -106,7 +106,7 @@ export default {
             />
             <button
                 @click="loadMore"
-                class="px-3 py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mx-4"
+                class="p-3 my-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mx-4"
                 v-if="showLoad"
             >
                 Load More
