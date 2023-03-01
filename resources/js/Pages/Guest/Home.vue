@@ -1,4 +1,5 @@
 <script>
+
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Slider from "@/Components/Slider.vue";
 import Card from "@/Components/Card.vue";
@@ -96,10 +97,7 @@ export default {
                 :is_sponsored="true"
             />
             <Card
-                v-for="non_sponsored_apartment in handleFilters[1].slice(
-                    0,
-                    upper_limit
-                )"
+                v-for="non_sponsored_apartment in handleFilters[1].slice(0, upper_limit)"
                 :key="non_sponsored_apartment.id"
                 :apartment="non_sponsored_apartment"
                 :is_sponsored="false"

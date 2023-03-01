@@ -28,6 +28,11 @@ export default{
             type: String,
             required: false,
             default: null,
+        },
+        formPlaceholder: {
+            default: false,
+            required: false,
+            type: Boolean
         }
     },
     methods:{
@@ -69,7 +74,12 @@ export default{
     mounted(){
         this.createSearchBox();
 
-        document.querySelector('.tt-search-box-input').placeholder = 'Ex. Rome, Italy'
+        if(this.formPlaceholder){
+            document.querySelector('.tt-search-box-input').placeholder = 'Ex. Piazza del Colosseo, Rome, Italy'
+        } else {
+            document.querySelector('.tt-search-box-input').placeholder = 'Ex. Rome, Italy'
+        }
+
     }
 }
 

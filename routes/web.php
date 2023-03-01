@@ -4,8 +4,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\GuestController;
-use App\Models\Apartment;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
 // Guest Pages

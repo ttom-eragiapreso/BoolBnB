@@ -22,6 +22,7 @@ export default {
                 bathrooms: 0,
                 features: [],
                 range: 20000,
+                // price: 0,
                 ignoreLocations: true
             },
             filtered_sponsored_apartments: [],
@@ -95,6 +96,13 @@ export default {
             };
             const distance = this.distanceInMeters(this.center, coord);
             return distance <= this.filters.range;
+        },
+        removeAllFilters(){
+            this.filters.beds = 0;
+            this.filters.rooms = 0;
+            this.filters.bathrooms = 0;
+            this.filters.features = [];
+            this.filters.range = 20000;
         }
     },
     computed:{
@@ -140,7 +148,7 @@ export default {
         }
 
         const map = tt.map({
-            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
+            key: store.API_Key_TomTom,
             container: "map",
             center: [this.center.longitude, this.center.latitude],
             zoom: this.zoomValue,
@@ -205,7 +213,7 @@ export default {
             <Slider :types_of_stay="types_of_stay" class="border border-b-1 border-b-slate-200 border-t-white"/>
             <div class="mt-12 sm:mt-[180px] w-[100%] py-4 lg:px-20 px-8 flex">
 
-                <div class="w-[100%] lg:w-[66%]">               
+                <div class="w-[100%] lg:w-[66%]">
 
                     <div :class="{'hide': hideFilters}" id="boxfilters">
 
@@ -217,11 +225,17 @@ export default {
                             </div>
                         </div>
 
+                        <!-- <h3 class="text-xl mb-3">Max Price:</h3>
+                        <div class="flex ">
+                            <input type="range" class=" w-96 mr-4 mb-2" min="1000" max="100000" step="1000" v-model="this.filters.price">
+                            <p>{{ this.filters.price}} &euro;</p>
+                        </div> -->
+
                         <h3 class="text-xl mb-3">Features:</h3>
                         <button
-                            :class="{'text-red-500': this.filters.features.includes(feature.id)}"
                             @click="addFeature(feature.id)"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
+                            :class="{'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.features.includes(feature.id)}"
                             v-for="feature in features"
                             :key="feature.id"
                         >
@@ -232,17 +246,17 @@ export default {
 
                         <button
                             @click="this.filters.rooms = i"
-                            :class="{ 'text-red-500': this.filters.rooms === i }"
+                            :class="{ 'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.rooms === i }"
                             v-for="i in 7"
                             :key="i"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
                         >
                             {{ i }}
                         </button>
                         <button
                             @click="this.filters.rooms = 8"
-                            :class="{ 'text-red-500': this.filters.rooms === 8 }"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            :class="{ 'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.rooms === 8 }"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
                         >
                             8+
                         </button>
@@ -256,17 +270,17 @@ export default {
                         <h3 class="text-xl mb-3">Beds:</h3>
                         <button
                             @click="this.filters.beds = i"
-                            :class="{ 'text-red-500': this.filters.beds === i }"
+                            :class="{ 'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.beds === i }"
                             v-for="i in 7"
                             :key="i"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
                         >
                             {{ i }}
                         </button>
                         <button
                             @click="this.filters.beds = 8"
-                            :class="{ 'text-red-500': this.filters.beds === 8 }"
-                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                            :class="{ 'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.beds === 8 }"
+                            class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
                         >
                             8+
                         </button>
@@ -281,17 +295,17 @@ export default {
                             <h3 class="text-xl mb-3">Bathrooms:</h3>
                             <button
                                 @click="this.filters.bathrooms = i"
-                                :class="{ 'text-red-500': this.filters.bathrooms === i }"
+                                :class="{ 'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.bathrooms === i }"
                                 v-for="i in 3"
                                 :key="i"
-                                class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                                class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
                             >
                                 {{ i }}
                             </button>
                             <button
                                 @click="this.filters.bathrooms = 4"
-                                :class="{ 'text-red-500': this.filters.bathrooms === 4 }"
-                                class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-black"
+                                :class="{ 'bg-red-800/80 border-red-800 text-white hover:bg-red-800/70': this.filters.bathrooms === 4 }"
+                                class="px-3 mr-3 mb-3 py-1 border rounded-full border-slate-300 capitalize hover:border-red-800"
                             >
                                 4+
                             </button>
@@ -303,14 +317,21 @@ export default {
                             </button>
                         </div>
 
+                        <div class="flex justify-end items-center">
 
-                        <div class="text-right cursor-pointer" @click="hideFilters = !hideFilters">
-                            Close: <i class="px-1 fa-solid fa-chevron-up text-lg text-slate-400 hover:text-black"></i>
+                            <div class="group text-right cursor-pointer mr-3 border-2 rounded-xl px-3 py-1 text-slate-800 hover:text-white hover:bg-red-900 hover:border-red-900" @click="removeAllFilters()">
+                                Remove Filters <i class="px-1 fa-solid fa-trash text-lg text-slate-400 group-hover:text-white"></i>
+                            </div>
+
+                            <div class="group text-right cursor-pointer" @click="hideFilters = !hideFilters">
+                                Close: <i class="px-1 fa-solid fa-chevron-up text-lg text-slate-400 group-hover:text-black"></i>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div v-if="hideFilters" class="text-right cursor-pointer" @click="hideFilters = !hideFilters">
-                        Additional Filters: <i class="px-1 fa-solid fa-chevron-down text-lg text-slate-400 hover:text-black"></i>
+                    <div v-if="hideFilters" class="group text-right cursor-pointer" @click="hideFilters = !hideFilters">
+                        Additional Filters: <i class="px-1 fa-solid fa-chevron-down text-lg text-slate-400 group-hover:text-black"></i>
                     </div>
 
                     <hr class="mr-4 mb-12 mt-4">

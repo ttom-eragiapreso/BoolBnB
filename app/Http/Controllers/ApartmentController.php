@@ -267,16 +267,19 @@ class ApartmentController extends Controller
             $user_apartments_id = Apartment::select('id', 'slug')->where('user_id', $user->id)->get()->toArray();
         }
 
-
-        $data = [];
+        $data_views = [];
+        $data_messages = [];
 
         foreach ($user_apartments_id as $apartm) {
-            $data[$apartm['slug']] = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->where('apartment_id', $apartm['id'])->groupBy('date')->get()->toArray();
+
+            $data_views[$apartm['slug']] = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->where('apartment_id', $apartm['id'])->groupBy('date')->get()->toArray();
+
+            $data_messages[$apartm['slug']] = Message::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->where('apartment_id', $apartm['id'])->groupBy('date')->get()->toArray();
         }
 
         // $views_data = View::select('apartment_id', DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))->whereIn('apartment_id', $user_apartments_id)->groupBy('apartment_id', 'date')->get()->toArray();
 
-        return Inertia::render('Dashboard/Apartment/Stats', compact('data'));
+        return Inertia::render('Dashboard/Apartment/Stats', compact('data_views', 'data_messages'));
     }
 
     public function sponsorship(Int $id = null)

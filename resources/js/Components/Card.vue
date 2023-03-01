@@ -48,8 +48,8 @@
             <!-- Vista -->
             <h5 class="text-slate-600 truncate w-60">{{ apartment.title }}</h5>
             <!-- Price -->
-            <h5 class="underline">
-                <strong>{{ apartment.price }} &euro; </strong>totale
+            <h5 class="underline underline-offset-2">
+                <strong>{{ apartment.price }} &euro; </strong> night
             </h5>
         </Link>
     </div>
@@ -86,4 +86,18 @@ export default {
     created() {},
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
+    opacity: 1 !important;
+    width: 9px;
+    height: 9px;
+}
+
+.swiper-pagination-bullet{
+    background-color: rgba(255, 255, 255);
+    opacity: 0.7;
+}
+
+</style>

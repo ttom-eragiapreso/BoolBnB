@@ -93,7 +93,7 @@
                 <span class="hidden sm:inline">Stats</span>
             </Link>
 
-            <DeleteButton @click="showModal = true" />
+            <DeleteButton @click="showModal = true" :showBin="true" />
         </div>
     </div>
 </template>

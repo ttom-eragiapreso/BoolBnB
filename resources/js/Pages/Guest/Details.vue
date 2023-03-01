@@ -2,6 +2,7 @@
 import {router} from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
+import { store } from "@/data/store";
 import { Head, usePage } from '@inertiajs/vue3';
 
 export default {
@@ -13,10 +14,12 @@ export default {
     },
     data() {
         return {
-        showModal: false,
-        userEmail: usePage().props.auth.user? usePage().props.auth.user.email : '',
-        userSubject: '',
-        userMessage: ''
+            showModal: false,
+            showMoreImages: false,
+            userEmail: usePage().props.auth.user? usePage().props.auth.user.email : '',
+            userSubject: '',
+            userMessage: '',
+            store
         }
     },
     props: {
@@ -53,7 +56,7 @@ export default {
     mounted() {
 
         const map = tt.map({
-            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
+            key: store.API_Key_TomTom,
             container: "map",
             center: [this.apartment.longitude, this.apartment.latitude],
             zoom: 15,
@@ -82,8 +85,6 @@ export default {
     <Head :title="apartment.title" />
     <GuestLayout>
 
-
-
         <div
             class="container md:max-w-7xl mx-auto sm:px-6 bg-white sm:rounded-xl px-8 lg:px-20 py-8"
         >
@@ -101,7 +102,7 @@ export default {
                         class="md:w-full h-[350px] md:rounded-l-2xl p-1 hover:brightness-75"
                     />
                 </div>
-                <div class="mx-auto w-[80%] md:w-[50%] flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px]">
+                <div class="mx-auto w-[80%] md:w-[50%] flex flex-wrap md:rounded-r-3xl overflow-hidden h-[350px] relative">
                         <img
                             v-for="(image, id) in apartment.images"
                             :key="id"
@@ -115,13 +116,58 @@ export default {
                                 : 'w-[50%] h-[175px]'
                                 "
                         />
+                        <!-- v-if="apartment.images.length < 4" -->
+                        <div @click="showMoreImages = true" class="user-select-none text-white font-bold cursor-pointer hover:bg-slate-900/25 rounded-full bg-slate-900/50 w-8 h-8 absolute bottom-3 right-3 text-center leading-8">
+                            +
+                        </div>
+                        <div v-if="showMoreImages" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                            <div class="relative w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] my-6 mx-auto max-w-6xl">
+                                <!--content-->
+                                <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                <!--header-->
+                                <div class="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                    <h3 class="text-3xl font-semibold">
+                                        Gallery
+                                    </h3>
+                                    <button class="hidden sm:block p-1 ml-auto bg-transparent  float-right text-3xl leading-none font-semibold outline-none focus:outline-none items-center" v-on:click="showMoreImages = !showMoreImages">
+                                    <span class="bg-transparent h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                        ×
+                                    </span>
+                                    </button>
+                                </div>
+                                <!--body-->
+                                <div class="relative p-6 flex-auto max-h-[60vh] overflow-auto flex justify-center gap-2 flex-wrap">
+                                    <img
+                                        :key="id"
+                                        :src="'/storage/' + apartment.cover_image"
+                                        alt="image_galler"
+                                        class="p-1 hover:brightness-75 w-[48%]"
+                                    />
+                                    <img
+                                        v-for="(image, id) in apartment.images"
+                                        :key="id"
+                                        :src="'/storage/' + image.url"
+                                        alt="image_galler"
+                                        class="p-1 hover:brightness-75 w-[48%]"
+                                    />
+                                </div>
+                                <!--footer-->
+                                <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                    <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="showMoreImages = !showMoreImages">
+                                    Close
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div v-if="showMoreImages" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                        </div>
                 </div>
-            </div>
 
             <div class="md:flex gap-20">
                 <div class="md:w-[60%]">
                     <div class="pb-4 mb-4 border-b">
-                        <h2 class="text-center md:text-start text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
+                        <h2 class="mt-4 md:mt-0 text-center md:text-start text-2xl pb-2 font-bold">Apartment hosted by: {{ name }}</h2>
                         <p class="text-center md:text-start">2 guests &middot; {{ apartment.rooms }} {{apartment.rooms > 1 ? 'rooms' : 'room'}} &middot; {{ apartment.beds }} {{apartment.rooms > 1 ? 'beds' : 'bed'}} &middot; {{ apartment.bathrooms }} {{apartment.rooms > 1 ? 'bathrooms' : 'bathroom'}} &middot; {{ apartment.square_meters }}&#13217;</p>
                     </div>
                     <div class="md:text-start pb-4 mb-4 border-b">
@@ -153,7 +199,7 @@ export default {
                         <!-- <button v-on:click="toggleModal()" type="button" class="font-bold w-full border border-black rounded-xl mt-8 py-2 hover:bg-black hover:text-white">Contact host
                         </button> -->
                         <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-                            <div class="relative w-[50%] my-6 mx-auto max-w-6xl">
+                            <div class="relative w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] my-6 mx-auto max-w-6xl">
                                 <!--content-->
                                 <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->

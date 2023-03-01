@@ -28,8 +28,8 @@ const submit = () => {
 <template>
     <GuestLayout>
         <Head title="Log in" />
-        <div class="flex justify-center items-center ">
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="flex justify-center items-center box">
+            <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
                 {{ status }}
             </div>
@@ -94,3 +94,11 @@ const submit = () => {
 
     </GuestLayout>
 </template>
+
+<style>
+
+.box{
+    height: calc(100vh - 130px);
+}
+
+</style>

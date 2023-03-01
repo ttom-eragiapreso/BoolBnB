@@ -251,7 +251,7 @@ export default {
                 </div>
 
                 <label class="mb-1">Address: *</label>
-                <AutoSearchTT @geodata="handleGeoData" class="mb-3" idxSet="Str"/>
+                <AutoSearchTT @geodata="handleGeoData" :formPlaceholder="true" class="mb-3" idxSet="Str"/>
                 <div v-if="$page.props.errors.full_address || $page.props.errors.city || $page.props.errors.country || $page.props.errors.latitude || $page.props.errors.longitude" class="mb-3 error">
                     {{ $page.props.errors.full_address }}
                     <br>

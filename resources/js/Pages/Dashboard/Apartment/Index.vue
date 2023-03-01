@@ -41,15 +41,17 @@ export default {
             </div>
         </div>
 
-        <div v-else class="container mx-auto py-10">
-            <p class="text-2xl">
-                List your first apartment
+        <div v-else class="py-12">
+            <div class="max-w-7xl mx-4 md:mx-auto md:px-6 lg:px-8 pb-6 bg-white overflow-hidden shadow-sm rounded-xl sm:rounded-2xl p-4 flex justify-between items-center">
+                <p>
+                    On this page you will see all your apartments. List your first apartment!
+                </p>
                 <Link
                     :href="route('dashboard.apartment.create')"
-                    class="px-2 py-1 bg-amber-600 border border-transparent rounded-md font-bold text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                    class="px-3 py-2 bg-green-600 border border-transparent rounded-md font-bold text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 text-sm"
                     >here!</Link
                 >
-            </p>
+            </div>
         </div>
 
     </AuthenticatedLayout>

@@ -2,6 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import tt from "@tomtom-international/web-sdk-maps";
 import { Link, Head, router } from "@inertiajs/vue3";
+import { store } from "@/data/store";
 import Modal from "@/Components/Modal.vue";
 import DeleteButton from "@/Components/DeleteButton.vue";
 
@@ -20,11 +21,12 @@ export default {
     data() {
         return {
             showModal: false,
+            store
         };
     },
     mounted() {
         const map = tt.map({
-            key: "LyiQawx4xo4FpPG8VKyj3yHadh1WEDRM",
+            key: store.API_Key_TomTom,
             container: "map",
             center: [this.apartment.longitude, this.apartment.latitude],
             zoom: 15,
@@ -93,9 +95,9 @@ export default {
                 Your Apartment - {{ apartment.title }}
             </h2>
         </template>
-
+        <!-- max-w-[95%] -->
         <div
-            class="container py-6 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl mt-12 mb-4"
+            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl mt-12 mb-4"
         >
             <h1 class="text-center sm:text-start text-3xl pb-2">{{ apartment.title }}</h1>
             <div class="pb-8 sm:pb-2 text-center">
@@ -126,7 +128,7 @@ export default {
 
         <div
             v-if="apartment.features.length != 0"
-            class="container py-6 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <p class="mb-3"><strong>Features:</strong></p>
             <div class="flex gap-2 flex-wrap">
@@ -140,7 +142,7 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <h5 class="font-bold pb-4">Gallery:</h5>
 
@@ -175,7 +177,7 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <h5 class="font-bold pb-4">Position:</h5>
 
@@ -194,50 +196,50 @@ export default {
         </div>
 
         <div
-            class="container py-6 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
+            class="container py-6 max-w-[78rem] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4"
         >
             <p>Created at: {{ handleCreateDate }}</p>
             <p>Last update: {{ handleUpdateDate }}</p>
         </div>
 
         <div
-            class="container py-6 max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-xl my-4 flex items-center flex-wrap flex-col xl:flex-nowrap sm:flex-row gap-4"
+            class="container py-6 max-w-[78rem] mx-auto px-16 lg:px-8 bg-white rounded-xl my-4 items-center gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6"
         >
             <Link
                 :href="route('dashboard.apartment.index')"
                 as="button"
-                class="w-[30%] sm:w-auto px-10 py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="sm:w-auto px-10 py-3 bg-cyan-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-cyan-500 focus:bg-cyan-500 active:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
                 Back
             </Link>
             <Link
                 :href="route('dashboard.apartment.edit', apartment.slug)"
                 as="button"
-                class="w-[30%] sm:w-auto px-10 py-3 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="sm:w-auto px-10 py-3 bg-amber-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-amber-500 focus:bg-amber-500 active:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
                 Edit
             </Link>
             <Link
-                :href="route('dashboard.apartment.edit', apartment.slug)"
+                :href="route('dashboard.apartment.stats', apartment.slug)"
                 as="button"
-                class="w-[30%] sm:w-auto px-10 py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="sm:w-auto px-10 py-3 bg-green-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
                 Stats
             </Link>
             <Link
                 :href="route('dashboard.apartment.messages', apartment.id)"
                 as="button"
-                class="w-[30%] sm:w-auto px-10 py-3 bg-blue-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition ease-in-out duration-150"
+                class="sm:w-auto px-10 py-3 bg-blue-500 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition ease-in-out duration-150"
             >
                 Messages
             </Link>
-            <DeleteButton class="w-[30%]" @click="showModal = true" />
+            <DeleteButton @click="showModal = true" :showBin="false" />
             <Link
             :href="route('dashboard.apartment.sponsorship', apartment.id)"
             as="button"
-            class="w-[30%] sm:w-auto sm:px-10 py-3 sm:ml-auto bg-indigo-600 bg- border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+            class="sm:w-auto px-10 py-3 bg-indigo-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
             >
-            Sponsor Apartment
+            Sponsor
         </Link>
         </div>
     </AuthenticatedLayout>
