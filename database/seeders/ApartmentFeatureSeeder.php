@@ -16,14 +16,13 @@ class ApartmentFeatureSeeder extends Seeder
      */
     public function run()
     {
-        $store = [];
-        for ($i=0; $i < 200; $i++) {
-            $rnd_apartment = Apartment::inRandomOrder()->first();
-            $rnd_feature_id = Feature::inRandomOrder()->first()->id;
-            if(!array_search("$rnd_apartment->id-$rnd_feature_id", $store)){
-                array_push($store, "$rnd_apartment->id-$rnd_feature_id");
-                $rnd_apartment->features()->attach($rnd_feature_id);
-            }
+
+        $apart_feature = config('apartment_feature.apartment_feature');
+
+        foreach ($apart_feature as $elem) {
+            $apartment = Apartment::find($elem['apartment_id']);
+            $apartment->features()->attach($elem['feature_id']);
         }
+
     }
 }

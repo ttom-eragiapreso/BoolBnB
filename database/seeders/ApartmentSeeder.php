@@ -16,30 +16,34 @@ class ApartmentSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for($i = 0; $i < 100; $i++){
+
+        $apartments = config('apartments.apartments');
+
+        foreach ($apartments as $apartment) {
 
             $new_apartment = new Apartment();
 
-            $new_apartment->title = $faker->sentence();
-            $new_apartment->slug = generateSlug($new_apartment->title);
-            $new_apartment->rooms = $faker->randomDigit();
-            $new_apartment->beds = $faker->randomDigit();
-            $new_apartment->bathrooms = $faker->randomDigit();
-            $new_apartment->square_meters = $faker->randomDigit();
-            $new_apartment->city = $faker->city();
-            $new_apartment->country = $faker->country();
-            $new_apartment->full_address = $faker->streetAddress();
-            $new_apartment->latitude = $faker->latitude();
-            $new_apartment->longitude = $faker->longitude();
-            $new_apartment->price = $faker->randomFloat(2, 0, 99999);
-            $new_apartment->cover_image = 'https://loremflickr.com/640/480/house';
-            $new_apartment->description = $faker->paragraph(10);
-            $new_apartment->user_id = 1;
-            $new_apartment->type_of_stay_id = $faker->randomDigitNot(0);
+            $new_apartment->title = $apartment['title'];
+            $new_apartment->slug = $apartment['slug'];
+            $new_apartment->rooms = $apartment['rooms'];
+            $new_apartment->beds = $apartment['beds'];
+            $new_apartment->bathrooms = $apartment['bathrooms'];
+            $new_apartment->square_meters = $apartment['square_meters'];
+            $new_apartment->city = $apartment['city'];
+            $new_apartment->country = $apartment['country'];
+            $new_apartment->full_address = $apartment['full_address'];
+            $new_apartment->latitude = $apartment['latitude'];
+            $new_apartment->longitude = $apartment['longitude'];
+            $new_apartment->price = $apartment['price'];
+            $new_apartment->cover_image = $apartment['cover_image'];
+            $new_apartment->description = $apartment['description'];
+            $new_apartment->is_visible = $apartment['is_visible'];
+            $new_apartment->user_id = $apartment['user_id'];
+            $new_apartment->created_at = $apartment['created_at'];
+            $new_apartment->updated_at = $apartment['updated_at'];
+            $new_apartment->type_of_stay_id = $apartment['type_of_stay_id'];
+
             $new_apartment->save();
-
-
-
 
         }
     }

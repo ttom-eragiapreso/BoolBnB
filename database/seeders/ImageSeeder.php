@@ -17,11 +17,17 @@ class ImageSeeder extends Seeder
     public function run()
     {
 
-        for($i = 0; $i < 100; $i++){
+        $images = config('images.images');
+
+        foreach ($images as $image) {
             $new_image = new Image();
-            $new_image->url = 'https://loremflickr.com/640/480/house';
-            $new_image->apartment_id = Apartment::inRandomOrder()->first()->id;
+            $new_image->id = $image['id'];
+            $new_image->url = $image['url'];
+            $new_image->apartment_id = $image['apartment_id'];
+            $new_image->created_at = $image['created_at'];
+            $new_image->updated_at = $image['updated_at'];
             $new_image->save();
         }
+
     }
 }
