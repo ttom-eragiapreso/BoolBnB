@@ -239,7 +239,7 @@ export default {
                                     <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
                                     Close
                                     </button>
-                                    <button :disabled="!checkDisable" @click.prevent="sendMessage()" :class="{'opacity-25' : !checkDisable}" class=" border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <button :disabled="!checkDisable" @click.prevent="sendMessage()" :class="{'opacity-25' : !checkDisable}" class=" text-green-500 border border-solid border-green-500 background-transparent  hover:bg-green-500 hover:text-white rounded font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                     Send message
                                     </button>
                                 </div>
